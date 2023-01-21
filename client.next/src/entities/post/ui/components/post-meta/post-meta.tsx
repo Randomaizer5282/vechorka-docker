@@ -5,7 +5,6 @@ import cn from "clsx";
 interface Props {
   date?: string;
   time?: string;
-  views?: number;
   commentCount?: number;
   color?: "light" | "dark";
   className?: string;
@@ -14,7 +13,6 @@ interface Props {
 export const PostMeta: FC<Props> = ({
   date,
   time,
-  views,
   commentCount,
   color = "dark",
   className,
@@ -38,15 +36,15 @@ export const PostMeta: FC<Props> = ({
       )}
     >
       {date && <div>{date}</div>}
-      {views ? (
-        <div className="flex">
-          <Icon
-            name="post-views"
-            className={cn(iconClasses, iconColorClasses)}
-          />
-          {views}
-        </div>
-      ) : null}
+      {/*{views ? (*/}
+      {/*  <div className="flex">*/}
+      {/*    <Icon*/}
+      {/*      name="post-views"*/}
+      {/*      className={cn(iconClasses, iconColorClasses)}*/}
+      {/*    />*/}
+      {/*    {views}*/}
+      {/*  </div>*/}
+      {/*) : null}*/}
       {time ? (
         <div className="flex">
           <Icon name="clock" className={cn(iconClasses, iconColorClasses)} />
