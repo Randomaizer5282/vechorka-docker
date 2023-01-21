@@ -166,8 +166,8 @@ export class PostService {
         relatedPosts: null,
       };
 
-      //add post count views to meta
-      await this.addPostViews(post.post_ID);
+      // add post count views to meta
+      // await this.addPostViews(post.post_ID);
 
       // related posts, exclude current post
       if (withRelatedPosts) {
