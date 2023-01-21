@@ -21,7 +21,7 @@ export const TopBtn = () => {
 
   return visible ? (
     <div
-      className="w-[32px] h-[32px] fixed flex items-center justify-center bottom-3 right-3 bg-blue-100/80 hover:bg-blue-300/80 cursor-pointer transition-colors"
+      className="w-[38px] h-[38px] fixed flex items-center justify-center bottom-3 right-3 bg-blue-100/80 hover:bg-blue-300/80 cursor-pointer transition-colors"
       onClick={handleClick}
     >
       <Icon

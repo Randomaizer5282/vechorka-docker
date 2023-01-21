@@ -6,6 +6,7 @@ import { formatDateToDateString } from "@/shared/lib/date";
 interface Props {
   date?: string;
   time?: string;
+  views?: string;
   commentCount?: number;
   color?: "light" | "dark";
   className?: string;
@@ -14,6 +15,7 @@ interface Props {
 export const PostMeta: FC<Props> = ({
   date,
   time,
+  views,
   commentCount,
   color = "dark",
   className,
