@@ -38,12 +38,25 @@ export class NewspaperService {
     allYears = false,
     lastRelease = false,
   }: NewspaperParamsDTO) {
-    year = year ?? new Date().getFullYear();
+    let lastYear: number = year;
+
+    // get last year from post
+    if (!lastYear) {
+      const data = await this.newspaperRepository
+        .createQueryBuilder('post')
+        .select('max(left(post_date, 4)) year')
+        .where('post_type="newspaper" AND post_status="publish"')
+        .getRawOne();
+
+      if (data?.year) {
+        lastYear = data.year;
+      }
+    }
 
     const query = this.newspaperRepository.createQueryBuilder('post');
     query
-      .where('post_type="newspaper" AND post_status="publish"')
-      .andWhere('YEAR(post.post_date)=:year', { year });
+      .where('YEAR(post.post_date)=:lastYear', { lastYear })
+      .andWhere('post_type="newspaper" AND post_status="publish"');
 
     const posts = await query.getMany();
     const { activeMonths, postsByMonth } = this.responseDataMany(posts);
@@ -51,7 +64,7 @@ export class NewspaperService {
     const response = {
       posts: postsByMonth,
       postsMonths: activeMonths,
-      postsYear: year,
+      postsYear: lastYear,
       allYears: null,
       lastRelease: null,
     };
