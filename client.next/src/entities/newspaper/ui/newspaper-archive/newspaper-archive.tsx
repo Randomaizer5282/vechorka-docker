@@ -25,7 +25,7 @@ export const NewspaperArchive = ({
     postsYear,
   } = newspapers;
   const [posts, setPosts] = useState(initPosts);
-  const [activeYear, setActiveYear] = useState(postsYear);
+  const [activeYear, setActiveYear] = useState(Number(postsYear));
   const [activeMonthsOfYear, setActiveMonthsOfYear] = useState(postsMonths);
   const [activeMonth, setActiveMonth] = useState(Math.max(...postsMonths));
 
