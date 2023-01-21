@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Icon } from "@/shared/ui/icon";
 import cn from "clsx";
+import { formatDateToDateString } from "@/shared/lib/date";
 
 interface Props {
   date?: string;
@@ -35,7 +36,7 @@ export const PostMeta: FC<Props> = ({
         textColorClasses
       )}
     >
-      {date && <div>{date}</div>}
+      {date && <div>{formatDateToDateString(date)}</div>}
       {/*{views ? (*/}
       {/*  <div className="flex">*/}
       {/*    <Icon*/}

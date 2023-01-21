@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getCommentByPostId } from "@/shared/api/comments";
 import type { CommentProps } from "@/shared/types";
 import Image from "next/image";
+import { formatDateToDateString } from "@/shared/lib/date";
 
 interface Props {
   postId: number;
@@ -48,8 +49,10 @@ export const CommentList = ({ postId }: Props) => {
               <div className="flex flex-wrap mb-3 text-14px">
                 <strong className="mr-3">{comment.author}</strong>
                 <span>
-                  {comment.createdDate} {comment.createdTime}
+                  {comment.createdDate &&
+                    formatDateToDateString(comment.createdDate)}
                 </span>
+                <span className="ml-2">{comment.createdTime}</span>
               </div>
               <div
                 className="text-13px sm:text-14px"
