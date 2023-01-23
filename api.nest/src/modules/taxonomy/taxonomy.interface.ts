@@ -1,7 +1,9 @@
+export type TypeTaxonomy = 'category' | 'post_geography' | 'post_tag';
+
 export interface TaxonomyResponse {
   id: number;
   taxonomyId: number;
-  taxonomy?: string;
+  taxonomy: TypeTaxonomy;
   description: string;
   parent: number;
   count?: number;

@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { Term } from './term.entity';
 import { Taxonomy } from './taxonomy.entity';
 import { TaxonomyRelation } from './taxonomy-relation.entity';
-import type { TaxonomiesProps } from './taxonomy.interface';
+import type { TaxonomiesProps, TypeTaxonomy } from './taxonomy.interface';
 
 @Injectable()
 export class TaxonomyService {
@@ -20,6 +20,7 @@ export class TaxonomyService {
   getTaxonomies(): Promise<Taxonomy[]> {
     return this.taxonomyRepository.find({
       relations: { terms: true },
+      order: { count: 'DESC' },
     });
   }
 
@@ -33,6 +34,7 @@ export class TaxonomyService {
   async getTaxonomiesGroup(): Promise<TaxonomiesProps> {
     const taxonomies = await this.taxonomyRepository.find({
       relations: { terms: true },
+      order: { count: 'DESC' },
     });
     return this.responseTaxonomiesGroup(taxonomies);
   }
@@ -45,7 +47,7 @@ export class TaxonomyService {
         const item = {
           id: Number(taxonomy.term_id),
           taxonomyId: Number(taxonomy.term_taxonomy_id),
-          taxonomy: taxonomy.taxonomy,
+          taxonomy: taxonomy.taxonomy as TypeTaxonomy,
           description: taxonomy.description,
           parent: Number(taxonomy.parent),
           count: Number(taxonomy.count),

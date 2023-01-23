@@ -1,5 +1,5 @@
 import { ImageWithSizes } from '../../types';
-import { TaxonomiesProps } from '../taxonomy/taxonomy.interface';
+import { TaxonomiesProps, TypeTaxonomy } from '../taxonomy/taxonomy.interface';
 import { CommentResponse } from '../comment/comment.interface';
 
 export type PostType =
@@ -23,6 +23,11 @@ export interface BasePostParams {
     user?: boolean;
     content?: boolean;
   };
+}
+
+export interface PostsByTaxonomySlug extends BasePostParams {
+  slug: string;
+  taxonomyType?: TypeTaxonomy;
 }
 
 export interface PostResponse {

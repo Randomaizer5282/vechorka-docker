@@ -10,7 +10,7 @@ import { PostMeta } from './post-meta.entity';
 import type { ImageWithSizes } from '../../types';
 import { TaxonomyService } from '../taxonomy/taxonomy.service';
 import type { PostResponse, PostType } from './post.interface';
-import { BasePostParams } from './post.interface';
+import { BasePostParams, PostsByTaxonomySlug } from './post.interface';
 import type { TaxonomyResponse } from '../taxonomy/taxonomy.interface';
 import { AttachmentService } from '../attachment/attachment.service';
 import { AddPollReply, PostSearchQueryParamsDTO } from './post.dto';
@@ -30,6 +30,7 @@ export class PostService {
   // home page posts
   async getIndexPosts() {
     const mainPosts: any = await this.getPosts({
+      postType: 'post',
       limit: 5,
       isResponseIds: true,
       sticky: true,
@@ -40,8 +41,8 @@ export class PostService {
     const mainNewsIds = mainPosts?.postsIds || undefined;
 
     const lastNews = await this.getPosts({
+      postType: 'post',
       limit: 9,
-      // sticky: true,
       excludeIds: mainNewsIds,
       relations: { taxonomy: true },
     });
@@ -155,19 +156,24 @@ export class PostService {
     if (post && Object.keys(post).length) {
       const metas = await this.getPostMetaByIds(post.post_ID);
       const attachments = await this.getPostsAttachmentByIds([post.post_ID]);
+      const taxonomies = await this.getTaxonomiesByPostsIds(
+        [post.post_ID],
+        true,
+      );
 
       const response = {
         post: this.responseData({
           posts: [post],
           metas,
           attachments,
+          taxonomies,
           type: 'full',
         })[0],
         relatedPosts: null,
       };
 
       // add post count views to meta
-      // await this.addPostViews(post.post_ID);
+      await this.addPostViews(post.post_ID);
 
       // related posts, exclude current post
       if (withRelatedPosts) {
@@ -189,7 +195,7 @@ export class PostService {
     taxonomyId,
     limit = 20,
     offset = 0,
-    postType = 'post',
+    postType,
     sticky,
     excludeIds,
     includeIds,
@@ -226,12 +232,19 @@ export class PostService {
       ]);
     }
 
-    if (postType === 'attachment') {
-      query = query.where('post_type=:postType', {
-        postType,
-      });
+    // postType
+    if (postType) {
+      if (postType === 'attachment') {
+        query = query.where('post_type=:postType', {
+          postType,
+        });
+      } else {
+        query = query.where('post_status = "publish" AND post_type=:postType', {
+          postType,
+        });
+      }
     } else {
-      query = query.where('post_status = "publish" AND post_type=:postType', {
+      query = query.where('post_status = "publish"', {
         postType,
       });
     }
@@ -285,12 +298,15 @@ export class PostService {
     return null;
   }
 
-  async getPostsByTaxonomySlug(params: BasePostParams & { slug: string }) {
+  async getPostsByTaxonomySlug({ ...params }: PostsByTaxonomySlug) {
     if (!params.slug) return null;
     const taxonomies = await this.taxonomyService.getTaxonomies();
-    const taxonomy = taxonomies.find((tax) => tax.terms.slug === params.slug);
+    const taxonomy = taxonomies.find(
+      (tax) =>
+        tax.terms.slug === params.slug && tax.taxonomy === params.taxonomyType,
+    );
 
-    if (!taxonomy) throw new NotFoundException('post not found');
+    if (!taxonomy) throw new NotFoundException('posts not found');
 
     return await this.getPosts({ taxonomyId: taxonomy.term_id, ...params });
   }
@@ -308,22 +324,6 @@ export class PostService {
     }
     return null;
   }
-
-  // private getPostsAttachmentByIds(postIds: number[]) {
-  //   if (postIds?.length) {
-  //     return this.postRepository
-  //       .createQueryBuilder('post')
-  //       .select(
-  //         `post_content AS attachment_description, post_excerpt AS attachment_caption,
-  //         post_mime_type AS attachment_mime_type, post_name AS attachment_file_name, post_parent AS attachment_post_id`,
-  //       )
-  //       .leftJoinAndSelect('post.meta', 'attachment')
-  //       .where('post.post_parent IN (:postIds)', { postIds })
-  //       .andWhere('post.post_type="attachment"')
-  //       .getRawMany();
-  //   }
-  //   return null;
-  // }
 
   private getPostsAttachmentByIds(postIds: number[]) {
     if (postIds?.length) {
@@ -376,14 +376,15 @@ export class PostService {
     const search = q
       .replace(/([^\w\u0430-\u044f\d\s\-,]+)/gi, '')
       .trim()
-      .slice(0, 60);
+      .slice(0, 60)
+      .toLowerCase();
 
     const query = this.postRepository
       .createQueryBuilder('post')
       .where('post_status="publish"')
       .andWhere('(post_type="post" OR post_type="article")')
       .andWhere(
-        '(post_title LIKE :q OR post_excerpt LIKE :q OR post_content LIKE :q)',
+        '(post_title LIKE LOWER(:q) OR post_excerpt LIKE LOWER(:q) OR post_content LIKE LOWER(:q))',
         {
           q: `%${search}%`,
         },
@@ -578,6 +579,7 @@ export class PostService {
             const newTaxonomy: TaxonomyResponse = {
               id: Number(taxonomy.terms_term_id) ?? null,
               taxonomyId: Number(taxonomy.taxonomy_term_taxonomy_id),
+              taxonomy: taxonomy.taxonomy,
               description: taxonomy.taxonomy_description ?? null,
               parent: Number(taxonomy.taxonomy_parent) ?? null,
               name: taxonomy.terms_name ?? null,

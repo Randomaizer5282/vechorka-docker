@@ -11,6 +11,7 @@ import {
 import { PostType } from './post.interface';
 import { Transform } from 'class-transformer';
 import { transformToArrayNumber } from '../../utils/pipes';
+import { TypeTaxonomy } from '../taxonomy/taxonomy.interface';
 
 export class PostQueryParamsDTO {
   @IsOptional()
@@ -27,7 +28,7 @@ export class PostQueryParamsDTO {
 
   @IsOptional()
   @IsString()
-  postType?: PostType = 'post';
+  postType?: PostType;
 
   @IsOptional()
   @IsBoolean()
@@ -63,6 +64,12 @@ export class PostQueryParamsDTO {
   @Transform(({ value }) => transformToArrayNumber(value))
   @IsArray()
   excludeIds?: number[];
+}
+
+export class PostByTaxonomyParamsDTO extends PostQueryParamsDTO {
+  @IsOptional()
+  @IsString()
+  taxonomyType?: TypeTaxonomy = 'category';
 }
 
 export class PostSearchQueryParamsDTO {

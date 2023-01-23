@@ -10,10 +10,12 @@ import {
 import { PostService } from './post.service';
 import {
   AddPollReply,
+  PostByTaxonomyParamsDTO,
   PostQueryGalleryParamsDTO,
   PostQueryParamsDTO,
   PostSearchQueryParamsDTO,
 } from './post.dto';
+import { TypeTaxonomy } from '../taxonomy/taxonomy.interface';
 
 @Controller('posts')
 export class PostController {
@@ -59,7 +61,7 @@ export class PostController {
 
   @Get('taxonomy/slug/:slug')
   getPostsByTaxonomySlug(
-    @Query() query: PostQueryParamsDTO,
+    @Query() query: PostByTaxonomyParamsDTO,
     @Param('slug') slug: string,
   ) {
     return this.postService.getPostsByTaxonomySlug({
