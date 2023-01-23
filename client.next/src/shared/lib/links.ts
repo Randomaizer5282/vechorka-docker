@@ -1,11 +1,19 @@
-export const getLink = (
-  urlPrefix?: string,
+import type { PostType } from "@/shared/types";
+
+export const getUrlFromParams = (
+  postType: PostType,
   categorySlug?: string,
   postSlug?: string
 ) => {
-  const _urlPrefix = urlPrefix ? `${urlPrefix}` : "";
-  const _postSlug = postSlug ? `/${postSlug}` : "";
-  const _categorySlug = categorySlug ? `/${categorySlug}` : "";
+  let url = "";
 
-  return `/${_urlPrefix}${_categorySlug}${_postSlug}`;
+  if (postType === "post") {
+    url = "news";
+  } else {
+    url = postType;
+  }
+
+  return `/${url}${categorySlug ? `/${categorySlug}` : ""}${
+    postSlug ? `/${postSlug}` : ""
+  }`;
 };

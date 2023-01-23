@@ -1,5 +1,10 @@
 import { api } from "@/shared/api/core";
-import { ListPostProps, PostProps, PostType } from "@/shared/types";
+import type {
+  ListPostProps,
+  PostProps,
+  PostType,
+  TaxonomyType,
+} from "@/shared/types";
 import { encodeQueryData } from "@/shared/lib/helpers";
 
 interface GetPostsParams {
@@ -11,6 +16,10 @@ interface GetPostsParams {
   includeIds?: string;
   relations?: { taxonomy?: boolean; user?: boolean; content?: boolean };
   sticky?: boolean;
+}
+
+interface GetPostsByTaxonomySlug extends GetPostsParams {
+  taxonomyType?: TaxonomyType;
 }
 
 interface GetPostBySlugParams {
@@ -44,7 +53,7 @@ export const getPosts = (params: GetPostsParams): Promise<PostProps[]> => {
 
 export const getPostsByTaxonomySlug = async (
   slug: string,
-  params: GetPostsParams
+  params: GetPostsByTaxonomySlug
 ): Promise<PostProps[]> => {
   const queryParams = encodeQueryData(params);
   return api.get(

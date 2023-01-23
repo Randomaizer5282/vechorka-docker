@@ -4,7 +4,7 @@ import { NewsCommentedDynamic } from "@/widgets/news-commented";
 import { NewsTopDynamic } from "@/widgets/news-top";
 import { LayoutColumn } from "@/shared/ui/layouts/layout-column";
 import type { NextPage } from "next";
-import { DynamicAdvert } from "@/shared/ui/advert";
+import { DynamicAdvert } from "@/widgets/advert";
 import { useSettings } from "@/app/contexts/settings-context";
 
 interface Props {

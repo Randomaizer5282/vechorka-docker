@@ -4,7 +4,7 @@ import React from "react";
 import { NewsCommentedProps } from "@/widgets/news-commented";
 
 export const NewsCommentedDynamic = dynamic<NewsCommentedProps>(
-  (): any =>
+  (): Promise<({ className }: NewsCommentedProps) => JSX.Element> =>
     import("@/widgets/news-commented").then((mod) => mod.NewsCommented),
   {
     ssr: false,

@@ -5,7 +5,7 @@ import { Icon } from "@/shared/ui/icon";
 import { ImagePreview } from "@/shared/ui/image-preview";
 import { PostMeta } from "@/entities/post/ui/components/post-meta";
 import { Heading } from "@/shared/ui/heading";
-import { getLink } from "@/shared/lib/links";
+import { getUrlFromParams } from "@/shared/lib/links";
 
 interface Props {
   posts: PostProps[];
@@ -19,7 +19,7 @@ export const ArticleLast: FC<Props> = ({ posts }) => {
       <h2 className="mb-7 text-grey-500">Статьи</h2>
       <div className="space-y-5 md:space-y-7 lg:space-y-8">
         {posts.map(({ id, preview, slug, title, excerpt, createdDate }) => {
-          const href = getLink("article", undefined, slug);
+          const href = getUrlFromParams("article", undefined, slug);
           return (
             <div key={id} className="flex flex-col sm:flex-row">
               {/* image */}

@@ -65,7 +65,7 @@ export const CommentForm = ({ postId }: Props) => {
       const addComment = async () => {
         setStatus("sending");
         try {
-          const comment = await createComment({
+          await createComment({
             postId,
             author,
             content,

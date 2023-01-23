@@ -39,11 +39,11 @@ const parseToComponent = (block: string) => {
   }
 
   // image with caption
-  const imageWithCaption = block.match(
+  const imageCaption = block.match(
     /\[caption.+width="(\d+)"\]<img.+src="(.+?)".+\/>(.+)\[\/caption\]/im
   );
-  if (imageWithCaption) {
-    return createImageWithCaption(imageWithCaption);
+  if (imageCaption) {
+    return createImageWithCaption(imageCaption);
   }
 
   return null;

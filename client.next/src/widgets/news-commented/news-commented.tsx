@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import { PostMeta } from "@/entities/post/ui/components/post-meta";
 import { getPostsCommented } from "@/shared/api/posts";
 import { Heading } from "@/shared/ui/heading";
@@ -8,11 +8,10 @@ export interface NewsCommentedProps {
   className?: string;
 }
 
-export const NewsCommented: FC<NewsCommentedProps> = ({ className }) => {
+export const NewsCommented = ({ className }: NewsCommentedProps) => {
   return (
     <PostListWidget
       className={className}
-      urlPrefix="news"
       title="Комментируют"
       fetchCallback={() => getPostsCommented()}
       view={({ post, href }) => (

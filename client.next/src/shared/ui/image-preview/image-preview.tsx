@@ -1,10 +1,11 @@
-import React, { FC } from "react";
+import React from "react";
 import Link from "next/link";
 import cn from "clsx";
 import NextImage from "next/image";
 import type { ImageProps } from "@/shared/types";
 import { settings } from "@/shared/config";
 import { ImageCaption } from "@/shared/ui/image-preview/image-caption";
+import { ImageDescription } from "@/shared/ui/image-preview/image-description";
 
 interface Props extends ImageProps {
   href?: string;
@@ -34,6 +35,7 @@ export const ImagePreview = ({
   alt,
   href,
   caption,
+  description,
   className,
   overlay = false,
   hoverEffect = false,
@@ -43,9 +45,9 @@ export const ImagePreview = ({
   return (
     <div
       className={cn(
-        "relative w-full h-full bg-gradient-to-t to-grey-400/30 from-grey-400/70",
+        "relative w-full h-full group overflow-hidden bg-gradient-to-t to-grey-400/30 from-grey-400/70",
         className,
-        hoverEffect && "group overflow-hidden"
+        hoverEffect && ""
       )}
     >
       {href && url && (
@@ -81,6 +83,12 @@ export const ImagePreview = ({
         children
       )}
       {caption && <ImageCaption caption={caption} />}
+      {description && (
+        <ImageDescription
+          description={description}
+          className="opacity-0 group-hover:opacity-100 transition-all duration-300"
+        />
+      )}
     </div>
   );
 };

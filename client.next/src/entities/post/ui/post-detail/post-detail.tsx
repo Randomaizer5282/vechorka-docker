@@ -12,6 +12,9 @@ import { useRouter } from "next/router";
 import { useSettings } from "@/app/contexts/settings-context";
 import { textOverflow } from "@/shared/lib/string";
 import { SEO } from "@/shared/ui/SEO";
+import { PostTags } from "@/entities/post/ui/components/post-tags";
+import { getSeoTitleByPath } from "@/shared/lib/seo";
+import { PostBasePath } from "@/shared/types";
 
 interface Props {
   post: PostProps;
@@ -29,6 +32,7 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
     commentStatus,
     createdDate,
     createdTime,
+    taxonomies,
     meta,
     seo,
     user,
@@ -39,12 +43,13 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
     : [];
   const views = meta?.views || null;
   const pollId = meta?.poll_id || null;
+  const tags = taxonomies?.tags;
   const router = useRouter();
   const settings = useSettings();
-
-  const postUrl = `${settings.siteUrl}${router.asPath}`;
+  const basePath = router.asPath.split("/")[1];
+  const href = `${settings.siteUrl}${router.asPath}`;
   const previewUrl = preview?.url
-    ? `${process.env.UPLOAD_HOST}/${preview?.url}`
+    ? `${settings.uploadUrl}/${preview?.url}`
     : "";
 
   const description = seo?.description
@@ -56,13 +61,13 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
   return (
     <>
       <SEO
-        title={title}
+        title={getSeoTitleByPath(basePath as PostBasePath, title)}
         description={description}
         openGraph={{
           title,
           description,
           type: "article",
-          url: postUrl,
+          url: href,
           image: {
             url: previewUrl,
             width: preview?.width,
@@ -74,7 +79,7 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
 
       {preview && Object.keys(preview).length > 0 && (
         <div className="h-[260px] sm:h-[320px] lg:h-[460px] mb-5">
-          <ImagePreview url={preview?.url} caption={preview?.caption} />
+          <ImagePreview {...preview} />
         </div>
       )}
       {title && (
@@ -101,6 +106,7 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
             return <Fragment key={index}>{component}</Fragment>;
           }
         })}
+
       <div className="flex flex-wrap">
         {/* poll */}
         {pollId && (
@@ -109,6 +115,13 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
           </div>
         )}
         <div className="w-full flex-1">
+          {/* tags */}
+          {tags && tags.length > 0 && (
+            <div className="mt-5">
+              <PostTags tags={tags} />
+            </div>
+          )}
+
           {/* author */}
           {user && (
             <div className="mt-5 text-grey-500">
@@ -117,7 +130,7 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
           )}
           <div className="mt-5">
             <ShareLinks
-              url={postUrl}
+              url={href}
               title={title}
               text={excerpt ? excerpt : content ? textOverflow(content) : ""}
               imageUrl={previewUrl}

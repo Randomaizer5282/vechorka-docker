@@ -3,7 +3,7 @@ import { SimpleLoader } from "@/shared/ui/loaders";
 import React from "react";
 
 export const VideoLastSliderDynamic = dynamic(
-  (): any =>
+  (): Promise<() => null | JSX.Element> =>
     import("@/widgets/video-last-slider").then((mod) => mod.VideoLastSlider),
   {
     ssr: false,

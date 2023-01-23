@@ -5,7 +5,6 @@ import { getPostsInterest } from "@/shared/api/posts";
 import { SearchList } from "@/entities/search/ui/search-list";
 
 interface Props {
-  post: PostProps;
   interestNews: PostProps[];
 }
 

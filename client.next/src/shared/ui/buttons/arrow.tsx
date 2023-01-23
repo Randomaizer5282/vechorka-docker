@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent } from "react";
+import React, { MouseEvent } from "react";
 import cn from "clsx";
 import { Icon } from "@/shared/ui/icon";
 
@@ -8,7 +8,7 @@ interface Props {
   onClick: (e: MouseEvent) => void;
 }
 
-export const Arrow: FC<Props> = ({ left = false, onClick }) => {
+export const Arrow = ({ left = false, onClick }: Props) => {
   return (
     <button
       className={cn(

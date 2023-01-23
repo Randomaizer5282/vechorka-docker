@@ -1,35 +1,27 @@
-import React, { FC } from "react";
-import type { PostProps } from "@/shared/types";
+import React from "react";
 import { PostMeta } from "@/entities/post/ui/components/post-meta";
-import { getLink } from "@/shared/lib/links";
+import { getUrlFromParams } from "@/shared/lib/links";
 import cn from "clsx";
-import type { HeadingTagType } from "@/shared/ui/heading";
 import { Heading } from "@/shared/ui/heading";
+import type { HeadingTagType } from "@/shared/ui/heading";
+import type { PostProps } from "@/shared/types";
 
 interface Props {
   post: PostProps;
   className?: string;
   titleTag: HeadingTagType;
-  urlPrefix: string;
 }
 
-export const PostItemSimple: FC<Props> = ({
-  post,
-  className,
-  titleTag,
-  urlPrefix,
-}) => {
-  const { title, slug, createdDate, meta, taxonomies, commentCount } = post;
-  const categories = taxonomies?.categories;
-  const categorySlug = categories && categories[0] ? categories[0].slug : "";
-  const href = getLink(urlPrefix, categorySlug, slug);
+export const PostItemSimple = ({ post, className, titleTag }: Props) => {
+  const { title, slug, createdDate, meta, taxonomies, commentCount, type } =
+    post;
   const views = meta?.views || null;
+  const categories = taxonomies?.categories;
+  const categorySlug = categories?.length ? categories[0].slug : "";
+  const href = getUrlFromParams(type, categorySlug, slug);
 
   return (
     <div className={cn("flex", className)}>
-      {/*<div className="flex-shrink-0 w-[60px] min-h-[70px] mr-3">*/}
-      {/*  <ImagePreview href={href} url={preview?.sizes?.thumbnail?.url} />*/}
-      {/*</div>*/}
       <div>
         {/* title */}
         {title && <Heading title={title} href={href} tag={titleTag} />}

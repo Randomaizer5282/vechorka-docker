@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import { PostMeta } from "@/entities/post/ui/components/post-meta";
 import { ImagePreview } from "@/shared/ui/image-preview";
 import { getPostsTop } from "@/shared/api/posts";
@@ -9,11 +9,10 @@ export interface NewsTopProps {
   className?: string;
 }
 
-export const NewsTop: FC<NewsTopProps> = ({ className }) => {
+export const NewsTop = ({ className }: NewsTopProps) => {
   return (
     <PostListWidget
       className={className}
-      urlPrefix="news"
       title="Популярные"
       fetchCallback={() => getPostsTop()}
       view={({ post, href }) => (

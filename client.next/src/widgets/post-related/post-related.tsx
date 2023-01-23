@@ -5,11 +5,10 @@ import cn from "clsx";
 
 interface Props {
   posts: PostProps[];
-  urlPrefix: string;
   title: string;
 }
 
-export const PostRelated = ({ posts, urlPrefix, title }: Props) => {
+export const PostRelated = ({ posts, title }: Props) => {
   if (!posts || !posts.length) return null;
 
   return (
@@ -22,7 +21,6 @@ export const PostRelated = ({ posts, urlPrefix, title }: Props) => {
               key={post.id}
               post={post}
               className={cn("p-2 sm:w-1/2 md:w-1/4")}
-              urlPrefix={urlPrefix}
             />
           );
         })}

@@ -23,6 +23,9 @@ export const getPageNewsCategory = async ({
     };
   }
 
+  // global settings
+  const { settings, taxonomies, advert } = await getGeneralSettings();
+
   //news by slug
   try {
     // all news
@@ -34,13 +37,20 @@ export const getPageNewsCategory = async ({
       });
       // from taxonomy news
     } else {
+      // find taxonomy in categories and geography
+      const taxonomy = [...taxonomies.categories, ...taxonomies.geography].find(
+        (t) => t.slug === slugTaxonomy
+      );
+
       posts.news = await getPostsByTaxonomySlug(slugTaxonomy, {
+        postType: "post",
+        taxonomyType: taxonomy?.taxonomy,
         limit: 13,
         relations: { taxonomy: true },
       });
     }
   } catch (error) {
-    console.log("category post taxonomy slug", error);
+    console.log("news category taxonomy slug", error);
   }
 
   if (!posts.news || !Array.isArray(posts.news) || !posts.news.length) {
@@ -48,9 +58,6 @@ export const getPageNewsCategory = async ({
       notFound: true,
     };
   }
-
-  // global settings
-  const { settings, taxonomies, advert } = await getGeneralSettings();
 
   // interest news
   try {

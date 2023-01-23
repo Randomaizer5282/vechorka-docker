@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Icon } from "@/shared/ui/icon";
@@ -7,7 +7,7 @@ interface Props {
   className?: string;
 }
 
-export const PaperLinks: FC<Props> = ({ className }) => {
+export const PaperLinks = ({ className }: Props) => {
   return (
     <div className={className}>
       <div className="relative mt-[60px] py-10 px-6 bg-blue-200 text-white">

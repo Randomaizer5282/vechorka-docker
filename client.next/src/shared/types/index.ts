@@ -1,3 +1,5 @@
+export type PostBasePath = "news" | "article" | "search" | "tag";
+
 export type PostType =
   | "post"
   | "page"
@@ -17,7 +19,7 @@ export interface PostProps {
   id: number;
   guid?: string;
   slug: string;
-  type?: PostType;
+  type: PostType;
   title: string;
   content?: string;
   excerpt?: string;
@@ -60,10 +62,12 @@ export interface ImageWithSizes extends ImageProps {
   };
 }
 
+export type TaxonomyType = "category" | "post_geography" | "post_tag" | "menu";
+
 export interface TaxonomyProps {
   id: number; // term_id
   taxonomyId?: number;
-  taxonomy?: string;
+  taxonomy?: TaxonomyType;
   description?: string;
   parent?: number;
   count?: number;

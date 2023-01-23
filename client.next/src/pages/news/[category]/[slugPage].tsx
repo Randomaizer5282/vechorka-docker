@@ -18,14 +18,10 @@ const NewsDetailPage = ({ post, interestNews, relatedPosts }: Props) => {
     <>
       <PostLayout left={<PostDetail post={post} showComment />} />
       {relatedPosts && (
-        <PostRelated
-          title="Другие новости"
-          posts={relatedPosts}
-          urlPrefix="news"
-        />
+        <PostRelated title="Другие новости" posts={relatedPosts} />
       )}
       {interestNews.length > 0 && (
-        <PostRelated title="Интересное" posts={interestNews} urlPrefix="news" />
+        <PostRelated title="Интересное" posts={interestNews} />
       )}
     </>
   );

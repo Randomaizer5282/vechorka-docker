@@ -21,14 +21,10 @@ const ArticlesDetailPage = ({ post, interestNews, relatedPosts }: Props) => {
         showNewsWidgets={false}
       />
       {relatedPosts && (
-        <PostRelated
-          title="Статьи из раздела"
-          posts={relatedPosts}
-          urlPrefix="article"
-        />
+        <PostRelated title="Статьи из раздела" posts={relatedPosts} />
       )}
       {interestNews.length > 0 && (
-        <PostRelated title="Интересное" posts={interestNews} urlPrefix="news" />
+        <PostRelated title="Интересное" posts={interestNews} />
       )}
     </>
   );

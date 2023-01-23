@@ -1,25 +1,19 @@
-import React, { FC } from "react";
+import React from "react";
 import type { PostProps } from "@/shared/types";
 import cn from "clsx";
 import { PostMeta } from "@/entities/post/ui/components/post-meta";
 import { ImagePreview } from "@/shared/ui/image-preview";
 import { PostCategoryLink } from "@/entities/post/ui/components/post-category-link";
-import { getLink } from "@/shared/lib/links";
+import { getUrlFromParams } from "@/shared/lib/links";
 import { Heading } from "@/shared/ui/heading";
 
 interface Props {
   post: PostProps;
   imageClassName?: string;
   className?: string;
-  urlPrefix: string;
 }
 
-export const PostItem: FC<Props> = ({
-  post,
-  imageClassName,
-  className,
-  urlPrefix,
-}) => {
+export const PostItem = ({ post, imageClassName, className }: Props) => {
   const {
     preview,
     title,
@@ -29,11 +23,12 @@ export const PostItem: FC<Props> = ({
     createdDate,
     meta,
     commentCount,
+    type,
   } = post;
-  const categories = taxonomies?.categories;
-  const categorySlug = categories && categories[0] ? categories[0].slug : "";
-  const href = getLink(urlPrefix, categorySlug, slug);
   const views = meta?.views || null;
+  const categories = taxonomies?.categories;
+  const categorySlug = categories?.length ? categories[0].slug : "";
+  const href = getUrlFromParams(type, categorySlug, slug);
 
   return (
     <div className={cn(className, "flex flex-col w-full mb-6")}>
@@ -46,7 +41,7 @@ export const PostItem: FC<Props> = ({
       {categories && (
         <PostCategoryLink
           className="mt-3"
-          urlPrefix={urlPrefix}
+          postType={type}
           categories={categories}
         />
       )}

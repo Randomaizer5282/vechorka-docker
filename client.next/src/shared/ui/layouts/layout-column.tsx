@@ -1,11 +1,11 @@
-import React, { FC } from "react";
+import React, { ReactNode } from "react";
 
 interface Props {
-  left: React.ReactNode;
-  right: React.ReactNode;
+  left: ReactNode;
+  right: ReactNode;
 }
 
-export const LayoutColumn: FC<Props> = ({ left, right }) => {
+export const LayoutColumn = ({ left, right }: Props) => {
   return (
     <div className="flex flex-wrap md:flex-nowrap mt-5 lg:mt-8">
       {/* left column */}

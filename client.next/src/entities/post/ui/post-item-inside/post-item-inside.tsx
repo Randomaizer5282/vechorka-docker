@@ -1,33 +1,34 @@
-import React, { FC } from "react";
+import React from "react";
 import { PostMeta } from "@/entities/post/ui/components/post-meta";
 import { ImagePreview } from "@/shared/ui/image-preview";
-import { PostCategoryLink } from "@/entities/post/ui/components/post-category-link";
-import { getLink } from "@/shared/lib/links";
+import { getUrlFromParams } from "@/shared/lib/links";
 import cn from "clsx";
 import { Heading } from "@/shared/ui/heading";
 import type { PostProps } from "@/shared/types";
 import type { HeadingTagType } from "@/shared/ui/heading/heading";
+import { PostCategoryLink } from "@/entities/post/ui/components/post-category-link";
 
 interface Props {
   post: PostProps;
   className?: string;
   titleTag: HeadingTagType;
-  urlPrefix: string;
 }
 
-export const PostItemInside: FC<Props> = ({
-  post,
-  className,
-  titleTag,
-  urlPrefix,
-}) => {
-  const { preview, title, slug, createdDate, meta, taxonomies, commentCount } =
-    post;
+export const PostItemInside = ({ post, className, titleTag }: Props) => {
+  const {
+    preview,
+    title,
+    slug,
+    createdDate,
+    meta,
+    taxonomies,
+    commentCount,
+    type,
+  } = post;
   const views = meta?.views || null;
-
   const categories = taxonomies?.categories;
-  const categorySlug = categories && categories[0] ? categories[0].slug : "";
-  const href = getLink(urlPrefix, categorySlug, slug);
+  const categorySlug = categories?.length ? categories[0].slug : "";
+  const href = getUrlFromParams(type, categorySlug, slug);
 
   return (
     <div className={cn("relative w-full", className)}>
@@ -50,7 +51,7 @@ export const PostItemInside: FC<Props> = ({
             <PostCategoryLink
               className="mt-3 pointer-events-auto"
               color="light"
-              urlPrefix={urlPrefix}
+              postType={type}
               categories={categories}
               variant="button"
             />

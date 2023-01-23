@@ -12,14 +12,12 @@ interface Props {
   initPosts: ListPostProps;
   tabs: TaxonomyProps[];
   defaultActiveSlug: string;
-  urlPrefix: string;
 }
 
 export const NewsCategoriesGridTabbed: FC<Props> = ({
   initPosts,
   tabs,
   defaultActiveSlug,
-  urlPrefix,
 }) => {
   const [posts, setPosts] = useState<ListPostProps>(initPosts || {});
   const [activeTab, setActiveTab] = useState<TaxonomyProps | undefined>(
@@ -77,7 +75,6 @@ export const NewsCategoriesGridTabbed: FC<Props> = ({
                     post={post}
                     titleTag="h2"
                     className="h-[260px] sm:h-[320px] lg:h-[460px]"
-                    urlPrefix={urlPrefix}
                   />
                 </div>
               );
@@ -93,14 +90,12 @@ export const NewsCategoriesGridTabbed: FC<Props> = ({
                   post={post}
                   titleTag="h3"
                   className="hidden sm:block h-full"
-                  urlPrefix={urlPrefix}
                 />
                 {/* only for mobile - list style */}
                 <PostItemSimple
                   post={post}
                   titleTag="h3"
                   className="sm:hidden border-b border-grey-400 pb-3"
-                  urlPrefix={urlPrefix}
                 />
               </div>
             );

@@ -4,7 +4,7 @@ import { NewsCategoriesTabbed } from "@/widgets/news-categories-tabbed";
 import { ArticleLast } from "@/widgets/article-last";
 import { getGeneralSettings } from "@/shared/api/settings";
 import { getHomePosts, getPosts } from "@/shared/api/posts";
-import type { TaxonomiesProps } from "@/shared/types";
+import type { TaxonomiesProps, TaxonomyProps } from "@/shared/types";
 import type { ListPostProps, PostProps } from "@/shared/types";
 import { VideoLastSliderDynamic } from "@/widgets/video-last-slider";
 import { menuAllNewsItem, menuMainNewsItem } from "@/shared/config";
@@ -25,8 +25,14 @@ interface HomeProps {
 
 const HomePage = ({ posts, taxonomies }: HomeProps) => {
   const { mainNews, lastNews, interestNews, articles } = posts;
-  const geographyTabs = [menuMainNewsItem, ...taxonomies?.geography];
-  const categoriesTabs = [menuAllNewsItem, ...taxonomies?.categories];
+  const geographyTabs = [
+    menuMainNewsItem as TaxonomyProps,
+    ...taxonomies?.geography,
+  ];
+  const categoriesTabs = [
+    menuAllNewsItem as TaxonomyProps,
+    ...taxonomies?.categories,
+  ];
 
   const mainNewsIds = mainNews.map((post) => post.id).join(",");
 
@@ -37,7 +43,6 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
           initPosts={{ news: mainNews }}
           tabs={geographyTabs}
           defaultActiveSlug="news"
-          urlPrefix="news"
         />
       )}
       <HomeLayout
@@ -47,7 +52,6 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
               <NewsCategoriesTabbed
                 initPosts={{ news: lastNews }}
                 tabs={categoriesTabs}
-                urlPrefix="news"
                 excludeIds={mainNewsIds}
                 excludeInSlug="news"
               />
@@ -57,9 +61,7 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
         }
       />
       <VideoLastSliderDynamic />
-      {interestNews && (
-        <PostRelated title="Интересное" posts={interestNews} urlPrefix="news" />
-      )}
+      {interestNews && <PostRelated title="Интересное" posts={interestNews} />}
     </>
   );
 };

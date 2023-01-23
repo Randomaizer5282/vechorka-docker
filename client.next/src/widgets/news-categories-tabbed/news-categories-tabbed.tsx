@@ -2,15 +2,15 @@ import React, { FC, useCallback, useState } from "react";
 import { ScrollTabs } from "@/shared/ui/scroll-tabs";
 import { FullLoader } from "@/shared/ui/loaders";
 import { Button } from "@/shared/ui/buttons";
-import type { ListPostProps, PostProps } from "@/shared/types";
+import type { ListPostProps, PostProps, PostType } from "@/shared/types";
 import type { TaxonomyProps } from "@/shared/types";
 import router from "next/router";
 import { PostItem } from "@/entities/post/ui/post-item";
 import { getPosts } from "@/shared/api/posts";
 import { messages } from "@/shared/constants";
-import { getLink } from "@/shared/lib/links";
+import { getUrlFromParams } from "@/shared/lib/links";
 import cn from "clsx";
-import { DynamicAdvert } from "@/shared/ui/advert";
+import { DynamicAdvert } from "@/widgets/advert";
 import { useSettings } from "@/app/contexts/settings-context";
 
 interface Props {
@@ -18,20 +18,18 @@ interface Props {
   tabs: TaxonomyProps[];
   limit?: number;
   limitMore?: number;
-  urlPrefix: string;
   excludeIds?: string;
   excludeInSlug?: string;
 }
 
 const LinkToCategory = ({
   categorySlug,
-  urlPrefix,
+  postType,
 }: {
   categorySlug?: string;
-  urlPrefix: string;
+  postType: PostType;
 }) => {
-  const href = getLink(urlPrefix, categorySlug);
-
+  const href = getUrlFromParams(postType, categorySlug);
   return (
     <Button variant="outline" onClick={() => router.push(href)}>
       Смотреть все
@@ -44,7 +42,6 @@ export const NewsCategoriesTabbed: FC<Props> = ({
   tabs,
   limit = 9,
   limitMore = 3,
-  urlPrefix,
   excludeIds,
   excludeInSlug,
 }) => {
@@ -62,6 +59,7 @@ export const NewsCategoriesTabbed: FC<Props> = ({
         setLoading(true);
         try {
           const fetchedPosts = await getPosts({
+            postType: "post",
             taxonomyId: tab.taxonomyId,
             limit,
             excludeIds:
@@ -84,18 +82,18 @@ export const NewsCategoriesTabbed: FC<Props> = ({
   const handleShowMore = async () => {
     if (activeTab) {
       setLoading(true);
-      const params = {
-        taxonomyId: activeTab.taxonomyId,
-        offset: activePosts?.length ?? 0,
-        limit,
-        excludeIds:
-          excludeIds && excludeInSlug && activeTab.slug === excludeInSlug
-            ? excludeIds
-            : undefined,
-        relations: { taxonomy: true },
-      };
       try {
-        const fetchedNews = await getPosts(params);
+        const fetchedNews = await getPosts({
+          postType: "post",
+          taxonomyId: activeTab.taxonomyId,
+          offset: activePosts?.length ?? 0,
+          limit,
+          excludeIds:
+            excludeIds && excludeInSlug && activeTab.slug === excludeInSlug
+              ? excludeIds
+              : undefined,
+          relations: { taxonomy: true },
+        });
         setPosts((prev) => ({
           ...prev,
           [activeTab.slug]: [...prev[activeTab.slug], ...fetchedNews],
@@ -143,7 +141,6 @@ export const NewsCategoriesTabbed: FC<Props> = ({
                   isFirst ? "lg:w-1/3" : "sm:w-1/2 lg:w-1/3"
                 )}
                 imageClassName={isFirst ? "sm:h-[320px] lg:h-[190px]" : ""}
-                urlPrefix={urlPrefix}
               />
             );
           })
@@ -165,9 +162,9 @@ export const NewsCategoriesTabbed: FC<Props> = ({
             activeTab.slug && (
               <LinkToCategory
                 categorySlug={
-                  activeTab.slug === urlPrefix ? undefined : activeTab.slug
+                  activeTab.slug === "news" ? undefined : activeTab.slug
                 }
-                urlPrefix={urlPrefix}
+                postType="post"
               />
             )
           )}

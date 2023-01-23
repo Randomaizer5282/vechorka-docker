@@ -1,14 +1,15 @@
 import React from "react";
 import Link from "next/link";
-import { TaxonomyProps } from "@/shared/types";
 import cn from "clsx";
+import { getUrlFromParams } from "@/shared/lib/links";
+import type { PostType, TaxonomyProps } from "@/shared/types";
 
 interface Props {
   categories: TaxonomyProps[];
   className?: string;
   color?: "light" | "dark";
   variant?: "button";
-  urlPrefix: string;
+  postType: PostType;
 }
 
 export const PostCategoryLink = ({
@@ -16,10 +17,9 @@ export const PostCategoryLink = ({
   className,
   color = "dark",
   variant,
-  urlPrefix,
+  postType,
 }: Props) => {
   if (!categories.length) return null;
-
   return (
     <div
       className={cn(
@@ -33,7 +33,7 @@ export const PostCategoryLink = ({
       {categories.map((category) => (
         <Link
           key={category.id}
-          href={`/${urlPrefix}/${category.slug}`}
+          href={getUrlFromParams(postType, category.slug)}
           prefetch={false}
         >
           <a

@@ -1,8 +1,32 @@
-// TODO: !check all this code
 import { Fragment, PropsWithChildren } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useSettings } from "@/app/contexts/settings-context";
+import { getSeoTitleByPath } from "@/shared/lib/seo";
+import type { PostBasePath } from "@/shared/types";
+
+export const useSeoFromPathname = () => {
+  const settings = useSettings();
+  const router = useRouter();
+  const basePath = router.pathname.split("/")[1];
+  const categorySlug = router.query.category;
+
+  let title;
+  let description;
+
+  if (categorySlug) {
+    const taxonomy = [
+      ...settings.taxonomies.categories,
+      ...settings.taxonomies.geography,
+    ].find((tax) => tax.slug === categorySlug);
+    title = getSeoTitleByPath(basePath as PostBasePath, taxonomy?.name);
+    description = taxonomy?.description;
+  } else {
+    title = getSeoTitleByPath(basePath as PostBasePath);
+  }
+
+  return { title, description, url: `${settings.siteUrl}${router.pathname}` };
+};
 
 interface OgImage {
   url?: string;
@@ -46,7 +70,7 @@ export const SEO = ({
       return pageTitle || siteTitle;
     }
     // other pages
-    return pageTitle ? `${pageTitle} - ${siteTitle}` : siteTitle;
+    return pageTitle ? `${pageTitle} / ${siteTitle}` : siteTitle;
   };
 
   const ogImage = openGraph?.image || settings?.openGraph?.image;

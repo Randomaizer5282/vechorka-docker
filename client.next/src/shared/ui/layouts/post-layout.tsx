@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import { PaperLinks } from "@/widgets/paper-links";
 import { NewsCommentedDynamic } from "@/widgets/news-commented";
 import { NewsTopDynamic } from "@/widgets/news-top";
@@ -6,7 +6,7 @@ import { LayoutColumn } from "@/shared/ui/layouts/layout-column";
 import { NavCategories } from "@/shared/ui/navigation/nav-categories";
 import type { PostProps } from "@/shared/types";
 import { PostRelated } from "@/widgets/post-related";
-import { DynamicAdvert } from "@/shared/ui/advert";
+import { DynamicAdvert } from "@/widgets/advert";
 import { useSettings } from "@/app/contexts/settings-context";
 
 interface Props {
@@ -17,13 +17,13 @@ interface Props {
   showPaper?: boolean;
 }
 
-export const PostLayout: FC<Props> = ({
+export const PostLayout = ({
   left,
   interestPosts,
   showNewsWidgets = true,
   showAdvert = true,
   showPaper = true,
-}) => {
+}: Props) => {
   const { advert } = useSettings();
   return (
     <>
@@ -114,11 +114,7 @@ export const PostLayout: FC<Props> = ({
         }
       />
       {interestPosts && interestPosts.length > 0 && (
-        <PostRelated
-          title="Интересное"
-          posts={interestPosts}
-          urlPrefix="news"
-        />
+        <PostRelated title="Интересное" posts={interestPosts} />
       )}
     </>
   );
