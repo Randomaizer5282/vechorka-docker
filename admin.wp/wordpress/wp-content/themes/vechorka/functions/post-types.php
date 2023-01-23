@@ -16,6 +16,7 @@ function register_custom_post_type()
       'edit_item' => 'Редактировать статью',
       'new_item' => 'Новая статья',
     ),
+    'taxonomies' => ['post_tag'],
     'description' => '',
     'public' => true,
     'publicly_queryable' => true,
