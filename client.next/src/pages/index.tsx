@@ -60,7 +60,7 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
           </>
         }
       />
-      <VideoLastSliderDynamic />
+      {/*<VideoLastSliderDynamic />*/}
       {interestNews && <PostRelated title="Интересное" posts={interestNews} />}
     </>
   );
