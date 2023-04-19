@@ -47,6 +47,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     posts.articles = await getPosts({
       postType: "article",
       limit: 13,
+      sticky: true,
       relations: { taxonomy: true },
     });
   } catch (error) {

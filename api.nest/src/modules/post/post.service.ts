@@ -49,6 +49,7 @@ export class PostService {
 
     const articles = await this.getPosts({
       limit: 5,
+      sticky: true,
       postType: 'article',
     });
 
