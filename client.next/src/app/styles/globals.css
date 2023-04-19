@@ -89,6 +89,10 @@
     @apply my-5;
   }
 
+  .content p {
+    @apply text-justify;
+  }
+
   .content blockquote {
     @apply flex bg-grey-100 p-5 md:p-8 italic text-grey-400;
   }
@@ -117,7 +121,7 @@
     @apply mx-auto;
   }
 
-  .content table{
+  .content table {
     @apply overflow-x-scroll;
   }
 
