@@ -8,13 +8,6 @@ export type PostType =
   | "attachment"
   | "employee";
 
-export enum EmployerRoleEnum {
-  chief = "Главный редактор",
-  correspondent = "Корреспондент",
-  editor = "Редактор службы информации",
-  photographer = "Фотограф",
-}
-
 export interface PostProps {
   id: number;
   guid?: string;

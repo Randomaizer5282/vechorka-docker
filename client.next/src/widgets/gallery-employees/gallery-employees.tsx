@@ -8,7 +8,6 @@ import { Arrow } from "@/shared/ui/buttons";
 import NextImage from "next/image";
 import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObserver";
 import { settings } from "@/shared/config";
-import { EmployerRoleEnum } from "@/shared/types";
 
 export const GalleryEmployees = () => {
   const [posts, setPosts] = useState<PostProps[]>([]);
@@ -102,14 +101,8 @@ export const GalleryEmployees = () => {
             {posts.map((post) => {
               const src =
                 post.preview?.sizes?.medium?.url || post.preview?.url || null;
-
               const fullName = post.meta?.full_name;
-              // @ts-ignore
-              const role = post.meta?.role
-                ? EmployerRoleEnum[
-                    post.meta.role as keyof typeof EmployerRoleEnum
-                  ]
-                : null;
+              const role = post.meta?.role;
 
               return (
                 <div
