@@ -2,6 +2,7 @@ import fs from "fs";
 import { PostProps } from "@/shared/types";
 import { settings } from "@/shared/config";
 import { stripText } from "@/shared/lib/string";
+import { formatDateGmt, timeZone } from "@/shared/lib/date";
 
 export const generateYandexRss = (posts?: PostProps[]) => {
   const dir = "./public/rss";
@@ -24,9 +25,9 @@ export const generateYandexRss = (posts?: PostProps[]) => {
 
         // format Mon, 09 Feb 2009 03:03:21 +0400
         const date = new Date(createdAt);
-        const timezone = -(date.getTimezoneOffset() / 60);
-        date.setHours(date.getHours() + timezone);
-        const dateGmt = date.toUTCString().replace("GMT", `+0${timezone}00`);
+        const timezoneDate = -(date.getTimezoneOffset() / 60);
+        // date.setHours(date.getHours() + timezone);
+        // const dateGmt = date.toUTCString().replace("GMT", `+0${timezone}00`);
 
         feeds += `
       <item>
@@ -36,7 +37,10 @@ export const generateYandexRss = (posts?: PostProps[]) => {
         <description>${excerpt ? stripText(excerpt) : ""}</description>
         <category>${taxonomy && taxonomy.name ? taxonomy.name : ""}</category>
         <enclosure url="${imgUrl}" type="${imgMimeType}"/>
-        <pubDate>${dateGmt ?? ""}</pubDate>
+        <CreatedAt>${createdAt}</CreatedAt>
+        <Timezone>${timeZone}</Timezone>
+        <TimezoneNative>${timezoneDate}</TimezoneNative>
+        <pubDate>${formatDateGmt(createdAt)}</pubDate>
         <yandex:full-text>${
           content ? stripText(content) : ""
         }</yandex:full-text>
