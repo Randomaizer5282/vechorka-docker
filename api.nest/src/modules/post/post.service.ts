@@ -784,6 +784,7 @@ export class PostService {
       )
       .where('post_status = "publish" AND post_type="post"')
       .andWhere('post_date > NOW() - INTERVAL 7 DAY')
+      .andWhere('comment_count > 0')
       .orderBy('lastComment.comment_date', 'DESC')
       .limit(5)
       .getRawMany();
