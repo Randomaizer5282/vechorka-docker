@@ -18,7 +18,7 @@ export const NavTags = ({ className }: Props) => {
       <div className="mb-3 text-16px font-bold">Теги:</div>
       <div className="flex flex-wrap gap-2 text-13px">
         {tags.map(({ id, name, slug, count }) => {
-          if (count && count > 1) {
+          if (count && count > 0) {
             return (
               <Link key={id} href={`/tag/${slug}`}>
                 <a
