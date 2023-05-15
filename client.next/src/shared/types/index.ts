@@ -29,6 +29,7 @@ export interface PostProps {
   createdAt: string;
   createdDate?: string;
   createdTime?: string;
+  createdDateGmt?: string;
   updatedAt?: string;
   taxonomyId?: number[];
   taxonomies?: TaxonomiesProps;

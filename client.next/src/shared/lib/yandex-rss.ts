@@ -10,7 +10,16 @@ export const generateYandexRss = (posts?: PostProps[]) => {
 
   if (posts?.length) {
     posts.map(
-      ({ title, slug, preview, createdAt, excerpt, content, taxonomies }) => {
+      ({
+        title,
+        slug,
+        preview,
+        createdAt,
+        createdDateGmt,
+        excerpt,
+        content,
+        taxonomies,
+      }) => {
         const taxonomy = taxonomies?.categories[0] || "";
         const url = `${settings.siteUrl}/news/${
           taxonomy && taxonomy.slug ? `${taxonomy.slug}/` : ""
@@ -31,9 +40,7 @@ export const generateYandexRss = (posts?: PostProps[]) => {
         <description>${excerpt ? stripText(excerpt) : ""}</description>
         <category>${taxonomy && taxonomy.name ? taxonomy.name : ""}</category>
         <enclosure url="${imgUrl}" type="${imgMimeType}"/>
-        <pubDate>${dayjs(createdAt).format(
-          "ddd, D MMM YYYY HH:mm:ss ZZ"
-        )}</pubDate>
+        <pubDate>${createdDateGmt ?? ""}</pubDate>
         <yandex:full-text>${
           content ? stripText(content) : ""
         }</yandex:full-text>
