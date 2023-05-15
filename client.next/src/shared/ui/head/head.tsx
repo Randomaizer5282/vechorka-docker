@@ -132,12 +132,12 @@ export const Head = () => {
       />
       {/*Global site tag (gtag.js) - Google Analytics*/}
 
-      <script
-        data-ad-client="ca-pub-7747485869102419"
-        key="googlesyndication"
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-      />
+      {/*<script*/}
+      {/*  data-ad-client="ca-pub-7747485869102419"*/}
+      {/*  key="googlesyndication"*/}
+      {/*  async*/}
+      {/*  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"*/}
+      {/*/>*/}
 
       {/*Yandex.Metrika counter*/}
       <script
