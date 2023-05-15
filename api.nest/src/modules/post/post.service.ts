@@ -466,7 +466,6 @@ export class PostService {
         createdAt: post.post_post_date,
         createdDate: formatISODate(post.post_post_date),
         createdTime: formatISOTime(post.post_post_date),
-        createdDateGmt: formatISODateGmt(post.post_post_date),
         updatedAt: post.post_post_modified,
         taxonomyId,
         taxonomies: null,

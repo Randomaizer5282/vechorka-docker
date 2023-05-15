@@ -1,7 +1,6 @@
 import fs from "fs";
 import { PostProps } from "@/shared/types";
 import { settings } from "@/shared/config";
-import dayjs from "dayjs";
 import { stripText } from "@/shared/lib/string";
 
 export const generateYandexRss = (posts?: PostProps[]) => {
@@ -10,16 +9,7 @@ export const generateYandexRss = (posts?: PostProps[]) => {
 
   if (posts?.length) {
     posts.map(
-      ({
-        title,
-        slug,
-        preview,
-        createdAt,
-        createdDateGmt,
-        excerpt,
-        content,
-        taxonomies,
-      }) => {
+      ({ title, slug, preview, createdAt, excerpt, content, taxonomies }) => {
         const taxonomy = taxonomies?.categories[0] || "";
         const url = `${settings.siteUrl}/news/${
           taxonomy && taxonomy.slug ? `${taxonomy.slug}/` : ""
@@ -32,6 +22,12 @@ export const generateYandexRss = (posts?: PostProps[]) => {
         const imgMimeType =
           preview?.url && preview?.mimeType ? preview.mimeType : "";
 
+        // format Mon, 09 Feb 2009 03:03:21 +0400
+        const date = new Date(createdAt);
+        const timezone = -(date.getTimezoneOffset() / 60);
+        date.setHours(date.getHours() + timezone);
+        const dateGmt = date.toUTCString().replace("GMT", `+0${timezone}00`);
+
         feeds += `
       <item>
         <title>${stripText(title)}</title>
@@ -40,7 +36,7 @@ export const generateYandexRss = (posts?: PostProps[]) => {
         <description>${excerpt ? stripText(excerpt) : ""}</description>
         <category>${taxonomy && taxonomy.name ? taxonomy.name : ""}</category>
         <enclosure url="${imgUrl}" type="${imgMimeType}"/>
-        <pubDate>${createdDateGmt ?? ""}</pubDate>
+        <pubDate>${dateGmt ?? ""}</pubDate>
         <yandex:full-text>${
           content ? stripText(content) : ""
         }</yandex:full-text>
