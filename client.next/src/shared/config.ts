@@ -88,11 +88,15 @@ export const settings = {
     email: "vechorka@vechorka.ru",
     fullAddress: "355037, г. Ставрополь, ул. Доваторцев 28/30",
     socials: [
-      { href: "https://telegram.org", label: "Telegram", name: "telegram" },
-      { href: "https://vk.com", label: "Вконтакте", name: "vk" },
-      { href: "https://twitter.com", label: "Twitter", name: "twitter" },
-      { href: "https://youtube.com", label: "Youtube", name: "youtube" },
-      { href: "https://ok.ru", label: "Одноклассники", name: "ok" },
+      { href: "https://t.me/vechorka_26", label: "Telegram", name: "telegram" },
+      { href: "https://vk.com/club205892714", label: "В контакте", name: "vk" },
+      // { href: "https://twitter.com", label: "Twitter", name: "twitter" },
+      // { href: "https://youtube.com", label: "Youtube", name: "youtube" },
+      {
+        href: "https://ok.ru/profile/578057240398?utm_campaign=android_share&utm_content=profile",
+        label: "Одноклассники",
+        name: "ok",
+      },
     ],
   },
 };
