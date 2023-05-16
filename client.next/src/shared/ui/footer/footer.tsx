@@ -50,11 +50,6 @@ export const Footer = () => {
             <div className="h-[49px] w-[166px] mx-auto md:mx-0">
               <Logo />
             </div>
-            <p className="mt-9">
-              «Вечерний Ставрополь» зарегистрирован Роскомнадзором в реестре СМИ
-              под номером:
-            </p>
-            <p className="mt-2">Эл № ФС77–82584 от 30.12.2021 г</p>
             {phone && (
               <p className="mt-5">
                 Тел: <a href={`tel:${getPhoneFromString(phone)}`}>{phone}</a>
@@ -70,6 +65,18 @@ export const Footer = () => {
             <div className="flex justify-center md:justify-start mt-5 space-x-3">
               <SocialLinks />
             </div>
+
+            <p className="mt-5 text-13px">
+              И.O. главного редактора «Вечерний Ставрополь» Метелкина О. В.
+            </p>
+            <p className="mt-2 text-13px">
+              Адрес: 355000, Россия, г. Ставрополь, ул. Доваторцев 28/30.
+            </p>
+            <p className="mt-2 text-13px">
+              «Вечерний Ставрополь» зарегистрирован Роскомнадзором в реестре СМИ
+              под номером:
+            </p>
+            <p className="mt-2 text-13px">Эл № ФС77–82584 от 30.12.2021 г</p>
           </div>
 
           {/* col */}
@@ -158,7 +165,7 @@ export const Footer = () => {
             </Link>
 
             <p className="order-3 lg:order-1">
-              © ИД «Вечерний Ставрополь», 2022
+              © ИД «Вечерний Ставрополь», ${new Date().getFullYear()}
             </p>
 
             <Link href="/user-agreement">
