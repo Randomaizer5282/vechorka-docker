@@ -165,7 +165,7 @@ export const Footer = () => {
             </Link>
 
             <p className="order-3 lg:order-1">
-              © ИД «Вечерний Ставрополь», ${new Date().getFullYear()}
+              © ИД «Вечерний Ставрополь», {new Date().getFullYear()}
             </p>
 
             <Link href="/user-agreement">
