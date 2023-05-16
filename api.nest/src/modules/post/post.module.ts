@@ -8,6 +8,7 @@ import { TaxonomyModule } from '../taxonomy/taxonomy.module';
 import { UserModule } from '../user/user.module';
 import { AttachmentModule } from '../attachment/attachment.module';
 import { CommentModule } from '../comment/comment.module';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
@@ -16,6 +17,10 @@ import { CommentModule } from '../comment/comment.module';
     UserModule,
     AttachmentModule,
     forwardRef(() => CommentModule),
+    CacheModule.register({
+      ttl: 60000, // ml seconds
+      // max: 10, // maximum number of items in cache
+    }),
   ],
   providers: [PostService],
   controllers: [PostController],

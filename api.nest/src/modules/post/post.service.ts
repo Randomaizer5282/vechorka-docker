@@ -14,11 +14,7 @@ import { BasePostParams, PostsByTaxonomySlug } from './post.interface';
 import type { TaxonomyResponse } from '../taxonomy/taxonomy.interface';
 import { AttachmentService } from '../attachment/attachment.service';
 import { AddPollReply, PostSearchQueryParamsDTO } from './post.dto';
-import {
-  formatISODate,
-  formatISODateGmt,
-  formatISOTime,
-} from '../../utils/date';
+import { formatISODate, formatISOTime } from '../../utils/date';
 
 @Injectable()
 export class PostService {

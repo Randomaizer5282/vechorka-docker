@@ -6,6 +6,7 @@ import {
   ParseIntPipe,
   Post,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import {
@@ -15,7 +16,7 @@ import {
   PostQueryParamsDTO,
   PostSearchQueryParamsDTO,
 } from './post.dto';
-import { TypeTaxonomy } from '../taxonomy/taxonomy.interface';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @Controller('posts')
 export class PostController {
@@ -76,16 +77,19 @@ export class PostController {
     return this.postService.getPostGalleryImagesByIds(query.ids);
   }
 
+  @UseInterceptors(CacheInterceptor)
   @Get('top')
   getPostsTop() {
     return this.postService.getPostsTop();
   }
 
+  @UseInterceptors(CacheInterceptor)
   @Get('commented')
   getPostsCommented() {
     return this.postService.getPostsCommented();
   }
 
+  @UseInterceptors(CacheInterceptor)
   @Get('interest')
   getPostsInterest() {
     return this.postService.getPostsInterest();
