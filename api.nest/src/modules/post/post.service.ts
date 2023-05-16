@@ -57,9 +57,9 @@ export class PostService {
 
     return {
       mainNews,
-      lastNews,
+      lastNews: lastNews.data,
       interestNews,
-      articles,
+      articles: articles.data,
     };
   }
 
@@ -178,12 +178,14 @@ export class PostService {
 
       // related posts, exclude current post
       if (withRelatedPosts) {
-        response.relatedPosts = await this.getPosts({
+        const relatedPosts = await this.getPosts({
           excludeIds: [post.post_ID],
           limit: 4,
           postType: postTypeRelated,
           relations: { taxonomy: true },
         });
+
+        response.relatedPosts = relatedPosts.data;
       }
 
       return response;
@@ -208,6 +210,7 @@ export class PostService {
   }) {
     // : Promise<PostResponse[] | { data: PostResponse[]; postsIds: number[] }>
     let query = this.postRepository.createQueryBuilder('post');
+
     if (taxonomyId) {
       query = query.innerJoinAndSelect(
         'post.post_taxonomy',
@@ -270,8 +273,8 @@ export class PostService {
       query = query.orderBy('post_date', 'DESC');
     }
 
+    const count = await query.getCount();
     const posts = await query.offset(offset).limit(limit).getRawMany();
-    // return posts;
 
     // metas, taxonomies
     if (posts?.length) {
@@ -293,13 +296,16 @@ export class PostService {
         type: relations.content ? 'full' : 'short',
       });
 
-      return isResponseIds ? { data: response, postsIds } : response;
+      // return isResponseIds ? { data: response, postsIds, count } : response;
+      return isResponseIds
+        ? { data: response, postsIds, count }
+        : { data: response, count };
     }
 
-    return null;
+    return { data: null };
   }
 
-  async getPostsByTaxonomySlug({ ...params }: PostsByTaxonomySlug) {
+  async getPostsByTaxonomySlug(params: PostsByTaxonomySlug) {
     if (!params.slug) return null;
     const taxonomies = await this.taxonomyService.getTaxonomies();
     const taxonomy = taxonomies.find(
