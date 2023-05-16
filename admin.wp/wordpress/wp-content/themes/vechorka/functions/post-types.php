@@ -351,6 +351,44 @@ function tsm_filter_post_type_by_taxonomy()
 
 add_action('restrict_manage_posts', 'tsm_filter_post_type_by_taxonomy');
 
+//
+// add prefix news to post
+//
+/**
+ * @param string  $permalink The site's permalink structure.
+ * @param WP_Post $post      The post in question.
+ * @param bool    $leavename Whether to keep the post name.
+ */
+function se332921_pre_post_link($permalink, $post, $leavename)
+{
+  if ( $post instanceof WP_Post && $post->post_type == 'post')
+    $permalink = '/news'.$permalink;
+  return $permalink;
+}
+
+/**
+ * @param array $post_rewrite The rewrite rules for posts.
+ */
+function se332921_post_rewrite_rules($post_rewrite)
+{
+  if ( is_array($post_rewrite) )
+  {
+    $rw_prefix = [];
+    foreach( $post_rewrite as $k => $v) {
+      $rw_prefix[ 'news/'.$k] = $v;
+    }
+    //
+    // merge to keep original rules
+    $post_rewrite = array_merge($rw_prefix, $post_rewrite);
+    //
+    // or return only prefixed:
+    // $post_rewrite = $rw_prefix;
+  }
+  return $post_rewrite;
+}
+add_filter('pre_post_link', 'se332921_pre_post_link', 20, 3);
+add_filter('post_rewrite_rules', 'se332921_post_rewrite_rules');
+
 /**
  * Filter posts by taxonomy in admin
  * @author  Mike Hemberger
