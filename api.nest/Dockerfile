@@ -1,4 +1,5 @@
 FROM node:14-alpine As production
+RUN apk add --no-cache tzdata
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -12,11 +13,11 @@ RUN npm ci
 # Bundle app source
 COPY --chown=node:node . .
 
-ENV DOCKER 1
-
 # Creates a "dist" folder with the production build
 RUN npm run build
 
+ENV TZ Europe/Moscow
+ENV DOCKER 1
 ENV NODE_ENV production
 USER node
 

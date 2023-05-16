@@ -30,6 +30,8 @@ RUN npm run build
 
 # Production image, copy all the files and run next
 FROM node:14-alpine AS production
+RUN apk add --no-cache tzdata
+
 WORKDIR /app
 
 ARG CLIENT_HOST=$CLIENT_HOST
@@ -40,10 +42,10 @@ ENV CLIENT_HOST=$CLIENT_HOST
 ENV API_HOST=$API_HOST
 ENV UPLOAD_HOST=$UPLOAD_HOST
 
+ENV TZ Europe/Moscow
+
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
-# Uncomment the following line in case you want to disable telemetry during runtime.
-# ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
