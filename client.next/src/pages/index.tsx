@@ -6,7 +6,6 @@ import { getGeneralSettings } from "@/shared/api/settings";
 import { getHomePosts, getPosts } from "@/shared/api/posts";
 import type { TaxonomiesProps, TaxonomyProps } from "@/shared/types";
 import type { ListPostProps, PostProps } from "@/shared/types";
-import { VideoLastSliderDynamic } from "@/widgets/video-last-slider";
 import { menuAllNewsItem, menuMainNewsItem } from "@/shared/config";
 import { NewsCategoriesGridTabbed } from "@/widgets/news-categories-grid-tabbed";
 import { PostRelated } from "@/widgets/post-related";
