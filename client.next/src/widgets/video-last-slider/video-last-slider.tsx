@@ -47,12 +47,15 @@ export const VideoLastSlider = () => {
 
     const fetchVideos = async () => {
       try {
-        const fetchedVideos = await getPosts({
+        const { data } = await getPosts({
           limit: 20,
           postType: "video",
         });
-        const groupVideos = createNestedArray<PostProps>(fetchedVideos);
-        setVideos(groupVideos);
+
+        if (data?.length) {
+          const groupVideos = createNestedArray<PostProps>(data);
+          setVideos(groupVideos);
+        }
       } catch (e) {
         console.log("error");
       }

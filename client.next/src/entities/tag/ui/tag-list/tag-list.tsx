@@ -8,7 +8,7 @@ import { PostItem } from "@/entities/post/ui/post-item";
 import { Button } from "@/shared/ui/buttons";
 import type { PostProps } from "@/shared/types";
 import { useSettings } from "@/app/contexts/settings-context";
-import { useTags } from "@/entities/tag/ui/model";
+import { useTags } from "@/entities/tag/ui/use-tags";
 import { NavTags } from "@/shared/ui/navigation/nav-tags";
 
 interface Props {

@@ -15,15 +15,16 @@ export const useTags = ({ initPosts = [], tagSlug, limit }: Props) => {
   const addPosts = useCallback(async () => {
     setLoading(true);
     try {
-      const fetchedPosts = await getPostsByTaxonomySlug(tagSlug, {
+      const { data } = await getPostsByTaxonomySlug(tagSlug, {
         taxonomyType: "post_tag",
         relations: { taxonomy: true },
         limit,
         offset: posts.length,
       });
 
-      fetchedPosts?.length > 0 &&
-        setPosts((prev) => [...prev, ...fetchedPosts]);
+      if (data?.length) {
+        setPosts((prev) => [...prev, ...data]);
+      }
     } catch (error) {
       console.log("tag", error);
     }

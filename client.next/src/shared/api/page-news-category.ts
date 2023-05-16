@@ -30,11 +30,15 @@ export const getPageNewsCategory = async ({
   try {
     // all news
     if (slugTaxonomy === "news") {
-      posts.news = await getPosts({
+      const { data } = await getPosts({
         postType: "post",
         limit: 13,
         relations: { taxonomy: true },
       });
+
+      if (data?.length) {
+        posts.news = data;
+      }
       // from taxonomy news
     } else {
       // find taxonomy in categories and geography
@@ -42,18 +46,22 @@ export const getPageNewsCategory = async ({
         (t) => t.slug === slugTaxonomy
       );
 
-      posts.news = await getPostsByTaxonomySlug(slugTaxonomy, {
+      const { data } = await getPostsByTaxonomySlug(slugTaxonomy, {
         postType: "post",
         taxonomyType: taxonomy?.taxonomy,
         limit: 13,
         relations: { taxonomy: true },
       });
+
+      if (data?.length) {
+        posts.news = data;
+      }
     }
   } catch (error) {
     console.log("news category taxonomy slug", error);
   }
 
-  if (!posts.news || !Array.isArray(posts.news) || !posts.news.length) {
+  if (!posts.news?.length) {
     return {
       notFound: true,
     };

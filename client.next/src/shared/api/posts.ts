@@ -46,7 +46,9 @@ export const getPostById = (postId: number, params?: GetPostByIdParams) => {
   return api.get(`posts/id/${postId}${queryParams ? `?${queryParams}` : ""}`);
 };
 
-export const getPosts = (params: GetPostsParams): Promise<PostProps[]> => {
+export const getPosts = (
+  params: GetPostsParams
+): Promise<{ data: PostProps[]; count: number }> => {
   const queryParams = encodeQueryData(params);
   return api.get(`posts${queryParams ? `?${queryParams}` : ""}`);
 };
@@ -54,7 +56,7 @@ export const getPosts = (params: GetPostsParams): Promise<PostProps[]> => {
 export const getPostsByTaxonomySlug = async (
   slug: string,
   params: GetPostsByTaxonomySlug
-): Promise<PostProps[]> => {
+): Promise<{ data: PostProps[]; count: number }> => {
   const queryParams = encodeQueryData(params);
   return api.get(
     `posts/taxonomy/slug/${slug}${queryParams ? `?${queryParams}` : ""}`

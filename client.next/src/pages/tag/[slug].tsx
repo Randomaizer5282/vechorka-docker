@@ -28,11 +28,15 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   let posts = null;
 
   try {
-    posts = await getPostsByTaxonomySlug(slug, {
+    const { data } = await getPostsByTaxonomySlug(slug, {
       taxonomyType: "post_tag",
       limit: 12,
       relations: { taxonomy: true },
     });
+
+    if (data?.length) {
+      posts = data;
+    }
   } catch (error) {
     console.log("tag", error);
   }

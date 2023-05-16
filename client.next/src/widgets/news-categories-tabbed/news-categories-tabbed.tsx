@@ -58,7 +58,7 @@ export const NewsCategoriesTabbed: FC<Props> = ({
       if (!posts[tab.slug] && tab.taxonomyId) {
         setLoading(true);
         try {
-          const fetchedPosts = await getPosts({
+          const { data } = await getPosts({
             postType: "post",
             taxonomyId: tab.taxonomyId,
             limit,
@@ -68,7 +68,10 @@ export const NewsCategoriesTabbed: FC<Props> = ({
                 : undefined,
             relations: { taxonomy: true },
           });
-          setPosts((prev) => ({ ...prev, [tab.slug]: fetchedPosts }));
+
+          if (data?.length) {
+            setPosts((prev) => ({ ...prev, [tab.slug]: data }));
+          }
         } catch (e) {
           console.log("error: last posts");
         }
@@ -83,7 +86,7 @@ export const NewsCategoriesTabbed: FC<Props> = ({
     if (activeTab) {
       setLoading(true);
       try {
-        const fetchedNews = await getPosts({
+        const { data } = await getPosts({
           postType: "post",
           taxonomyId: activeTab.taxonomyId,
           offset: activePosts?.length ?? 0,
@@ -94,10 +97,13 @@ export const NewsCategoriesTabbed: FC<Props> = ({
               : undefined,
           relations: { taxonomy: true },
         });
-        setPosts((prev) => ({
-          ...prev,
-          [activeTab.slug]: [...prev[activeTab.slug], ...fetchedNews],
-        }));
+
+        if (data?.length) {
+          setPosts((prev) => ({
+            ...prev,
+            [activeTab.slug]: [...prev[activeTab.slug], ...data],
+          }));
+        }
       } catch (e) {
         console.log("error: last posts");
       }

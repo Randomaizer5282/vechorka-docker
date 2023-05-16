@@ -45,16 +45,16 @@ export const GalleryEmployees = () => {
 
     const fetchPosts = async () => {
       try {
-        const fetchedPosts = await getPosts({
+        const { data } = await getPosts({
           limit: 20,
           postType: "employee",
         });
 
-        if (fetchedPosts?.length) {
-          fetchedPosts.sort((a, b) => {
+        if (data?.length) {
+          data.sort((a, b) => {
             return a.meta?.order > b.meta?.order ? 1 : -1;
           });
-          setPosts(fetchedPosts);
+          setPosts(data);
         }
       } catch (e) {
         console.log("error");

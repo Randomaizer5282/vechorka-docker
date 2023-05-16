@@ -29,14 +29,13 @@ export const PostListShowMore = ({
   const fetchPosts = async () => {
     setLoading(true);
     try {
-      const fetchedPosts = await getPosts({
+      const { data, count } = await getPosts({
         postType,
         limit,
         offset: posts.length,
         relations: { taxonomy: true },
       });
-      fetchedPosts?.length > 0 &&
-        setPosts((prev) => [...prev, ...fetchedPosts]);
+      data?.length > 0 && setPosts((prev) => [...prev, ...data]);
     } catch (e) {
       console.log(e);
     }

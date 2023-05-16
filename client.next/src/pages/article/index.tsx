@@ -44,21 +44,21 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 
   try {
-    posts.articles = await getPosts({
+    const { data } = await getPosts({
       postType: "article",
       limit: 13,
       sticky: true,
       relations: { taxonomy: true },
     });
+
+    if (data?.length) {
+      posts.articles = data;
+    }
   } catch (error) {
     console.log("articles index", error);
   }
 
-  if (
-    !posts.articles ||
-    !Array.isArray(posts.articles) ||
-    !posts.articles.length
-  ) {
+  if (!posts.articles?.length) {
     return {
       notFound: true,
     };

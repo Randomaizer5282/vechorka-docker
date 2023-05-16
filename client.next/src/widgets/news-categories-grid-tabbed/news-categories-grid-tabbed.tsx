@@ -33,13 +33,16 @@ export const NewsCategoriesGridTabbed: FC<Props> = ({
       if (!posts[tab.slug] && tab.taxonomyId) {
         setLoading(true);
         try {
-          const fetchedPosts = await getPosts({
+          const { data } = await getPosts({
             taxonomyId: tab.taxonomyId,
             limit: 5,
             sticky: true,
             relations: { taxonomy: true },
           });
-          setPosts((prev) => ({ ...prev, [tab.slug]: fetchedPosts }));
+
+          if (data?.length) {
+            setPosts((prev) => ({ ...prev, [tab.slug]: data }));
+          }
         } catch (e) {
           console.log("error: main posts");
         }
