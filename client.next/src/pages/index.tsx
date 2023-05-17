@@ -10,7 +10,7 @@ import { menuAllNewsItem, menuMainNewsItem } from "@/shared/config";
 import { NewsCategoriesGridTabbed } from "@/widgets/news-categories-grid-tabbed";
 import { PostRelated } from "@/widgets/post-related";
 import { GetStaticProps } from "next";
-import { generateYandexRss } from "@/shared/lib/yandex-rss";
+import { generateYandexRss } from "@/shared/lib/rss-feed";
 
 interface HomeProps {
   posts: {
@@ -87,7 +87,7 @@ export const getStaticProps: GetStaticProps = async () => {
       limit: 20,
       relations: { taxonomy: true, content: true },
     });
-    generateYandexRss(data);
+    await generateYandexRss(data);
   } catch (error) {
     console.log("error: get rss posts: ", error);
   }

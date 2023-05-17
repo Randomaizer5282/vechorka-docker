@@ -3,9 +3,9 @@ import { PostProps } from "@/shared/types";
 import { settings } from "@/shared/config";
 import { stripText } from "@/shared/lib/string";
 import { formatDateGmt } from "@/shared/lib/date";
+import * as path from "path";
 
-export const generateYandexRss = (posts?: PostProps[]) => {
-  const dir = "./public/rss";
+export const generateYandexRss = async (posts?: PostProps[]) => {
   let feeds = "";
 
   if (posts?.length) {
@@ -55,13 +55,19 @@ export const generateYandexRss = (posts?: PostProps[]) => {
     </channel>
   </rss>`;
 
+  const pathRss = path.join(process.cwd(), "public", "rss");
+  const newsRss = path.join(pathRss, "yandex-news.xml");
   try {
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir);
+    if (!fs.existsSync(pathRss)) {
+      fs.mkdirSync(pathRss);
     }
 
-    fs.writeFileSync(`${dir}/yandex-rss.xml`, feeds);
+    if (fs.existsSync(newsRss)) {
+      await fs.promises.unlink(newsRss);
+    }
+
+    fs.writeFileSync(newsRss, feeds);
   } catch (error) {
-    console.log("yandex-rss fs error:", error);
+    console.log("rss fs error:", error);
   }
 };
