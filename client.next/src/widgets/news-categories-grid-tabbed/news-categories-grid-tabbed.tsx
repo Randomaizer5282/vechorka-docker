@@ -78,6 +78,7 @@ export const NewsCategoriesGridTabbed: FC<Props> = ({
                     post={post}
                     titleTag="h2"
                     className="h-[260px] sm:h-[320px] lg:h-[460px]"
+                    imagePriority={true}
                   />
                 </div>
               );

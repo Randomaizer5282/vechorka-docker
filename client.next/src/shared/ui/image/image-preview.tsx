@@ -14,9 +14,10 @@ interface Props extends ImageProps {
   hoverEffect?: boolean;
   children?: React.ReactNode;
   screenSizes?: string;
+  priority?: boolean;
 }
 
-const Image = ({ url, alt = "", className, screenSizes }: Props) =>
+const Image = ({ url, alt = "", className, screenSizes, priority }: Props) =>
   url ? (
     <NextImage
       className={cn(className, "pointer-events-auto")}
@@ -26,6 +27,7 @@ const Image = ({ url, alt = "", className, screenSizes }: Props) =>
       objectFit="cover"
       objectPosition="top"
       sizes={screenSizes}
+      priority={priority}
       // sizes="(max-width: 460px) 46vw, (max-width: 768px) 76vw, (max-width: 1024px) 104vw, (max-width: 1200px) 120vw, 100vw"
     />
   ) : null;
@@ -41,6 +43,7 @@ export const ImagePreview = ({
   hoverEffect = false,
   children,
   screenSizes,
+  priority,
 }: Props) => {
   return (
     <div
@@ -63,6 +66,7 @@ export const ImagePreview = ({
               url={`${settings.uploadUrl}/${url}`}
               alt={alt}
               screenSizes={screenSizes}
+              priority={priority}
             />
           </a>
         </Link>
@@ -72,6 +76,7 @@ export const ImagePreview = ({
           url={`${settings.uploadUrl}/${url}`}
           alt={alt}
           screenSizes={screenSizes}
+          priority={priority}
         />
       )}
       {overlay ? (

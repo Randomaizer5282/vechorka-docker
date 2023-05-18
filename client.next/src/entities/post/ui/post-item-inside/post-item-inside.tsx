@@ -12,9 +12,15 @@ interface Props {
   post: PostProps;
   className?: string;
   titleTag: HeadingTagType;
+  imagePriority?: boolean;
 }
 
-export const PostItemInside = ({ post, className, titleTag }: Props) => {
+export const PostItemInside = ({
+  post,
+  className,
+  titleTag,
+  imagePriority,
+}: Props) => {
   const {
     preview,
     title,
@@ -33,7 +39,13 @@ export const PostItemInside = ({ post, className, titleTag }: Props) => {
   return (
     <div className={cn("relative w-full", className)}>
       {/* image */}
-      <ImagePreview url={preview?.url} href={href} overlay hoverEffect>
+      <ImagePreview
+        url={preview?.url}
+        href={href}
+        priority={imagePriority}
+        overlay
+        hoverEffect
+      >
         <div className="relative flex flex-col justify-end max-w-[80%] h-full p-5 lg:p-8">
           {/* title */}
           {title && (
