@@ -25,7 +25,6 @@ export const ShareLinks = ({
 
   return (
     <div className="flex flex-wrap items-center gap-3">
-      <span className="font-bold">Поделиться:</span>
       {customers.map((customer, index) => {
         switch (customer) {
           case "vk":

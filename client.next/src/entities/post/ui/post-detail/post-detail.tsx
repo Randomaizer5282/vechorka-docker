@@ -128,7 +128,10 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
               <strong>Автор:</strong> {user}
             </div>
           )}
-          <div className="mt-5">
+          <div>
+            <div className="mt-5 mb-1">
+              <strong>Поделиться:</strong>
+            </div>
             <ShareLinks
               url={href}
               title={title}
