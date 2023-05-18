@@ -1,5 +1,10 @@
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
+import utc from "dayjs/plugin/utc";
+import tz from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(tz);
 
 export const formatISOToLocaleMonth = (value: number) => {
   return dayjs().month(value).locale("ru").format("MMMM");
@@ -20,5 +25,5 @@ export const formatDateToDateString = (value: string) => {
 };
 
 export const formatDateGmt = (value: string) => {
-  return dayjs(value).format("ddd, D MMM YYYY HH:mm:ss ZZ");
+  return dayjs(value).tz("Europe/Moscow").format("ddd, D MMM YYYY HH:mm:ss ZZ");
 };
