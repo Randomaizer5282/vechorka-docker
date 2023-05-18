@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { ImagePreview } from "@/shared/ui/image-preview";
+import { ImagePreview } from "@/shared/ui/image";
 import type { PostProps } from "@/shared/types";
 
 interface Props {

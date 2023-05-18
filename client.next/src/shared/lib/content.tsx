@@ -1,6 +1,7 @@
 import React from "react";
 import { GalleryByIds } from "@/widgets/gallery-by-ids";
-import { ImageCaption } from "@/shared/ui/image-preview/image-caption";
+import { ImageContent } from "@/shared/ui/image";
+import cn from "clsx";
 
 export const parseContent = (body: string) => {
   body = replaceBlockquote(body);
@@ -38,12 +39,8 @@ const parseToComponent = (block: string) => {
     return createGallery(block);
   }
 
-  // image with caption
-  const imageCaption = block.match(
-    /\[caption.+width="(\d+)"\]<img.+src="(.+?)".+\/>(.+)\[\/caption\]/im
-  );
-  if (imageCaption) {
-    return createImageWithCaption(imageCaption);
+  if (block.match(/^.*<img/gim)) {
+    return createImage(block);
   }
 
   return null;
@@ -54,7 +51,7 @@ const parseBlock = (block: string) => {
   const tagsAllow = block?.match(/<(strong|em).+?>/gim);
   const isTag = block.match(/^<.+>/gi);
 
-  if (block && !isTag) {
+  if (block) {
     element = parseToComponent(block);
   }
 
@@ -89,28 +86,44 @@ const createGallery = (body: string) => {
   return null;
 };
 
-const createImageWithCaption = (data: string[]) => {
-  if (!data.length) {
-    return null;
-  }
+const createImage = (image: string) => {
+  const matchSrc = image.match(/<img.+src="(.*?)"/im);
+  const matchAlt = image.match(/<img.+alt="(.*?)"/im);
+  const matchWidth = image.match(/<img.+width="(.*?)"/im);
+  const matchHeight = image.match(/<img.+height="(.*?)"/im);
+  const matchImageClass = image.match(/<img.+class="(.*?)"/im);
+  const matchFull = image.match(/<a.+href="(.+?)".+<img/im);
+  const matchCaption = image.match(
+    /\[caption.+<img.+[\/>|</](.+)\[\/caption\]/im
+  );
+  const matchCaptionClass = image.match(/\[caption.+align="(.*?)"/im);
 
-  const width = data[1] ?? 500;
-  const src = data[2] ?? null;
-  const caption = data[3] ?? null;
+  const src = matchSrc && matchSrc[1] ? matchSrc[1] : null;
+  const alt = matchAlt && matchAlt[1] ? matchAlt[1] : null;
+  const width = matchWidth && matchWidth[1] ? matchWidth[1] : null;
+  const height = matchHeight && matchHeight[1] ? matchHeight[1] : null;
+  const fullSrc = matchFull && matchFull[1] ? matchFull[1] : null;
+  const caption = matchCaption && matchCaption[1] ? matchCaption[1] : null;
+  const imageClassName =
+    matchImageClass && matchImageClass[1] ? matchImageClass[1] : null;
+  const captionClassName =
+    matchCaptionClass && matchCaptionClass[1] ? matchCaptionClass[1] : null;
+
+  // if isset caption, get align from caption
+  // else get class from img
+  const className = captionClassName ?? imageClassName;
 
   if (src) {
     return (
-      <div className="relative w-fit mx-auto mt-5">
-        <img
-          className="h-auto"
-          src={src}
-          width={width}
-          height="100%"
-          alt=""
-          loading="lazy"
-        />
-        <ImageCaption caption={caption} />
-      </div>
+      <ImageContent
+        caption={caption ?? ""}
+        alt={alt}
+        src={src}
+        width={width}
+        height={height}
+        fullSrc={fullSrc}
+        className={cn(className, "my-3")}
+      />
     );
   }
 

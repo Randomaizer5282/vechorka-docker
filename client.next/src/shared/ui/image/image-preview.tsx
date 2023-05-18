@@ -4,8 +4,8 @@ import cn from "clsx";
 import NextImage from "next/image";
 import type { ImageProps } from "@/shared/types";
 import { settings } from "@/shared/config";
-import { ImageCaption } from "@/shared/ui/image-preview/image-caption";
-import { ImageDescription } from "@/shared/ui/image-preview/image-description";
+import { ImageCaption } from "@/shared/ui/image/image-caption";
+import { ImageDescription } from "@/shared/ui/image/image-description";
 
 interface Props extends ImageProps {
   href?: string;

@@ -2,12 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import cn from "clsx";
 import { useKeenSlider } from "keen-slider/react";
 import { getPostGalleryByIds } from "@/shared/api/posts";
-import { ImageWithSizes, PostProps } from "@/shared/types";
 import { SimpleLoader } from "@/shared/ui/loaders";
 import { Arrow } from "@/shared/ui/buttons";
 import NextImage from "next/image";
 import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObserver";
 import { settings } from "@/shared/config";
+import Lightbox, { type SlideImage } from "yet-another-react-lightbox";
+import type { ImageWithSizes, PostProps } from "@/shared/types";
+import "yet-another-react-lightbox/styles.css";
+import Captions from "yet-another-react-lightbox/plugins/captions";
+import "yet-another-react-lightbox/plugins/captions.css";
 
 interface Props {
   ids: string;
@@ -17,6 +21,9 @@ interface Props {
 
 export const GalleryByIds = ({ ids, title, perView = 3 }: Props) => {
   const [images, setImages] = useState<Array<PostProps & ImageWithSizes>>([]);
+  const [slides, setSlides] = useState<SlideImage[]>([]);
+  const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
+  const [previewOpen, setPreviewOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [sliderLoaded, setSliderLoaded] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -47,8 +54,23 @@ export const GalleryByIds = ({ ids, title, perView = 3 }: Props) => {
 
     const fetchImages = async () => {
       try {
-        const fetchedImages = await getPostGalleryByIds(ids);
-        setImages(fetchedImages);
+        const fetchedImages: PostProps[] = await getPostGalleryByIds(ids);
+
+        if (fetchedImages?.length) {
+          const slides: SlideImage[] = [];
+          fetchedImages?.forEach((image) => {
+            if (image.preview?.url) {
+              slides.push({
+                src: `${settings.uploadUrl}/${image.preview?.url}`,
+                description: image.preview?.caption,
+                alt: image.preview?.alt,
+              });
+            }
+          });
+
+          setSlides(slides);
+          setImages(fetchedImages);
+        }
       } catch (e) {
         console.log("error");
       }
@@ -86,20 +108,30 @@ export const GalleryByIds = ({ ids, title, perView = 3 }: Props) => {
           </div>
 
           <div ref={sliderRef} className="keen-slider">
-            {images.map((image) => {
+            {images.map((image, index) => {
               const src =
                 image.preview?.sizes?.medium?.url || image.preview?.url || null;
               if (src) {
                 return (
                   <div key={image.id} className={cn("keen-slider__slide")}>
-                    <div className="relative w-full h-[190px] sm:h-[260px]">
-                      <NextImage
-                        src={`${settings.uploadUrl}/${src}`}
-                        layout="fill"
-                        objectFit="cover"
-                        objectPosition="top"
-                      />
-                    </div>
+                    <a
+                      href="#"
+                      className={cn("block")}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setActiveIndex(index);
+                        setPreviewOpen(true);
+                      }}
+                    >
+                      <div className="relative w-full h-[190px] sm:h-[260px] bg-gradient-to-t to-grey-400/30 from-grey-400/70">
+                        <NextImage
+                          src={`${settings.uploadUrl}/${src}`}
+                          layout="fill"
+                          objectFit="cover"
+                          objectPosition="top"
+                        />
+                      </div>
+                    </a>
                   </div>
                 );
               } else {
@@ -107,6 +139,26 @@ export const GalleryByIds = ({ ids, title, perView = 3 }: Props) => {
               }
             })}
           </div>
+
+          {slides?.length > 0 && (
+            <Lightbox
+              styles={{
+                root: { "--yarl__slide_description_text_align": "center" },
+              }}
+              index={activeIndex}
+              toolbar={{ buttons: ["close"] }}
+              open={previewOpen}
+              close={() => setPreviewOpen(false)}
+              controller={{ closeOnBackdropClick: true }}
+              slides={slides}
+              plugins={[Captions]}
+              carousel={{ finite: slides.length <= 1 }}
+              render={{
+                buttonPrev: slides.length <= 1 ? () => null : undefined,
+                buttonNext: slides.length <= 1 ? () => null : undefined,
+              }}
+            />
+          )}
         </>
       )}
     </div>

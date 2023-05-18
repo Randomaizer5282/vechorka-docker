@@ -1,6 +1,6 @@
 import React from "react";
 import { PostMeta } from "@/entities/post/ui/components/post-meta";
-import { ImagePreview } from "@/shared/ui/image-preview";
+import { ImagePreview } from "@/shared/ui/image";
 import { getUrlFromParams } from "@/shared/lib/links";
 import cn from "clsx";
 import { Heading } from "@/shared/ui/heading";

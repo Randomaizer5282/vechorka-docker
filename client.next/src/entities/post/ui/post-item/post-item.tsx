@@ -2,7 +2,7 @@ import React from "react";
 import type { PostProps } from "@/shared/types";
 import cn from "clsx";
 import { PostMeta } from "@/entities/post/ui/components/post-meta";
-import { ImagePreview } from "@/shared/ui/image-preview";
+import { ImagePreview } from "@/shared/ui/image";
 import { PostCategoryLink } from "@/entities/post/ui/components/post-category-link";
 import { getUrlFromParams } from "@/shared/lib/links";
 import { Heading } from "@/shared/ui/heading";

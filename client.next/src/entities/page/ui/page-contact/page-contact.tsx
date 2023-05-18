@@ -4,7 +4,7 @@ import { Heading } from "@/shared/ui/heading";
 import { getFieldsRepeater } from "@/shared/lib/meta-fields";
 import { useSettings } from "@/app/contexts/settings-context";
 import { getPhoneFromString } from "@/shared/lib/string";
-import { ImagePreview } from "@/shared/ui/image-preview";
+import { ImagePreview } from "@/shared/ui/image";
 import { useRouter } from "next/router";
 import { SEO } from "@/shared/ui/SEO";
 

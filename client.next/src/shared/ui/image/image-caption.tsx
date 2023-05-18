@@ -3,7 +3,7 @@ import React from "react";
 export const ImageCaption = ({ caption }: { caption: string }) => {
   if (!caption) return null;
   return (
-    <div className="absolute bottom-0 w-full p-2 bg-black/50 text-grey-200 text-14px">
+    <div className="absolute bottom-0 w-full p-2 bg-black/50 text-grey-200 text-14px text-left pointer-events-none">
       {caption}
     </div>
   );
