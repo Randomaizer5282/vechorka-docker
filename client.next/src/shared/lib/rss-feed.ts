@@ -56,17 +56,18 @@ export const generateYandexRss = async (posts?: PostProps[]) => {
   </rss>`;
 
   const pathRss = path.join(process.cwd(), "public", "rss");
-  const newsRss = path.join(pathRss, "yandex-news.xml");
+  const pathRssNews = path.join(pathRss, "yandex-news.xml");
   try {
     if (!fs.existsSync(pathRss)) {
       fs.mkdirSync(pathRss);
     }
 
-    if (fs.existsSync(newsRss)) {
-      await fs.promises.unlink(newsRss);
+    if (fs.existsSync(pathRssNews)) {
+      await fs.promises.unlink(pathRssNews);
     }
 
-    fs.writeFileSync(newsRss, feeds);
+    fs.writeFileSync(pathRssNews, feeds);
+    fs.chown(pathRssNews, 1001, 1001, console.log);
   } catch (error) {
     console.log("rss fs error:", error);
   }
