@@ -58,11 +58,6 @@ export const NewsCategoriesTabbed: FC<Props> = ({
 
   console.log(countPosts);
   console.log(activePosts.length);
-  // console.log(
-  //   activePosts.length % limit === 0 &&
-  //     limitMore * limit < countPosts &&
-  //     activePosts.length < countPosts
-  // );
 
   const changeActiveTab = useCallback(
     async (tab: TaxonomyProps) => {
@@ -173,7 +168,7 @@ export const NewsCategoriesTabbed: FC<Props> = ({
         <div className="mt-3 text-center">
           {/* show button from condition limitMore */}
           {activePosts.length % limit === 0 &&
-          limitMore * limit < countPosts &&
+          activePosts.length < limitMore * limit &&
           activePosts.length < countPosts ? (
             <Button variant="outline" onClick={handleShowMore}>
               Показать еще
