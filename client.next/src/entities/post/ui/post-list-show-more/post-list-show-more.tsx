@@ -11,6 +11,7 @@ import { getPosts } from "@/shared/api/posts";
 
 interface Props {
   initPosts: PostProps[];
+  initCount: number;
   limit?: number;
   postType: PostType;
   isFirstFull?: boolean;
@@ -21,8 +22,10 @@ export const PostListShowMore = ({
   limit = 13,
   postType,
   isFirstFull = true,
+  initCount = 0,
 }: Props) => {
   const [posts, setPosts] = useState(initPosts);
+  const [countPosts, setCountPost] = useState<number>(initCount);
   const [loading, setLoading] = useState(false);
   const { advert } = useSettings();
 
@@ -36,6 +39,7 @@ export const PostListShowMore = ({
         relations: { taxonomy: true },
       });
       data?.length > 0 && setPosts((prev) => [...prev, ...data]);
+      count && setCountPost(count);
     } catch (e) {
       console.log(e);
     }
@@ -44,6 +48,7 @@ export const PostListShowMore = ({
 
   useEffect(() => {
     setPosts(initPosts);
+    setCountPost(initCount);
   }, [initPosts]);
 
   return (
@@ -92,13 +97,15 @@ export const PostListShowMore = ({
       show more button, news.length % limit - condition for detect last news,
       if not a full array, then last news
       */}
-      {posts?.length > 0 && posts.length % limit === 0 && (
-        <div className="mt-3 text-center">
-          <Button variant="outline" onClick={fetchPosts}>
-            Показать еще
-          </Button>
-        </div>
-      )}
+      {posts?.length > 0 &&
+        posts.length % limit === 0 &&
+        posts.length < countPosts && (
+          <div className="mt-3 text-center">
+            <Button variant="outline" onClick={fetchPosts}>
+              Показать еще
+            </Button>
+          </div>
+        )}
     </>
   );
 };

@@ -1,11 +1,23 @@
 import { api } from "@/shared/api/core";
-import type {
-  ListPostProps,
-  PostProps,
-  PostType,
-  TaxonomyType,
-} from "@/shared/types";
+import type { PostProps, PostType, TaxonomyType } from "@/shared/types";
 import { encodeQueryData } from "@/shared/lib/helpers";
+
+export interface HomePosts {
+  mainNews: PostProps[];
+  lastNews: { data: PostProps[]; count: number };
+  interestNews: PostProps[];
+  articles: PostProps[];
+}
+
+export interface NewsPosts {
+  news: { data: PostProps[]; count: number };
+  interestNews: PostProps[];
+}
+
+export interface ArticlePosts {
+  articles: { data: PostProps[]; count: number };
+  interestNews: PostProps[];
+}
 
 interface GetPostsParams {
   taxonomyId?: number;
@@ -32,7 +44,7 @@ interface GetPostByIdParams {
   withMeta?: boolean;
 }
 
-export const getHomePosts = (): Promise<ListPostProps> => {
+export const getHomePosts = (): Promise<HomePosts> => {
   return api.get("posts/index");
 };
 

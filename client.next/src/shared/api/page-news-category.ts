@@ -3,17 +3,17 @@ import {
   getPosts,
   getPostsByTaxonomySlug,
   getPostsInterest,
+  NewsPosts,
 } from "@/shared/api/posts";
 import type { GetServerSidePropsResult } from "next";
-import type { ListPostProps } from "@/shared/types";
 
 export const getPageNewsCategory = async ({
   slugTaxonomy,
 }: {
   slugTaxonomy?: string;
 }): Promise<GetServerSidePropsResult<any>> => {
-  const posts: ListPostProps = {
-    news: [],
+  const posts: NewsPosts = {
+    news: { data: [], count: 0 },
     interestNews: [],
   };
 
@@ -30,14 +30,14 @@ export const getPageNewsCategory = async ({
   try {
     // all news
     if (slugTaxonomy === "news") {
-      const { data } = await getPosts({
+      const fetchedNews = await getPosts({
         postType: "post",
         limit: 13,
         relations: { taxonomy: true },
       });
 
-      if (data?.length) {
-        posts.news = data;
+      if (fetchedNews?.data?.length) {
+        posts.news = fetchedNews;
       }
       // from taxonomy news
     } else {
@@ -46,22 +46,22 @@ export const getPageNewsCategory = async ({
         (t) => t.slug === slugTaxonomy
       );
 
-      const { data } = await getPostsByTaxonomySlug(slugTaxonomy, {
+      const fetchedNews = await getPostsByTaxonomySlug(slugTaxonomy, {
         postType: "post",
         taxonomyType: taxonomy?.taxonomy,
         limit: 13,
         relations: { taxonomy: true },
       });
 
-      if (data?.length) {
-        posts.news = data;
+      if (fetchedNews?.data?.length) {
+        posts.news = fetchedNews;
       }
     }
   } catch (error) {
     console.log("news category taxonomy slug", error);
   }
 
-  if (!posts.news?.length) {
+  if (!posts.news?.data?.length) {
     return {
       notFound: true,
     };

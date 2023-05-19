@@ -20,6 +20,7 @@ interface Props {
   limitMore?: number;
   excludeIds?: string;
   excludeInSlug?: string;
+  initCount: number;
 }
 
 const LinkToCategory = ({
@@ -44,21 +45,31 @@ export const NewsCategoriesTabbed: FC<Props> = ({
   limitMore = 3,
   excludeIds,
   excludeInSlug,
+  initCount = 0,
 }) => {
   const [posts, setPosts] = useState<ListPostProps>(initPosts || {});
   const [activeTab, setActiveTab] = useState<TaxonomyProps>(tabs[0] || {});
+  const [countPosts, setCountPost] = useState<number>(initCount);
   const [loading, setLoading] = useState(false);
   const { advert } = useSettings();
 
   const activePosts: PostProps[] =
     activeTab && posts[activeTab.slug] ? posts[activeTab.slug] : [];
 
+  console.log(countPosts);
+  console.log(activePosts.length);
+  // console.log(
+  //   activePosts.length % limit === 0 &&
+  //     limitMore * limit < countPosts &&
+  //     activePosts.length < countPosts
+  // );
+
   const changeActiveTab = useCallback(
     async (tab: TaxonomyProps) => {
       if (!posts[tab.slug] && tab.taxonomyId) {
         setLoading(true);
         try {
-          const { data } = await getPosts({
+          const { data, count } = await getPosts({
             postType: "post",
             taxonomyId: tab.taxonomyId,
             limit,
@@ -72,6 +83,8 @@ export const NewsCategoriesTabbed: FC<Props> = ({
           if (data?.length) {
             setPosts((prev) => ({ ...prev, [tab.slug]: data }));
           }
+
+          count && setCountPost(count);
         } catch (e) {
           console.log("error: last posts");
         }
@@ -159,8 +172,9 @@ export const NewsCategoriesTabbed: FC<Props> = ({
       {activePosts.length > 0 && (
         <div className="mt-3 text-center">
           {/* show button from condition limitMore */}
-          {limitMore * limit > activePosts.length &&
-          activePosts.length % limit === 0 ? (
+          {activePosts.length % limit === 0 &&
+          limitMore * limit < countPosts &&
+          activePosts.length < countPosts ? (
             <Button variant="outline" onClick={handleShowMore}>
               Показать еще
             </Button>

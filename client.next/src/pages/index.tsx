@@ -3,9 +3,9 @@ import { HomeLayout } from "@/shared/ui/layouts";
 import { NewsCategoriesTabbed } from "@/widgets/news-categories-tabbed";
 import { ArticleLast } from "@/widgets/article-last";
 import { getGeneralSettings } from "@/shared/api/settings";
-import { getHomePosts, getPosts } from "@/shared/api/posts";
+import { getHomePosts, getPosts, HomePosts } from "@/shared/api/posts";
 import type { TaxonomiesProps, TaxonomyProps } from "@/shared/types";
-import type { ListPostProps, PostProps } from "@/shared/types";
+import type { PostProps } from "@/shared/types";
 import { menuAllNewsItem, menuMainNewsItem } from "@/shared/config";
 import { NewsCategoriesGridTabbed } from "@/widgets/news-categories-grid-tabbed";
 import { PostRelated } from "@/widgets/post-related";
@@ -13,12 +13,7 @@ import { GetStaticProps } from "next";
 import { generateYandexRss } from "@/shared/lib/rss-feed";
 
 interface HomeProps {
-  posts: {
-    mainNews: PostProps[];
-    lastNews: PostProps[];
-    interestNews: PostProps[];
-    articles: PostProps[];
-  };
+  posts: HomePosts;
   taxonomies: TaxonomiesProps;
 }
 
@@ -47,12 +42,13 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
       <HomeLayout
         left={
           <>
-            {lastNews && (
+            {lastNews?.data?.length > 0 && (
               <NewsCategoriesTabbed
-                initPosts={{ news: lastNews }}
+                initPosts={{ news: lastNews.data }}
                 tabs={categoriesTabs}
                 excludeIds={mainNewsIds}
                 excludeInSlug="news"
+                initCount={lastNews.count}
               />
             )}
             {articles && <ArticleLast posts={articles} />}
@@ -66,9 +62,9 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  let posts: ListPostProps = {
+  let posts: HomePosts = {
     mainNews: [],
-    lastNews: [],
+    lastNews: { data: [], count: 0 },
     interestNews: [],
     articles: [],
   };

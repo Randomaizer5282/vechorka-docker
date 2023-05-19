@@ -2,17 +2,17 @@ import React from "react";
 import type { GetServerSideProps, NextPage } from "next";
 import { PostLayout } from "@/shared/ui/layouts";
 import { PostListShowMore } from "@/entities/post/ui/post-list-show-more";
-import type { ListPostProps, PostProps } from "@/shared/types";
-import { getPosts, getPostsInterest } from "@/shared/api/posts";
+import {
+  type ArticlePosts,
+  getPosts,
+  getPostsInterest,
+} from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
 import { SEO } from "@/shared/ui/SEO";
 import { useSeoFromPathname } from "@/shared/ui/SEO/SEO";
 
 export interface Props {
-  posts: {
-    articles: PostProps[];
-    interestNews: PostProps[];
-  };
+  posts: ArticlePosts;
 }
 
 const ArticlesIndexPage: NextPage<Props> = ({ posts }) => {
@@ -30,7 +30,13 @@ const ArticlesIndexPage: NextPage<Props> = ({ posts }) => {
         }}
       />
       <PostLayout
-        left={<PostListShowMore initPosts={articles} postType="article" />}
+        left={
+          <PostListShowMore
+            initPosts={articles.data}
+            initCount={articles.count}
+            postType="article"
+          />
+        }
         interestPosts={interestNews}
       />
     </>
@@ -38,27 +44,27 @@ const ArticlesIndexPage: NextPage<Props> = ({ posts }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const posts: ListPostProps = {
-    articles: [],
+  const posts: ArticlePosts = {
+    articles: { data: [], count: 0 },
     interestNews: [],
   };
 
   try {
-    const { data } = await getPosts({
+    const fetchedArticles = await getPosts({
       postType: "article",
       limit: 13,
       sticky: true,
       relations: { taxonomy: true },
     });
 
-    if (data?.length) {
-      posts.articles = data;
+    if (fetchedArticles?.data?.length) {
+      posts.articles = fetchedArticles;
     }
   } catch (error) {
     console.log("articles index", error);
   }
 
-  if (!posts.articles?.length) {
+  if (!posts.articles?.data?.length) {
     return {
       notFound: true,
     };

@@ -57,7 +57,7 @@ export class PostService {
 
     return {
       mainNews,
-      lastNews: lastNews.data,
+      lastNews,
       interestNews,
       articles: articles.data,
     };

@@ -3,14 +3,11 @@ import { PostLayout } from "@/shared/ui/layouts";
 import { PostListShowMore } from "@/entities/post/ui/post-list-show-more";
 import { getPageNewsCategory } from "@/shared/api/page-news-category";
 import type { GetServerSideProps } from "next";
-import type { PostProps } from "@/shared/types";
 import { SEO, useSeoFromPathname } from "@/shared/ui/SEO/SEO";
+import { type NewsPosts } from "@/shared/api/posts";
 
 export interface NewsCategoryProps {
-  posts: {
-    news: PostProps[];
-    interestNews: PostProps[];
-  };
+  posts: NewsPosts;
 }
 
 const NewsCategoryPage = ({ posts }: NewsCategoryProps) => {
@@ -28,7 +25,13 @@ const NewsCategoryPage = ({ posts }: NewsCategoryProps) => {
         }}
       />
       <PostLayout
-        left={<PostListShowMore initPosts={news} postType="post" />}
+        left={
+          <PostListShowMore
+            initPosts={news.data}
+            initCount={news.count}
+            postType="post"
+          />
+        }
         interestPosts={interestNews}
       />
     </>
