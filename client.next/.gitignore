@@ -5,6 +5,7 @@
 .parts-example
 
 public/*.xml
+!public/sitemap.xml
 
 .env.*
 !.env.example
