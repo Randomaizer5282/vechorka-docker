@@ -55,7 +55,13 @@ export const useSeoFromPathname = () => {
     title = getSeoTitleByPath(basePath as PostBasePath);
   }
 
-  return { title, description, url: `${settings.siteUrl}${router.pathname}` };
+  return {
+    title,
+    description,
+    url: `${settings.siteUrl}/${basePath}${
+      categorySlug ? `/${categorySlug}` : ""
+    }`,
+  };
 };
 
 interface OgImage {
