@@ -20,7 +20,7 @@ interface SettingsProviderProps extends PropsWithChildren {
 }
 
 const initialContext = {
-  taxonomies: { categories: [], geography: [], tags: [] },
+  taxonomies: { categories: [], geography: [], tags: [], allCategories: [] },
   advert: null,
 };
 

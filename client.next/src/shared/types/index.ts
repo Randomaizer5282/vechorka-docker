@@ -72,6 +72,7 @@ export interface TaxonomiesProps {
   categories: TaxonomyProps[];
   geography: TaxonomyProps[];
   tags: TaxonomyProps[];
+  allCategories: TaxonomyProps[];
 }
 
 export interface NewsPaperPost extends Partial<PostProps> {

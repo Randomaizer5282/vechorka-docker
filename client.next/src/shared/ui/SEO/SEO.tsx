@@ -45,6 +45,12 @@ export const useSeoFromPathname = () => {
     ].find((tax) => tax.slug === categorySlug);
     title = getSeoTitleByPath(basePath as PostBasePath, taxonomy?.name);
     description = taxonomy?.description;
+  } else if (basePath === "news") {
+    const taxonomy = settings.taxonomies.allCategories.find(
+      (tax) => tax.slug === basePath
+    );
+    title = getSeoTitleByPath(basePath as PostBasePath);
+    description = taxonomy?.description;
   } else {
     title = getSeoTitleByPath(basePath as PostBasePath);
   }
