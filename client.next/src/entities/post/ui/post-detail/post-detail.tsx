@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import type { PostProps } from "@/shared/types";
+import type { PostProps, PostBasePath } from "@/shared/types";
 import { ImagePreview } from "@/shared/ui/image";
 import { PostMeta } from "@/entities/post/ui/components/post-meta";
 import { Heading } from "@/shared/ui/heading";
@@ -13,8 +13,7 @@ import { useSettings } from "@/app/contexts/settings-context";
 import { textOverflow } from "@/shared/lib/string";
 import { SEO } from "@/shared/ui/SEO";
 import { PostTags } from "@/entities/post/ui/components/post-tags";
-import { getSeoTitleByPath } from "@/shared/lib/seo";
-import { PostBasePath } from "@/shared/types";
+import { getSeoTitleByPath } from "@/shared/ui/SEO/SEO";
 
 interface Props {
   post: PostProps;
