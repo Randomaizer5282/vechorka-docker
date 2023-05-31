@@ -33,7 +33,11 @@ export const PostCategoryLink = ({
       {categories.map((category) => (
         <Link
           key={category.id}
-          href={getUrlFromParams(postType, category.slug)}
+          href={
+            category.slug === "news"
+              ? `/${category.slug}`
+              : getUrlFromParams(postType, category.slug)
+          }
           prefetch={false}
         >
           <a
