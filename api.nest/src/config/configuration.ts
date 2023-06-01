@@ -12,6 +12,6 @@ export const configuration = () => ({
     // entities: [__dirname + '/../**/*.entity.{ts,js}'],
     autoLoadEntities: true,
     synchronize: false,
-    logging: 'all',
+    logging: process.env.NODE_ENV === 'development' ? 'all' : ['error'],
   },
 });
