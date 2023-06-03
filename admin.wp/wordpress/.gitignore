@@ -9,7 +9,11 @@
 
 wp-content/*
 !wp-content/themes/
-!wp-content/uploads/
+#!wp-content/uploads/*
+
+!wp-content/uploads
+wp-content/uploads/*
+!wp-content/uploads/.htaccess
 
 !wp-content/plugins/
 wp-content/plugins/*
