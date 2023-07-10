@@ -24,7 +24,22 @@ const ErrorPage = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  console.log("headers");
+  console.log(req.headers["old-redirected"]);
+
+  if (res.statusCode === 404 && !req.headers["old-redirected"]) {
+    console.log("url");
+    console.log(req.url);
+
+    return {
+      redirect: {
+        permanent: false,
+        destination: `https://vechorka.ru${req.url}`,
+      },
+    };
+  }
+
   const { settings, taxonomies, advert } = await getGeneralSettings();
   let interestNews = null;
   // interest news
