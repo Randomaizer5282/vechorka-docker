@@ -1,8 +1,8 @@
-import { PostProps } from "@/shared/types";
+import type { PostProps } from "@/shared/types";
 import { PostLayout } from "@/shared/ui/layouts";
 import { getPage } from "@/shared/api/pages";
 import React from "react";
-import { GetServerSideProps } from "next";
+import type { GetServerSideProps } from "next";
 import { PageDetail } from "@/entities/page/ui/page-detail";
 
 interface Props {
