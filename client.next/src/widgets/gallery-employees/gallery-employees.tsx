@@ -8,9 +8,11 @@ import { Arrow } from "@/shared/ui/buttons";
 import NextImage from "next/image";
 import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObserver";
 import { settings } from "@/shared/config";
+import { ActiveEmployee } from "@/widgets/gallery-employees/active-employee";
 
 export const GalleryEmployees = () => {
-  const [posts, setPosts] = useState<PostProps[]>([]);
+  const [employees, setEmployees] = useState<PostProps[]>([]);
+  const [activeEmployee, setActiveEmployee] = useState<PostProps | null>(null);
   const [loading, setLoading] = useState(true);
   const [sliderLoaded, setSliderLoaded] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -54,7 +56,8 @@ export const GalleryEmployees = () => {
           data.sort((a, b) => {
             return a.meta?.order > b.meta?.order ? 1 : -1;
           });
-          setPosts(data);
+          setEmployees(data);
+          setActiveEmployee(data[0]);
         }
       } catch (e) {
         console.log("error");
@@ -65,68 +68,81 @@ export const GalleryEmployees = () => {
     isVisible && fetchPosts();
   }, [isVisible]);
 
-  if (!loading && !posts.length) return null;
+  if (!loading && !employees.length) return null;
 
   return (
-    <div className="mt-6 md:mt-12" ref={ref}>
-      {loading && <SimpleLoader />}
-      {!loading && (
-        <>
-          <div className="flex items-center justify-between mb-5">
-            <h3 className="text-grey-500">Сотрудники</h3>
-            {/* navigation */}
-            {sliderLoaded && instanceRef.current && (
-              <div className="flex">
-                <Arrow
-                  left
-                  onClick={(e: any) =>
-                    e.stopPropagation() || instanceRef.current?.prev()
-                  }
-                  disabled={currentSlide === 0}
-                />
-                <Arrow
-                  onClick={(e: any) =>
-                    e.stopPropagation() || instanceRef.current?.next()
-                  }
-                  disabled={
-                    currentSlide ===
-                    instanceRef?.current?.track?.details?.slides?.length - 1
-                  }
-                />
-              </div>
-            )}
-          </div>
-
-          <div ref={sliderRef} className="keen-slider">
-            {posts.map((post) => {
-              const src =
-                post.preview?.sizes?.medium?.url || post.preview?.url || null;
-              const fullName = post.meta?.full_name;
-              const role = post.meta?.role;
-
-              return (
-                <div
-                  key={post.id}
-                  className={cn("keen-slider__slide flex flex-col text-center")}
-                >
-                  {src && (
-                    <div className="relative w-full h-[200px]">
-                      <NextImage
-                        src={`${settings.uploadUrl}/${src}`}
-                        layout="fill"
-                        objectFit="cover"
-                        objectPosition="top"
-                      />
-                    </div>
-                  )}
-                  {role && <p className="mt-3 text-13px">{role}</p>}
-                  {fullName && <h5 className="mt-3">{fullName}</h5>}
+    <>
+      <div className="mt-6 md:mt-12" ref={ref}>
+        {loading && <SimpleLoader />}
+        {!loading && (
+          <>
+            <div className="flex items-center justify-between mb-5">
+              <h3 className="text-grey-500">Сотрудники</h3>
+              {/* navigation */}
+              {sliderLoaded && instanceRef.current && (
+                <div className="flex">
+                  <Arrow
+                    left
+                    onClick={(e: any) =>
+                      e.stopPropagation() || instanceRef.current?.prev()
+                    }
+                    disabled={currentSlide === 0}
+                  />
+                  <Arrow
+                    onClick={(e: any) =>
+                      e.stopPropagation() || instanceRef.current?.next()
+                    }
+                    disabled={
+                      currentSlide ===
+                      instanceRef?.current?.track?.details?.slides?.length - 1
+                    }
+                  />
                 </div>
-              );
-            })}
-          </div>
-        </>
-      )}
-    </div>
+              )}
+            </div>
+
+            <div ref={sliderRef} className="keen-slider">
+              {employees.map((employee) => {
+                const src =
+                  employee.preview?.sizes?.medium?.url ||
+                  employee.preview?.url ||
+                  null;
+                const fullName = employee.meta?.full_name;
+                const role = employee.meta?.role;
+                const alt =
+                  employee.preview?.caption ||
+                  employee.preview?.description ||
+                  "";
+
+                return (
+                  <div
+                    key={employee.id}
+                    className={cn(
+                      "keen-slider__slide flex flex-col text-center cursor-pointer"
+                    )}
+                    onClick={() => setActiveEmployee(employee)}
+                  >
+                    {src && (
+                      <div className="relative w-full h-[200px]">
+                        <NextImage
+                          src={`${settings.uploadUrl}/${src}`}
+                          layout="fill"
+                          objectFit="cover"
+                          objectPosition="top"
+                          alt={alt}
+                        />
+                      </div>
+                    )}
+                    {role && <p className="mt-3 text-13px">{role}</p>}
+                    {fullName && <h5 className="mt-3">{fullName}</h5>}
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
+      </div>
+      {activeEmployee && <ActiveEmployee employee={activeEmployee} />}
+    </>
   );
 };
