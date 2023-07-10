@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { ScrollTabs } from "@/shared/ui/scroll-tabs";
 import { FullLoader } from "@/shared/ui/loaders";
 import { Button } from "@/shared/ui/buttons";
@@ -38,7 +38,7 @@ const LinkToCategory = ({
   );
 };
 
-export const NewsCategoriesTabbed: FC<Props> = ({
+export const NewsCategoriesTabbed = ({
   initPosts,
   tabs,
   limit = 9,
@@ -46,7 +46,7 @@ export const NewsCategoriesTabbed: FC<Props> = ({
   excludeIds,
   excludeInSlug,
   initCount = 0,
-}) => {
+}: Props) => {
   const [posts, setPosts] = useState<ListPostProps>(initPosts || {});
   const [activeTab, setActiveTab] = useState<TaxonomyProps>(tabs[0] || {});
   const [countPosts, setCountPost] = useState<number>(initCount);
@@ -55,9 +55,6 @@ export const NewsCategoriesTabbed: FC<Props> = ({
 
   const activePosts: PostProps[] =
     activeTab && posts[activeTab.slug] ? posts[activeTab.slug] : [];
-
-  console.log(countPosts);
-  console.log(activePosts.length);
 
   const changeActiveTab = useCallback(
     async (tab: TaxonomyProps) => {
