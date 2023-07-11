@@ -1,10 +1,10 @@
-import { GetServerSideProps } from "next";
 import { getGeneralSettings } from "@/shared/api/settings";
 import { PostLayout } from "@/shared/ui/layouts";
 import React from "react";
 import { ErrorStatus } from "@/shared/ui/error-status";
 import { getPostsInterest } from "@/shared/api/posts";
-import { PostProps } from "@/shared/types";
+import { type GetServerSideProps } from "next";
+import { type PostProps } from "@/shared/types";
 
 const ErrorPage = ({
   statusCode,
@@ -24,14 +24,12 @@ const ErrorPage = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  console.log("headers");
-  console.log(req.headers["old-redirected"]);
-
-  if (res.statusCode === 404 && !req.headers["old-redirected"]) {
-    console.log("url");
-    console.log(req.url);
-
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  res,
+  query,
+}) => {
+  if (!query["redirected"] && res.statusCode === 404) {
     return {
       redirect: {
         permanent: false,
@@ -48,6 +46,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   } catch (error) {
     console.log("interest", error);
   }
+
   return {
     props: {
       statusCode: res.statusCode,
