@@ -53,7 +53,7 @@ export const NavMobile: FC<Props> = ({ menu }) => {
       {/* overlay */}
       <div
         className={cn(
-          "fixed flex inset-0 bg-black bg-opacity-50",
+          "fixed flex inset-0 bg-black bg-opacity-50 z-20",
           isOpen ? "opacity-100" : "opacity-0"
         )}
         style={{ visibility: isOpen ? "visible" : "hidden" }}
