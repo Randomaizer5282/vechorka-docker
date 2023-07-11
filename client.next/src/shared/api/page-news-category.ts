@@ -61,11 +61,11 @@ export const getPageNewsCategory = async ({
     console.log("news category taxonomy slug", error);
   }
 
-  if (!posts.news?.data?.length) {
-    return {
-      notFound: true,
-    };
-  }
+  // if (!posts.news?.data?.length) {
+  //   return {
+  //     notFound: true,
+  //   };
+  // }
 
   // interest news
   try {
