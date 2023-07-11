@@ -22,13 +22,9 @@ export const PostCategoryLink = ({
   if (!categories.length) return null;
   return (
     <div
-      className={cn(
-        className,
-        "relative flex flex-wrap space-x-3 w-fit text-sm-10",
-        {
-          "link-light": color === "light",
-        }
-      )}
+      className={cn(className, "relative flex flex-wrap w-fit text-sm-10", {
+        "link-light": color === "light",
+      })}
     >
       {categories.map((category) => (
         <Link
@@ -41,8 +37,9 @@ export const PostCategoryLink = ({
           prefetch={false}
         >
           <a
-            className={cn({
-              "py-2 px-3 bg-grey-450 hover:bg-blue-300": variant === "button",
+            className={cn("mr-2", {
+              "py-2 px-3 mt-1 bg-grey-450 hover:bg-blue-300":
+                variant === "button",
             })}
           >
             {category.name}

@@ -61,7 +61,7 @@ export const PostItemInside = ({
           {/* category */}
           {categories && (
             <PostCategoryLink
-              className="mt-3 pointer-events-auto"
+              className="mt-2 pointer-events-auto"
               color="light"
               postType={type}
               categories={categories}
