@@ -13,7 +13,7 @@ export const Navbar = () => {
   return (
     <div className="fixed w-full min-w-[220px] h-navbar-sm md:h-navbar-md bg-white z-20">
       <Container className="h-full">
-        <div className="flex items-center h-full border-b-2 border-blue-300">
+        <div className="relative flex items-center h-full border-b-2 border-blue-300">
           {/* logo */}
           <div className="relative flex-shrink-0 h-[35px] md:h-[49px] w-[116px] md:w-[166px] transition-all">
             <Logo priority />
@@ -38,6 +38,12 @@ export const Navbar = () => {
               )}
             </div>
           </div>
+          <a
+            className="absolute -bottom-4 md:-bottom-3 left-0 px-3 py-1 border text-10px bg-blue-100 text-white hover:bg-blue-300 hover:text-white z-10"
+            href="https://old.vechorka.ru"
+          >
+            Старая версия
+          </a>
         </div>
       </Container>
     </div>
