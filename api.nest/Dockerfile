@@ -1,4 +1,4 @@
-FROM node:14-alpine As production
+FROM node:18-alpine As production
 RUN apk add --no-cache tzdata
 
 # Create app directory
