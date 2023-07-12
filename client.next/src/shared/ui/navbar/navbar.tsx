@@ -40,7 +40,7 @@ export const Navbar = () => {
           </div>
           <a
             className="absolute -bottom-4 md:-bottom-3 left-0 px-3 py-1 border text-10px bg-blue-100 text-white hover:bg-blue-300 hover:text-white z-10"
-            href="https://old.vechorka.ru"
+            href={process.env.OLD_HOST}
           >
             Старая версия
           </a>
