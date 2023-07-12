@@ -28,7 +28,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   if (res.statusCode === 404) {
     const checkUrl = `${process.env.OLD_HOST}${req.url}`;
     const responseOldResource = await fetch(checkUrl);
-    console.log(checkUrl);
 
     if (responseOldResource.status === 200) {
       return {
