@@ -1,7 +1,7 @@
-import React from "react";
+import React, { InputHTMLAttributes } from "react";
 import cn from "clsx";
 
-interface Props {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
   variant?: "primary" | "secondary";
   isError?: boolean;
   errorMessage?: string;
@@ -19,6 +19,7 @@ export const InputText = ({
   placeholder = "",
   value = "",
   className,
+  ...rest
 }: Props) => {
   return (
     <>
@@ -42,6 +43,7 @@ export const InputText = ({
         type="text"
         placeholder={placeholder}
         value={value}
+        {...rest}
       />
     </>
   );
