@@ -26,12 +26,15 @@ const ErrorPage = ({
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   // check on old resource
   if (res.statusCode === 404) {
-    const responseOldResource = await fetch(`https://vechorka.ru${req.url}`);
+    const checkUrl = `${process.env.OLD_HOST}${req.url}`;
+    const responseOldResource = await fetch(checkUrl);
+    console.log(checkUrl);
+
     if (responseOldResource.status === 200) {
       return {
         redirect: {
           permanent: false,
-          destination: `https://vechorka.ru${req.url}`,
+          destination: checkUrl,
         },
       };
     }

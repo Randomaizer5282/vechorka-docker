@@ -4,6 +4,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   env: {
+    OLD_HOST: process.env.OLD_HOST,
     CLIENT_HOST: process.env.CLIENT_HOST,
     API_HOST: process.env.API_HOST,
     UPLOAD_HOST: process.env.UPLOAD_HOST,
