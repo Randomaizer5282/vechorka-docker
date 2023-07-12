@@ -25,7 +25,10 @@ const ErrorPage = ({
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   // check on old resource
-  if (res.statusCode === 404) {
+  if (!process.env.OLD_HOST) {
+    console.log("OLD_HOST is not set");
+  }
+  if (res.statusCode === 404 && process.env.OLD_HOST) {
     const checkUrl = `${process.env.OLD_HOST}${req.url}`;
     const responseOldResource = await fetch(checkUrl);
 
