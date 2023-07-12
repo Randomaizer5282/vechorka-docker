@@ -1,6 +1,5 @@
 import { getGeneralSettings } from "@/shared/api/settings";
 import { PostLayout } from "@/shared/ui/layouts";
-import React from "react";
 import { ErrorStatus } from "@/shared/ui/error-status";
 import { getPostsInterest } from "@/shared/api/posts";
 import { type GetServerSideProps } from "next";
@@ -24,18 +23,18 @@ const ErrorPage = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  res,
-  query,
-}) => {
-  if (!query["redirected"] && res.statusCode === 404) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: `https://vechorka.ru${req.url}`,
-      },
-    };
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  // check on old resource
+  if (res.statusCode === 404) {
+    const responseOldResource = await fetch(`https://vechorka.ru${req.url}`);
+    if (responseOldResource.status === 200) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: `https://vechorka.ru${req.url}`,
+        },
+      };
+    }
   }
 
   const { settings, taxonomies, advert } = await getGeneralSettings();
