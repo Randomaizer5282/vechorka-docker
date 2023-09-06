@@ -27,6 +27,7 @@ services:
   #  volumes:
   #    - ./certbot/www/:/var/www/certbot/:rw
   #    - ./certbot/conf/:/etc/letsencrypt/:rw
+  #    - ./certbot/logs:/var/log/letsencrypt
   #  #certbot certonly --webroot --webroot-path /var/www/certbot/ --dry-run -d example.org
   #  #certbot certonly --webroot --webroot-path /var/www/certbot/ -d dev.vechorka.ru
 
@@ -69,6 +70,7 @@ services:
     build:
       context: api.nest
       target: production
+      network: host
     container_name: api-nest
     depends_on:
       - db
@@ -90,6 +92,7 @@ services:
         OLD_HOST: ${OLD_HOST}
         API_HOST: ${API_HOST}
         UPLOAD_HOST: ${UPLOAD_HOST}
+      network: host
     container_name: client-next
     depends_on:
       - api
