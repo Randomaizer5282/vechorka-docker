@@ -12,10 +12,12 @@ services:
     restart: always
     volumes:
       - ./nginx/conf/:/etc/nginx/conf.d/:ro
+      - ./logs/nginx/:/var/log/nginx:rw
       - ./certbot/www:/var/www/certbot/:ro
       - ./certbot/conf/:/etc/nginx/ssl/:ro
     ports:
-      - 20080:80
+      - "80:80"
+      - "443:443"
     networks:
       - app-network
 
@@ -72,11 +74,9 @@ services:
       - db
     env_file:
       - .env
-    #environment:
-    #  - DB_HOST=${DB_HOST:-db}
     restart: always
     ports:
-      - 10000:10000
+      - "5000:5000"
     #command: npm run start:dev
     networks:
       - app-network
@@ -98,7 +98,7 @@ services:
       - .env
     restart: always
     ports:
-      - 3000:3000
+      - "3000:3000"
     networks:
       - app-network
 
