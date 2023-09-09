@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     console.log("OLD_HOST is not set");
   }
   if (res.statusCode === 404 && process.env.OLD_HOST) {
-    const checkUrl = `${process.env.OLD_HOST}${req.url}`;
+    const checkUrl = `123${process.env.OLD_HOST}${req.url}`;
     try {
       console.log("--fetch in error", checkUrl);
       const responseOldHost = await fetch(checkUrl, { redirect: "follow" });
@@ -45,7 +45,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
         };
       }
     } catch (e) {
-      console.log(`from error: ${e}`);
+      console.log(e);
     }
   }
 
