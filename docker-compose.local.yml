@@ -10,7 +10,8 @@ services:
       - client
 #      - api
     volumes:
-      - ./nginx.local/conf/:/etc/nginx/conf.d/:ro
+      - ./nginx/conf/:/etc/nginx/conf.d/:ro
+      - ./logs/nginx/:/var/log/nginx/
       #- ./certbot/www:/var/www/certbot/:ro
       #- ./certbot/conf/:/etc/nginx/ssl/:ro
     ports:
