@@ -49,6 +49,22 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     }
   }
 
+  try {
+    console.log("--test fetch");
+    const test = await fetch("https://google.com");
+    console.log(test);
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    console.log("--test fetch");
+    const test = await fetch("https://ipcoder.ru");
+    console.log(test);
+  } catch (e) {
+    console.log(e);
+  }
+
   const { settings, taxonomies, advert } = await getGeneralSettings();
   let interestNews = null;
   // interest news
