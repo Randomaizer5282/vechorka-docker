@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     const checkUrl = `${process.env.OLD_HOST}${req.url}`;
     try {
       console.log("--fetch in error", checkUrl);
-      const responseOldHost = await fetch(checkUrl);
+      const responseOldHost = await fetch(checkUrl, { redirect: "follow" });
       console.log("---responseOldHost");
       console.log(responseOldHost);
 
