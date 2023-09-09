@@ -11,8 +11,8 @@ services:
     container_name: nginx
     restart: always
     volumes:
-      - ./nginx/conf/:/etc/nginx/conf.d/:ro
-      - ./logs/nginx/:/var/log/nginx:rw
+      - ./nginx/conf/:/etc/nginx/conf.d/
+      - ./logs/nginx/:/var/log/nginx/
       - ./certbot/www:/var/www/certbot/:ro
       - ./certbot/conf/:/etc/nginx/ssl/:ro
     ports:
@@ -21,15 +21,28 @@ services:
     networks:
       - app-network
 
-  #certbot:
-  #  image: certbot/certbot
-  #  container_name: certbot
-  #  volumes:
-  #    - ./certbot/www/:/var/www/certbot/:rw
-  #    - ./certbot/conf/:/etc/letsencrypt/:rw
-  #    - ./certbot/logs:/var/log/letsencrypt
-  #  #certbot certonly --webroot --webroot-path /var/www/certbot/ --dry-run -d example.org
-  #  #certbot certonly --webroot --webroot-path /var/www/certbot/ -d dev.vechorka.ru
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
+      - ./certbot/logs:/var/log/letsencrypt
+    depends_on:
+      - nginx
+    #certonly --webroot --webroot-path=/var/www/html --email sammy@your_domain --agree-tos --no-eff-email --staging -d your_domain  -d www.your_domain
+    #command: certonly --webroot --webroot-path /var/www/certbot --email vechorka@vechorka.ru --dry-run --staging --agree-tos --no-eff-email -d new.vechorka.ru
+    #command: certonly --webroot --webroot-path /var/www/certbot --email vechorka@vechorka.ru --staging --agree-tos --no-eff-email -d new.vechorka.ru
+    #command: "certonly --webroot --agree-tos --no-eff-email --webroot-path /var/www/certbot --email vechorka@vechorka.ru -d new.vechorka.ru"
+    #command: certonly -v --keep --cert-name vechorka.ru --webroot --agree-tos --no-eff-email --webroot-path /var/www/certbot --email vechorka@vechorka.ru -d new.vechorka.ru
+    command: >-
+      certonly -v
+      --reinstall
+      --force-renewal
+      --cert-name vechorka.ru
+      --webroot --webroot-path=/var/www/certbot
+      --email vechorka@vechorka.ru --agree-tos --no-eff-email
+      -d new.vechorka.ru,api.vechorka.ru,admin.vechorka.ru,phpmyadmin.vechorka.ru
 
   db:
     image: mysql:5.7

@@ -14,6 +14,11 @@ wp-content/*
 !wp-content/uploads
 wp-content/uploads/*
 !wp-content/uploads/.htaccess
+!wp-content/.htaccess
+
+!wp-includes
+wp-includes/*
+!wp-includes/.htaccess
 
 !wp-content/plugins/
 wp-content/plugins/*
