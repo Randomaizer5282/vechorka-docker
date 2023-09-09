@@ -30,15 +30,22 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   }
   if (res.statusCode === 404 && process.env.OLD_HOST) {
     const checkUrl = `${process.env.OLD_HOST}${req.url}`;
-    const responseOldResource = await fetch(checkUrl);
+    try {
+      console.log("--fetch in error", checkUrl);
+      const responseOldHost = await fetch(checkUrl);
+      console.log("---responseOldHost");
+      console.log(responseOldHost);
 
-    if (responseOldResource.status === 200) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: checkUrl,
-        },
-      };
+      if (responseOldHost.status === 200) {
+        return {
+          redirect: {
+            permanent: false,
+            destination: checkUrl,
+          },
+        };
+      }
+    } catch (e) {
+      console.log(`from error: ${e}`);
     }
   }
 
