@@ -7,7 +7,6 @@ import {
   Post,
   Query,
   UseInterceptors,
-  Headers,
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import {
@@ -18,7 +17,6 @@ import {
   PostSearchQueryParamsDTO,
 } from './post.dto';
 import { CacheInterceptor } from '@nestjs/cache-manager';
-import { IpAddress } from 'src/utils/decorators/ip';
 
 @Controller('posts')
 export class PostController {
@@ -30,16 +28,7 @@ export class PostController {
   }
 
   @Get()
-  getPosts(
-    @Query() query: PostQueryParamsDTO,
-    @IpAddress() ip,
-    @Headers() headers,
-  ) {
-    console.log('--headers');
-    console.log(headers);
-
-    console.log('--ip');
-    console.log(ip);
+  getPosts(@Query() query: PostQueryParamsDTO) {
     return this.postService.getPosts({
       ...query,
       relations: {
