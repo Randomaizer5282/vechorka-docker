@@ -1,9 +1,11 @@
-import { settings } from "@/shared/config";
+import { config } from "@/shared/config";
 
 export const api = {
   async get(url: string) {
     try {
-      const res = await fetch(`${settings.apiUrl}/${url}`);
+      const res = await fetch(`${config.apiUrl}/${url}`, {
+        headers: { "x-api-key": config.apiKey ?? "" },
+      });
       if (res.ok) {
         return await res.json();
       } else {
@@ -17,11 +19,12 @@ export const api = {
   },
   async post(url: string, body: Record<string, unknown>) {
     try {
-      const res = await fetch(`${settings.apiUrl}/${url}`, {
+      const res = await fetch(`${config.apiUrl}/${url}`, {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          "x-api-key": config.apiKey ?? "",
         },
         body: JSON.stringify(body),
       });

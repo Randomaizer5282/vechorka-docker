@@ -7,7 +7,7 @@ import { SimpleLoader } from "@/shared/ui/loaders";
 import { Arrow } from "@/shared/ui/buttons";
 import NextImage from "next/image";
 import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObserver";
-import { settings } from "@/shared/config";
+import { config } from "@/shared/config";
 import { ActiveEmployee } from "@/widgets/gallery-employees/active-employee";
 
 export const GalleryEmployees = () => {
@@ -125,7 +125,7 @@ export const GalleryEmployees = () => {
                     {src && (
                       <div className="relative w-full h-[200px]">
                         <NextImage
-                          src={`${settings.uploadUrl}/${src}`}
+                          src={`${config.uploadUrl}/${src}`}
                           layout="fill"
                           objectFit="cover"
                           objectPosition="top"

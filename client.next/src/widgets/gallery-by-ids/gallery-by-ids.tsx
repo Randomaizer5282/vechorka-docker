@@ -6,7 +6,7 @@ import { SimpleLoader } from "@/shared/ui/loaders";
 import { Arrow } from "@/shared/ui/buttons";
 import NextImage from "next/image";
 import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObserver";
-import { settings } from "@/shared/config";
+import { config } from "@/shared/config";
 import Lightbox, { type SlideImage } from "yet-another-react-lightbox";
 import type { ImageWithSizes, PostProps } from "@/shared/types";
 import "yet-another-react-lightbox/styles.css";
@@ -61,7 +61,7 @@ export const GalleryByIds = ({ ids, title, perView = 3 }: Props) => {
           fetchedImages?.forEach((image) => {
             if (image.preview?.url) {
               slides.push({
-                src: `${settings.uploadUrl}/${image.preview?.url}`,
+                src: `${config.uploadUrl}/${image.preview?.url}`,
                 description: image.preview?.caption,
                 alt: image.preview?.alt,
               });
@@ -125,7 +125,7 @@ export const GalleryByIds = ({ ids, title, perView = 3 }: Props) => {
                     >
                       <div className="relative w-full h-[190px] sm:h-[260px] bg-gradient-to-t to-grey-400/30 from-grey-400/70">
                         <NextImage
-                          src={`${settings.uploadUrl}/${src}`}
+                          src={`${config.uploadUrl}/${src}`}
                           layout="fill"
                           objectFit="cover"
                           objectPosition="top"

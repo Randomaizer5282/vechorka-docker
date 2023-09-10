@@ -1,4 +1,4 @@
-import { api } from "@/shared/api/core";
+import { api } from "@/shared/api/index";
 import type { PostProps, PostType, TaxonomyType } from "@/shared/types";
 import { encodeQueryData } from "@/shared/lib/helpers";
 

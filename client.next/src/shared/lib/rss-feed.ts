@@ -1,6 +1,6 @@
 import fs from "fs";
 import { PostProps } from "@/shared/types";
-import { settings } from "@/shared/config";
+import { config } from "@/shared/config";
 import { stripText } from "@/shared/lib/string";
 import { formatDateGmt } from "@/shared/lib/date";
 import * as path from "path";
@@ -12,7 +12,7 @@ export const generateYandexRss = async (posts?: PostProps[]) => {
     posts.map(
       ({ title, slug, preview, createdAt, excerpt, content, taxonomies }) => {
         const taxonomy = taxonomies?.categories[0] || "";
-        const url = `${settings.siteUrl}/news/${
+        const url = `${config.siteUrl}/news/${
           taxonomy && taxonomy.slug ? `${taxonomy.slug}/` : ""
         }${slug}`;
 
@@ -46,11 +46,11 @@ export const generateYandexRss = async (posts?: PostProps[]) => {
   feeds = `<?xml version="1.0" encoding="utf-8"?>
   <rss xmlns:yandex="http://news.yandex.ru" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
     <channel>
-      <yandex:logo>${settings.siteUrl}/images/logo.png</yandex:logo>
-      <title>${stripText(settings.title)}</title>
-      <link>${settings.siteUrl}</link>
+      <yandex:logo>${config.siteUrl}/images/logo.png</yandex:logo>
+      <title>${stripText(config.title)}</title>
+      <link>${config.siteUrl}</link>
       <language>ru</language>
-      <description>${stripText(settings.description)}</description>
+      <description>${stripText(config.description)}</description>
       ${feeds}
     </channel>
   </rss>`;

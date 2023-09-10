@@ -3,7 +3,7 @@ import Link from "next/link";
 import cn from "clsx";
 import NextImage from "next/image";
 import type { ImageProps } from "@/shared/types";
-import { settings } from "@/shared/config";
+import { config } from "@/shared/config";
 import { ImageCaption } from "@/shared/ui/image/image-caption";
 import { ImageDescription } from "@/shared/ui/image/image-description";
 
@@ -63,7 +63,7 @@ export const ImagePreview = ({
             )}
           >
             <Image
-              url={`${settings.uploadUrl}/${url}`}
+              url={`${config.uploadUrl}/${url}`}
               alt={alt}
               screenSizes={screenSizes}
               priority={priority}
@@ -73,7 +73,7 @@ export const ImagePreview = ({
       )}
       {!href && url && (
         <Image
-          url={`${settings.uploadUrl}/${url}`}
+          url={`${config.uploadUrl}/${url}`}
           alt={alt}
           screenSizes={screenSizes}
           priority={priority}

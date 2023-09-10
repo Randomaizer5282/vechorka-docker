@@ -1,6 +1,6 @@
 import type { PostProps } from "@/shared/types";
 import NextImage from "next/image";
-import { settings } from "@/shared/config";
+import { config } from "@/shared/config";
 
 export const ActiveEmployee = ({ employee }: { employee: PostProps }) => {
   const src =
@@ -15,7 +15,7 @@ export const ActiveEmployee = ({ employee }: { employee: PostProps }) => {
       {src && (
         <div className="relative md:flex-1 max-w-[260px] h-[260px] mx-auto md:mx-0 md:mr-5">
           <NextImage
-            src={`${settings.uploadUrl}/${src}`}
+            src={`${config.uploadUrl}/${src}`}
             layout="fill"
             objectFit="cover"
             objectPosition="top"

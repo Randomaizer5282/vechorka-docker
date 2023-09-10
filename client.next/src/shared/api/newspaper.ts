@@ -1,4 +1,4 @@
-import { api } from "@/shared/api/core";
+import { api } from "@/shared/api/index";
 import { encodeQueryData } from "@/shared/lib/helpers";
 
 interface Params {

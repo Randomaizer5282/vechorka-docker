@@ -1,6 +1,6 @@
-import { mainMenu, menuNewsItem, settings } from "@/shared/config";
+import { mainMenu, menuNewsItem, config } from "@/shared/config";
 import type { TaxonomiesProps } from "@/shared/types";
-import { api } from "@/shared/api/core";
+import { api } from "@/shared/api/index";
 
 export const getGeneralSettings = async () => {
   let taxonomies: TaxonomiesProps = {
@@ -39,7 +39,7 @@ export const getGeneralSettings = async () => {
   return {
     // TODO: check this code
     settings: {
-      ...settings,
+      ...config,
       menus: {
         main: mainNavigation,
       },
