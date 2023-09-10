@@ -1,7 +1,7 @@
 import React from "react";
 import type { GetServerSideProps, NextPage } from "next";
 import { PostLayout } from "@/shared/ui/layouts";
-import { PostListShowMore } from "@/entities/post/ui/post-list-show-more";
+import { PostListShowMore } from "@/modules/post/ui/post-list-show-more";
 import {
   type ArticlePosts,
   getPosts,

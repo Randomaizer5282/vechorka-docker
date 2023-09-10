@@ -65,6 +65,10 @@ if (!process.env.CLIENT_HOST) {
   console.log(`CLIENT_HOST not set`);
 }
 
+if (!process.env.OLD_HOST) {
+  console.log("OLD_HOST is not set");
+}
+
 if (!process.env.API_HOST) {
   console.log(`API_HOST not set`);
 }

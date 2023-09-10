@@ -1,6 +1,6 @@
 import React from "react";
 import { PostLayout } from "@/shared/ui/layouts";
-import { PostListShowMore } from "@/entities/post/ui/post-list-show-more";
+import { PostListShowMore } from "@/modules/post/ui/post-list-show-more";
 import { getPageNewsCategory } from "@/shared/api/page-news-category";
 import type { GetServerSideProps } from "next";
 import { SEO, useSeoFromPathname } from "@/shared/ui/SEO/SEO";

@@ -1,6 +1,6 @@
 import { getGeneralSettings } from "@/shared/api/settings";
 import { getPostsByTaxonomySlug, getPostsInterest } from "@/shared/api/posts";
-import { TagList } from "@/entities/tag/ui/tag-list";
+import { TagList } from "@/modules/tag/ui/tag-list";
 import { TagLayout } from "@/shared/ui/layouts/tag-layout";
 import type { PostProps } from "@/shared/types";
 import type { GetServerSideProps } from "next";

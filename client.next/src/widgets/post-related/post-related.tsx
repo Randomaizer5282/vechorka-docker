@@ -1,6 +1,6 @@
 import React from "react";
 import type { PostProps } from "@/shared/types";
-import { PostItem } from "@/entities/post/ui/post-item";
+import { PostItem } from "@/modules/post/ui/post-item";
 import cn from "clsx";
 
 interface Props {

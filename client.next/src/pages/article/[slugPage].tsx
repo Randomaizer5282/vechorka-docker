@@ -2,7 +2,7 @@ import React from "react";
 import type { GetServerSideProps } from "next";
 import type { PostProps } from "@/shared/types";
 import { PostLayout } from "@/shared/ui/layouts";
-import { PostDetail } from "@/entities/post/ui/post-detail";
+import { PostDetail } from "@/modules/post/ui/post-detail";
 import { getPostBySlug, getPostsInterest } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
 import { PostRelated } from "@/widgets/post-related";

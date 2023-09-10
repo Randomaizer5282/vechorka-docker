@@ -5,7 +5,7 @@ import { Button } from "@/shared/ui/buttons";
 import type { ListPostProps, PostProps, PostType } from "@/shared/types";
 import type { TaxonomyProps } from "@/shared/types";
 import router from "next/router";
-import { PostItem } from "@/entities/post/ui/post-item";
+import { PostItem } from "@/modules/post/ui/post-item";
 import { getPosts } from "@/shared/api/posts";
 import { messages } from "@/shared/constants";
 import { getUrlFromParams } from "@/shared/lib/links";

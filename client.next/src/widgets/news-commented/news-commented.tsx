@@ -1,5 +1,5 @@
 import React from "react";
-import { PostMeta } from "@/entities/post/ui/components/post-meta";
+import { PostMeta } from "@/modules/post/ui/components/post-meta";
 import { getPostsCommented } from "@/shared/api/posts";
 import { Heading } from "@/shared/ui/heading";
 import { PostListWidget } from "@/widgets/post-list-widget";

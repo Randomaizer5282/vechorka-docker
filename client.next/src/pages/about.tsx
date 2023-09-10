@@ -2,7 +2,7 @@ import React from "react";
 import { getPage } from "@/shared/api/pages";
 import { PostProps } from "@/shared/types";
 import { PostLayout } from "@/shared/ui/layouts";
-import { PageAbout } from "@/entities/page/ui/page-about";
+import { PageAbout } from "@/modules/page/ui/page-about";
 
 interface Props {
   post: PostProps;

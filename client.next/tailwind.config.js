@@ -2,12 +2,12 @@
 module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx}",
-    "./src/entities/post/ui/**/*.{js,ts,jsx,tsx}",
-    "./src/entities/page/ui/**/*.{js,ts,jsx,tsx}",
-    "./src/entities/newspaper/ui/**/*.{js,ts,jsx,tsx}",
-    "./src/entities/search/ui/**/*.{js,ts,jsx,tsx}",
-    "./src/entities/comment/ui/**/*.{js,ts,jsx,tsx}",
-    "./src/entities/poll/ui/**/*.{js,ts,jsx,tsx}",
+    "./src/modules/post/ui/**/*.{js,ts,jsx,tsx}",
+    "./src/modules/page/ui/**/*.{js,ts,jsx,tsx}",
+    "./src/modules/newspaper/ui/**/*.{js,ts,jsx,tsx}",
+    "./src/modules/search/ui/**/*.{js,ts,jsx,tsx}",
+    "./src/modules/comment/ui/**/*.{js,ts,jsx,tsx}",
+    "./src/modules/poll/ui/**/*.{js,ts,jsx,tsx}",
     "./src/widgets/**/*.{js,ts,jsx,tsx}",
     "./src/shared/ui/**/*.{js,ts,jsx,tsx}",
     "./src/shared/lib/**/*.{js,ts,jsx,tsx}",

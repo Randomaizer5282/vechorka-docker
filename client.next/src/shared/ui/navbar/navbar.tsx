@@ -2,7 +2,7 @@ import React from "react";
 import { Container } from "@/shared/ui/container";
 import { useSettings } from "@/app/contexts/settings-context";
 import { Logo } from "@/shared/ui/logo";
-import { SearchForm } from "@/entities/search/ui/search-form";
+import { SearchForm } from "@/modules/search/ui/search-form";
 import { Nav } from "@/shared/ui/navigation/nav";
 import { NavMobile } from "@/shared/ui/navigation/nav-mobile";
 import { menuHomeItem } from "@/shared/config";

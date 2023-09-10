@@ -4,8 +4,8 @@ import { FullLoader } from "@/shared/ui/loaders";
 import type { PostProps, ListPostProps } from "@/shared/types";
 import type { TaxonomyProps } from "@/shared/types";
 import { getPosts } from "@/shared/api/posts";
-import { PostItemInside } from "@/entities/post/ui/post-item-inside";
-import { PostItemSimple } from "@/entities/post/ui/post-item-simple";
+import { PostItemInside } from "@/modules/post/ui/post-item-inside";
+import { PostItemSimple } from "@/modules/post/ui/post-item-simple";
 import { messages } from "@/shared/constants";
 
 interface Props {

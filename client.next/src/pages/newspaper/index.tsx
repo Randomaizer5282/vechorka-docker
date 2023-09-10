@@ -1,7 +1,7 @@
 import React from "react";
 import { NewsPaperAllProps, PostProps } from "@/shared/types";
 import { PostLayout } from "@/shared/ui/layouts";
-import { NewspaperArchive } from "@/entities/newspaper/ui/newspaper-archive";
+import { NewspaperArchive } from "@/modules/newspaper/ui/newspaper-archive";
 import { getNewspapers } from "@/shared/api/newspaper";
 import { getPostsInterest } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";

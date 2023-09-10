@@ -3,7 +3,7 @@ import { PostLayout } from "@/shared/ui/layouts";
 import { getPage } from "@/shared/api/pages";
 import React from "react";
 import type { GetServerSideProps } from "next";
-import { PageDetail } from "@/entities/page/ui/page-detail";
+import { PageDetail } from "@/modules/page/ui/page-detail";
 
 interface Props {
   post: PostProps;

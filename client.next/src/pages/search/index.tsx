@@ -2,7 +2,7 @@ import { PostLayout } from "@/shared/ui/layouts";
 import { getGeneralSettings } from "@/shared/api/settings";
 import type { PostProps } from "@/shared/types";
 import { getPostsInterest } from "@/shared/api/posts";
-import { SearchList } from "@/entities/search/ui/search-list";
+import { SearchList } from "@/modules/search/ui/search-list";
 
 interface Props {
   interestNews: PostProps[];

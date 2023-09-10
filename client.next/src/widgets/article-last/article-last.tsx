@@ -3,7 +3,7 @@ import type { PostProps } from "@/shared/types";
 import Link from "next/link";
 import { Icon } from "@/shared/ui/icon";
 import { ImagePreview } from "@/shared/ui/image";
-import { PostMeta } from "@/entities/post/ui/components/post-meta";
+import { PostMeta } from "@/modules/post/ui/components/post-meta";
 import { Heading } from "@/shared/ui/heading";
 import { getUrlFromParams } from "@/shared/lib/links";
 

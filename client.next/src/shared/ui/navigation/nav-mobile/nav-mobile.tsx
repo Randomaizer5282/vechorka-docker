@@ -11,7 +11,7 @@ import {
   Hamburger,
 } from "@/shared/ui/navigation/nav-mobile/buttons";
 import cn from "clsx";
-import { SearchForm } from "@/entities/search/ui/search-form";
+import { SearchForm } from "@/modules/search/ui/search-form";
 import { MenuItem } from "@/shared/ui/navigation/nav-mobile/menu-item";
 import { useKey } from "@/shared/lib/hooks/useKey";
 
