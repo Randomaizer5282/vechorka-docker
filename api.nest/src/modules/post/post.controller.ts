@@ -17,6 +17,7 @@ import {
   PostSearchQueryParamsDTO,
 } from './post.dto';
 import { CacheInterceptor } from '@nestjs/cache-manager';
+import { IpAddress } from 'src/utils/decorators/ip-address';
 
 @Controller('posts')
 export class PostController {
@@ -28,7 +29,9 @@ export class PostController {
   }
 
   @Get()
-  getPosts(@Query() query: PostQueryParamsDTO) {
+  getPosts(@Query() query: PostQueryParamsDTO, @IpAddress() ip) {
+    console.log('--ip');
+    console.log(ip);
     return this.postService.getPosts({
       ...query,
       relations: {
