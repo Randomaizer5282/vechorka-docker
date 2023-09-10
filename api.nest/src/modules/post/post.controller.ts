@@ -6,6 +6,7 @@ import {
   ParseIntPipe,
   Post,
   Query,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { PostService } from './post.service';
@@ -17,7 +18,9 @@ import {
   PostSearchQueryParamsDTO,
 } from './post.dto';
 import { CacheInterceptor } from '@nestjs/cache-manager';
+import { ApiKeyGuard } from '../../utils/guards/api-key.guard';
 
+@UseGuards(ApiKeyGuard)
 @Controller('posts')
 export class PostController {
   constructor(private readonly postService: PostService) {}

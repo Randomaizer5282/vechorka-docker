@@ -3,6 +3,7 @@ import { NewspaperService } from './newspaper.service';
 import { NewspaperParamsDTO } from './newspaper.dto';
 import { ApiKeyGuard } from '../../utils/guards/api-key.guard';
 
+@UseGuards(ApiKeyGuard)
 @Controller('newspaper')
 export class NewspaperController {
   constructor(private readonly newspaperService: NewspaperService) {}
