@@ -1,6 +1,7 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { NewspaperService } from './newspaper.service';
 import { NewspaperParamsDTO } from './newspaper.dto';
+import { ApiKeyGuard } from '../../utils/guards/api-key.guard';
 
 @Controller('newspaper')
 export class NewspaperController {
@@ -8,6 +9,6 @@ export class NewspaperController {
 
   @Get()
   getNewspapers(@Query() query: NewspaperParamsDTO) {
-    return this.newspaperService.getNewspapersByYear({ ...query });
+    return this.newspaperService.getNewspapersByYear(query);
   }
 }
