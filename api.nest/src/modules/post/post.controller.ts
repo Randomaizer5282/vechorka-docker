@@ -17,7 +17,7 @@ import {
   PostSearchQueryParamsDTO,
 } from './post.dto';
 import { CacheInterceptor } from '@nestjs/cache-manager';
-import { IpAddress } from 'src/utils/decorators/ip-address';
+import { IpAddress } from 'src/utils/decorators/ip';
 
 @Controller('posts')
 export class PostController {
