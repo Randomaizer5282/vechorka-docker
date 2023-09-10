@@ -8,6 +8,7 @@ const nextConfig = {
     CLIENT_HOST: process.env.CLIENT_HOST,
     API_HOST: process.env.API_HOST,
     UPLOAD_HOST: process.env.UPLOAD_HOST,
+    API_KEY: process.env.API_KEY,
   },
   images: {
     domains: ["vechorka.loc", "vechorka.ru", "admin.vechorka.ru", "localhost"],

@@ -93,6 +93,7 @@ services:
         OLD_HOST: ${OLD_HOST}
         API_HOST: ${API_HOST}
         UPLOAD_HOST: ${UPLOAD_HOST}
+        API_KEY: ${API_KEY}
     container_name: client
     env_file:
       - .env

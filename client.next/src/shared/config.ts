@@ -57,10 +57,27 @@ export const mainMenu = [
   },
 ];
 
-export const settings = {
+if (!process.env.API_KEY) {
+  console.log(`API_KEY not set`);
+}
+
+if (!process.env.CLIENT_HOST) {
+  console.log(`CLIENT_HOST not set`);
+}
+
+if (!process.env.API_HOST) {
+  console.log(`API_HOST not set`);
+}
+
+if (!process.env.UPLOAD_HOST) {
+  console.log(`UPLOAD_HOST not set`);
+}
+
+export const config = {
   siteUrl: process.env.CLIENT_HOST,
   apiUrl: process.env.API_HOST,
   uploadUrl: process.env.UPLOAD_HOST,
+  apiKey: process.env.API_KEY,
   title: "Вечерний Ставрополь",
   description:
     "Новости, статьи, блоги о событиях в Ставрополе, Ставропольском крае, России, мире.",

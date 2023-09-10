@@ -36,6 +36,10 @@ async function bootstrap() {
   const port = configService.get('port');
   await app.listen(port);
 
+  if (!configService.get('apiKey')) {
+    console.log(`API_KEY not set`);
+  }
+
   console.log(
     `Application is running on port: ${port}, env: ${configService.get(
       'NODE_ENV',
