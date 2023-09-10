@@ -31,12 +31,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   if (res.statusCode === 404 && process.env.OLD_HOST) {
     const checkUrl = `${process.env.OLD_HOST}${req.url}`;
     try {
-      console.log("--fetch in error", checkUrl);
-      const responseOldHost = await fetch(checkUrl, { redirect: "follow" });
-      console.log("---responseOldHost");
-      console.log(responseOldHost);
-
-      if (responseOldHost.status === 200) {
+      const responseOld = await fetch(checkUrl, { redirect: "follow" });
+      if (responseOld.status === 200) {
         return {
           redirect: {
             permanent: false,
@@ -49,25 +45,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     }
   }
 
-  try {
-    console.log("--test fetch");
-    const test = await fetch("https://google.com");
-    console.log(test);
-  } catch (e) {
-    console.log(e);
-  }
-
-  try {
-    console.log("--test fetch");
-    const test = await fetch("https://ipcoder.ru");
-    console.log(test);
-  } catch (e) {
-    console.log(e);
-  }
-
   const { settings, taxonomies, advert } = await getGeneralSettings();
   let interestNews = null;
-  // interest news
   try {
     interestNews = await getPostsInterest();
   } catch (error) {
