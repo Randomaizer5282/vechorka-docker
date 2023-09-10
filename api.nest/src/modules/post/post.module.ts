@@ -18,7 +18,7 @@ import { CacheModule } from '@nestjs/cache-manager';
     AttachmentModule,
     forwardRef(() => CommentModule),
     CacheModule.register({
-      ttl: 60000, // ml seconds
+      ttl: 1000 * 60, // ml seconds
       // max: 10, // maximum number of items in cache
     }),
   ],
