@@ -85,6 +85,9 @@ define( 'SECURE_AUTH_SALT', getenv_docker('WORDPRESS_SECURE_AUTH_SALT', '3df1546
 define( 'LOGGED_IN_SALT',   getenv_docker('WORDPRESS_LOGGED_IN_SALT',   '10d4ba2649a0bd5a6af217f20864ab68eb510642') );
 define( 'NONCE_SALT',       getenv_docker('WORDPRESS_NONCE_SALT',       '83e2b027836fd04a6ce6a2ba31c101311b1742e2') );
 // (See also https://wordpress.stackexchange.com/a/152905/199287)
+// client revalidate
+define('CLIENT_REVALIDATE_URL', getenv_docker('CLIENT_REVALIDATE_URL', null));
+define('CLIENT_REVALIDATE_KEY', getenv_docker('CLIENT_REVALIDATE_KEY', null));
 
 /**#@-*/
 
