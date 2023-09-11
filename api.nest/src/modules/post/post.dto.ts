@@ -18,12 +18,12 @@ export class PostQueryParamsDTO {
   @IsNumber()
   @Max(100)
   @Min(1)
-  @Transform(({ value }) => Number(value))
+  @Transform(({ value }) => Math.abs(Number(value)))
   limit?: number;
 
   @IsOptional()
   @IsNumber()
-  @Transform(({ value }) => Number(value))
+  @Transform(({ value }) => Math.abs(Number(value)))
   offset?: number;
 
   @IsOptional()
@@ -80,12 +80,12 @@ export class PostSearchQueryParamsDTO {
   @IsNumber()
   @Max(100)
   @Min(1)
-  @Transform(({ value }) => Number(value))
+  @Transform(({ value }) => Math.abs(Number(value)))
   limit?: number;
 
   @IsOptional()
   @IsNumber()
-  @Transform(({ value }) => Number(value))
+  @Transform(({ value }) => Math.abs(Number(value)))
   offset?: number;
 }
 
