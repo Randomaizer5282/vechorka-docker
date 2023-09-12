@@ -84,7 +84,6 @@ services:
     build:
       context: api.nest
       target: production
-      network: host
     container_name: api-nest
     depends_on:
       - db
@@ -108,7 +107,6 @@ services:
         UPLOAD_HOST: ${UPLOAD_HOST}
         API_KEY: ${API_KEY}
         CLIENT_REVALIDATE_KEY: ${CLIENT_REVALIDATE_KEY}
-      network: host
     container_name: client-next
     depends_on:
       - api
