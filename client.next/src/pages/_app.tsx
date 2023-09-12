@@ -1,7 +1,7 @@
-import "@/app/styles/globals.css";
+import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import NextNProgress from "nextjs-progressbar";
-import { SettingsProvider } from "@/app/contexts/settings-context";
+import { SettingsProvider } from "@/contexts/settings-context";
 import { Head } from "@/shared/ui/head";
 import { Layout } from "@/shared/ui/layouts";
 
