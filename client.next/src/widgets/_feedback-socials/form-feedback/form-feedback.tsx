@@ -25,12 +25,12 @@ export const FormFeedback = () => {
 
       <p className="mt-3 text-white text-14px">
         Заполняя форму, вы даете согласие на{" "}
-        <Link href="/user-agreement">
-          <a className="link-light underline">обработку персональных данных</a>
+        <Link href="/user-agreement" className="link-light underline">
+          обработку персональных данных
         </Link>{" "}
         и{" "}
-        <Link href="/privacy-policy">
-          <a className="link-light underline">политику конфиденциальности</a>
+        <Link href="/privacy-policy" className="link-light underline">
+          политику конфиденциальности
         </Link>
       </p>
     </div>

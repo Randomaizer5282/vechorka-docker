@@ -2,7 +2,7 @@ import React from "react";
 import { getSizesFromResolution } from "@/shared/lib/helpers";
 import Image from "next/image";
 import cn from "clsx";
-import { useSettings } from "@/app/contexts/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 
 export interface AdvertProps {
   type: string; // "html" | "image"
@@ -49,7 +49,12 @@ export const Advert = ({
         {isRemoteImage ? (
           <img src={imageUrl} width={sizes[0]} height={sizes[1]} alt="" />
         ) : (
-          <Image src={imageUrl} width={sizes[0]} height={sizes[1]} alt="" />
+          <Image
+            src={imageUrl}
+            width={Number(sizes[0])}
+            height={Number(sizes[1])}
+            alt=""
+          />
         )}
       </>
     );

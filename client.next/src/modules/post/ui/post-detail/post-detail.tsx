@@ -9,7 +9,7 @@ import { CommentList } from "@/modules/comment/ui/comment-list";
 import { PollView } from "@/modules/poll/ui/poll-view";
 import { ShareLinks } from "@/shared/ui/share-links";
 import { useRouter } from "next/router";
-import { useSettings } from "@/app/contexts/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 import { textOverflow } from "@/shared/lib/string";
 import { SEO } from "@/shared/ui/SEO";
 import { PostTags } from "@/modules/post/ui/components/post-tags";

@@ -2,7 +2,7 @@ import React from "react";
 import type { PostProps } from "@/shared/types";
 import { Heading } from "@/shared/ui/heading";
 import { getFieldsRepeater } from "@/shared/lib/meta-fields";
-import { useSettings } from "@/app/contexts/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 import { getPhoneFromString } from "@/shared/lib/string";
 import { ImagePreview } from "@/shared/ui/image";
 import { useRouter } from "next/router";

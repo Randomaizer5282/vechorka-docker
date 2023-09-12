@@ -9,7 +9,7 @@ import { Button } from "@/shared/ui/buttons";
 import { Heading } from "@/shared/ui/heading";
 import { LastRelease } from "@/modules/newspaper/ui/newspaper-archive/last-release";
 import { useRouter } from "next/router";
-import { useSettings } from "@/app/contexts/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 import { SEO } from "@/shared/ui/SEO";
 
 export const NewspaperArchive = ({

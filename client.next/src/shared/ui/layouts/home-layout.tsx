@@ -5,7 +5,7 @@ import { NewsTopDynamic } from "@/widgets/news-top";
 import { LayoutColumn } from "@/shared/ui/layouts/layout-column";
 import type { NextPage } from "next";
 import { DynamicAdvert } from "@/widgets/advert";
-import { useSettings } from "@/app/contexts/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 
 interface Props {
   left: React.ReactNode;

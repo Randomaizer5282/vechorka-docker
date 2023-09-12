@@ -7,7 +7,7 @@ import { NavCategories } from "@/shared/ui/navigation/nav-categories";
 import type { PostProps } from "@/shared/types";
 import { PostRelated } from "@/widgets/post-related";
 import { DynamicAdvert } from "@/widgets/advert";
-import { useSettings } from "@/app/contexts/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 
 interface Props {
   left: React.ReactNode;

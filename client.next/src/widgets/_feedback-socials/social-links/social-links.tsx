@@ -1,5 +1,5 @@
 import React from "react";
-import { useSettings } from "@/app/contexts/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 import { Icon } from "@/shared/ui/icon";
 import cn from "clsx";
 

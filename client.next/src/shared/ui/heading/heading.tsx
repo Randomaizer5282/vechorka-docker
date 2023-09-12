@@ -30,10 +30,8 @@ export const Heading = ({
   return (
     <>
       {href ? (
-        <Link href={href} prefetch={false}>
-          <a className={cn(className, classes)}>
-            <Title />
-          </a>
+        <Link href={href} prefetch={false} className={cn(className, classes)}>
+          <Title />
         </Link>
       ) : (
         <Title className={cn(className, classes)} />

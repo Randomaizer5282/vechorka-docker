@@ -27,10 +27,8 @@ export const Logo = ({ priority = false }: Props) => {
           <ImageLogo />
         </div>
       ) : (
-        <Link href="/">
-          <a className="relative block w-full h-full">
-            <ImageLogo />
-          </a>
+        <Link href="/" className="relative block w-full h-full">
+          <ImageLogo />
         </Link>
       )}
     </>

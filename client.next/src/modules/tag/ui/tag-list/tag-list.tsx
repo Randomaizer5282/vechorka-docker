@@ -7,7 +7,7 @@ import { FullLoader } from "@/shared/ui/loaders";
 import { PostItem } from "@/modules/post/ui/post-item";
 import { Button } from "@/shared/ui/buttons";
 import type { PostProps } from "@/shared/types";
-import { useSettings } from "@/app/contexts/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 import { useTags } from "@/modules/tag/ui/use-tags";
 import { NavTags } from "@/shared/ui/navigation/nav-tags";
 

@@ -28,21 +28,21 @@ export const MenuItem: FC<Props> = ({ item, onClick }) => {
   if (child?.length) {
     return (
       <li>
-        <Link href={href} prefetch={false}>
-          <a
-            className={cn(linkClasses, openSubMenu && "bg-grey-490")}
-            onClick={toggleSubMenu}
-          >
-            {icon && <Icon name={icon} className={iconClasses} />}
-            <span className="flex-1">{name}</span>
-            <Icon
-              name="arrow"
-              className={cn(
-                "w-[12px] h-[12px] ml-2 stroke-white",
-                openSubMenu ? "hover:bg-grey-490" : "-rotate-90"
-              )}
-            />
-          </a>
+        <Link
+          href={href}
+          prefetch={false}
+          className={cn(linkClasses, openSubMenu && "bg-grey-490")}
+          onClick={toggleSubMenu}
+        >
+          {icon && <Icon name={icon} className={iconClasses} />}
+          <span className="flex-1">{name}</span>
+          <Icon
+            name="arrow"
+            className={cn(
+              "w-[12px] h-[12px] ml-2 stroke-white",
+              openSubMenu ? "hover:bg-grey-490" : "-rotate-90"
+            )}
+          />
         </Link>
         <SubMenu
           items={child}
@@ -55,11 +55,14 @@ export const MenuItem: FC<Props> = ({ item, onClick }) => {
   } else {
     return (
       <li>
-        <Link href={href} prefetch={false}>
-          <a className={linkClasses} onClick={onClick}>
-            {icon && <Icon name={icon} className={iconClasses} />}
-            {name}
-          </a>
+        <Link
+          href={href}
+          prefetch={false}
+          className={linkClasses}
+          onClick={onClick}
+        >
+          {icon && <Icon name={icon} className={iconClasses} />}
+          {name}
         </Link>
       </li>
     );

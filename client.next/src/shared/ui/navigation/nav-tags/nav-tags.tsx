@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import cn from "clsx";
-import { useSettings } from "@/app/contexts/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 import { useRouter } from "next/router";
 
 interface Props {
@@ -20,17 +20,17 @@ export const NavTags = ({ className }: Props) => {
         {tags.map(({ id, name, slug, count }) => {
           if (count && count > 0) {
             return (
-              <Link key={id} href={`/tag/${slug}`}>
-                <a
-                  className={cn(
-                    "flex items-center px-3 py-2 text-white hover:text-white hover:bg-blue-300",
-                    slug === router.query.slug ? "bg-blue-300" : "bg-blue-100"
-                  )}
-                >
-                  <span>
-                    {name} ({count})
-                  </span>
-                </a>
+              <Link
+                key={id}
+                href={`/tag/${slug}`}
+                className={cn(
+                  "flex items-center px-3 py-2 text-white hover:text-white hover:bg-blue-300",
+                  slug === router.query.slug ? "bg-blue-300" : "bg-blue-100"
+                )}
+              >
+                <span>
+                  {name} ({count})
+                </span>
               </Link>
             );
           }

@@ -11,7 +11,7 @@ import { messages } from "@/shared/constants";
 import { getUrlFromParams } from "@/shared/lib/links";
 import cn from "clsx";
 import { DynamicAdvert } from "@/widgets/advert";
-import { useSettings } from "@/app/contexts/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 
 interface Props {
   initPosts: ListPostProps;

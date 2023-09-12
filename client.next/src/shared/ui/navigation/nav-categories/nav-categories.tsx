@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { MenuProps } from "@/shared/ui/navigation/types";
 import Link from "next/link";
 import cn from "clsx";
-import { useSettings } from "@/app/contexts/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 import { useRouter } from "next/router";
 import { menuAllNewsItem } from "@/shared/config";
 
@@ -35,15 +35,15 @@ const CategoriesView = ({
           const href = slug === "news" ? `/news` : `/news/${slug}`;
 
           return (
-            <Link key={id} href={href}>
-              <a
-                className={cn(
-                  "flex items-center px-3 py-2 text-white hover:text-white hover:bg-blue-300",
-                  active(slug) ? "bg-blue-300" : "bg-blue-100"
-                )}
-              >
-                <span>{name}</span>
-              </a>
+            <Link
+              key={id}
+              href={href}
+              className={cn(
+                "flex items-center px-3 py-2 text-white hover:text-white hover:bg-blue-300",
+                active(slug) ? "bg-blue-300" : "bg-blue-100"
+              )}
+            >
+              <span>{name}</span>
             </Link>
           );
         })}

@@ -35,15 +35,12 @@ export const PostCategoryLink = ({
               : getUrlFromParams(postType, category.slug)
           }
           prefetch={false}
+          className={cn("mr-2", {
+            "py-2 px-3 mt-1 bg-grey-450 hover:bg-blue-300":
+              variant === "button",
+          })}
         >
-          <a
-            className={cn("mr-2", {
-              "py-2 px-3 mt-1 bg-grey-450 hover:bg-blue-300":
-                variant === "button",
-            })}
-          >
-            {category.name}
-          </a>
+          {category.name}
         </Link>
       ))}
     </div>

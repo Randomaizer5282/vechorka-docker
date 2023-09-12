@@ -51,14 +51,15 @@ export const ArticleLast: FC<Props> = ({ posts }) => {
 
                 {/* more link */}
                 <div className="mt-auto text-14px">
-                  <Link href={href}>
-                    <a className="flex items-center justify-end group">
-                      <span>Прочитать больше</span>
-                      <Icon
-                        name="arrow"
-                        className="h-[6px] w-[10px] ml-2 -rotate-90 stroke-blue-300 group-hover:stroke-blue-100"
-                      />
-                    </a>
+                  <Link
+                    href={href}
+                    className="flex items-center justify-end group"
+                  >
+                    <span>Прочитать больше</span>
+                    <Icon
+                      name="arrow"
+                      className="h-[6px] w-[10px] ml-2 -rotate-90 stroke-blue-300 group-hover:stroke-blue-100"
+                    />
                   </Link>
                 </div>
               </div>

@@ -27,26 +27,28 @@ export const PaperLinks = ({ className }: Props) => {
         {/* links */}
         <div className="relative space-y-3">
           <div className="flex items-center text-14px">
-            <Link href="/newspaper">
-              <a className="flex items-center justify-end link-light group">
-                <Icon
-                  name="arrow"
-                  className="h-[8px] w-[10px] mr-1.5 -rotate-90 stroke-white group-hover:stroke-grey-100"
-                />
-                <span>Свежий номер</span>
-              </a>
+            <Link
+              href="/newspaper"
+              className="flex items-center justify-end link-light group"
+            >
+              <Icon
+                name="arrow"
+                className="h-[8px] w-[10px] mr-1.5 -rotate-90 stroke-white group-hover:stroke-grey-100"
+              />
+              <span>Свежий номер</span>
             </Link>
           </div>
 
           <div className="flex items-center text-14px">
-            <Link href="/newspaper">
-              <a className="flex items-center justify-end link-light group">
-                <Icon
-                  name="arrow"
-                  className="h-[8px] w-[10px] mr-1.5 -rotate-90 stroke-white group-hover:stroke-grey-100"
-                />
-                <span>Архив номеров</span>
-              </a>
+            <Link
+              href="/newspaper"
+              className="flex items-center justify-end link-light group"
+            >
+              <Icon
+                name="arrow"
+                className="h-[8px] w-[10px] mr-1.5 -rotate-90 stroke-white group-hover:stroke-grey-100"
+              />
+              <span>Архив номеров</span>
             </Link>
           </div>
         </div>

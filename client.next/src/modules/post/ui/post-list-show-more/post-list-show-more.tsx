@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { useSettings } from "@/app/contexts/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 import { FullLoader } from "@/shared/ui/loaders";
 import { messages } from "@/shared/constants";
 import { PostItemInside } from "@/modules/post/ui/post-item-inside";

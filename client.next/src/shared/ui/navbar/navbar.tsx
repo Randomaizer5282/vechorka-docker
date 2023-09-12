@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "@/shared/ui/container";
-import { useSettings } from "@/app/contexts/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 import { Logo } from "@/shared/ui/logo";
 import { SearchForm } from "@/modules/search/ui/search-form";
 import { Nav } from "@/shared/ui/navigation/nav";

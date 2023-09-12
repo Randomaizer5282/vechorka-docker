@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "@/shared/ui/container";
 import { Logo } from "@/shared/ui/logo";
-import { useSettings } from "@/app/contexts/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 import { getPhoneFromString } from "@/shared/lib/string";
 import Link from "next/link";
 import cn from "clsx";
@@ -83,22 +83,22 @@ export const Footer = () => {
           <div className="flex-1 link-primary">
             <ListTitle title="Навигация" listClassName="flex-col">
               <Link href="/news" prefetch={false}>
-                <a>Новости</a>
+                Новости
               </Link>
               <Link href="/article" prefetch={false}>
-                <a>Статьи</a>
+                Статьи
               </Link>
               <Link href="/newspaper" prefetch={false}>
-                <a>Газета</a>
+                Газета
               </Link>
               <Link href="/about" prefetch={false}>
-                <a>О нас</a>
+                О нас
               </Link>
               <Link href="/advertising" prefetch={false}>
-                <a>Рекламные услуги</a>
+                Рекламные услуги
               </Link>
               <Link href="/contacts" prefetch={false}>
-                <a>Контакты</a>
+                Контакты
               </Link>
             </ListTitle>
           </div>
@@ -112,8 +112,9 @@ export const Footer = () => {
                     key={tag.id}
                     href={`/news/${tag.slug}`}
                     prefetch={false}
+                    className="p-1"
                   >
-                    <a className="p-1">{tag.name}</a>
+                    {tag.name}{" "}
                   </Link>
                 );
               })}
@@ -124,10 +125,10 @@ export const Footer = () => {
           <div className="hidden md:block flex-1 link-primary">
             <ListTitle title="Газета" listClassName="flex-col">
               <Link href="/newspaper" prefetch={false}>
-                <a>Свежий номер</a>
+                Свежий номер
               </Link>
               <Link href="/newspaper" prefetch={false}>
-                <a>Архив новостей</a>
+                Архив новостей
               </Link>
             </ListTitle>
           </div>
@@ -144,8 +145,9 @@ export const Footer = () => {
                     key={cat.id}
                     href={`/news/${cat.slug}`}
                     prefetch={false}
+                    className="p-1"
                   >
-                    <a className="p-1">{cat.name}</a>
+                    {cat.name}
                   </Link>
                 );
               })}
@@ -158,20 +160,22 @@ export const Footer = () => {
       <div className="py-6 bg-grey-500">
         <Container>
           <div className="flex flex-col lg:flex-row items-center gap-3 lg:items-start justify-between w-full text-14px text-grey-400 text-center">
-            <Link href="/privacy-policy">
-              <a className="text-grey-400 hover:text-white underline order-0">
-                Политика конфиденциальности
-              </a>
+            <Link
+              href="/privacy-policy"
+              className="text-grey-400 hover:text-white underline order-0"
+            >
+              Политика конфиденциальности
             </Link>
 
             <p className="order-3 lg:order-1">
               © ИД «Вечерний Ставрополь», {new Date().getFullYear()}
             </p>
 
-            <Link href="/user-agreement">
-              <a className="text-grey-400 hover:text-white underline order-2">
-                Пользовательское соглашение
-              </a>
+            <Link
+              href="/user-agreement"
+              className="text-grey-400 hover:text-white underline order-2"
+            >
+              Пользовательское соглашение
             </Link>
           </div>
         </Container>

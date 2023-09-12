@@ -3,7 +3,7 @@ import type { PostProps } from "@/shared/types";
 import { Heading } from "@/shared/ui/heading";
 import { parseContent } from "@/shared/lib/content";
 import { useRouter } from "next/router";
-import { useSettings } from "@/app/contexts/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 import { SEO } from "@/shared/ui/SEO";
 
 export const PageDetail = ({

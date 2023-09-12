@@ -54,21 +54,21 @@ export const ImagePreview = ({
       )}
     >
       {href && url && (
-        <Link href={href} prefetch={false}>
-          <a
-            className={cn(
-              "relative block w-full h-full pointer-events-auto",
-              hoverEffect &&
-                "group-hover:scale-110 transition-transform duration-300"
-            )}
-          >
-            <Image
-              url={`${config.uploadUrl}/${url}`}
-              alt={alt}
-              screenSizes={screenSizes}
-              priority={priority}
-            />
-          </a>
+        <Link
+          href={href}
+          prefetch={false}
+          className={cn(
+            "relative block w-full h-full pointer-events-auto",
+            hoverEffect &&
+              "group-hover:scale-110 transition-transform duration-300"
+          )}
+        >
+          <Image
+            url={`${config.uploadUrl}/${url}`}
+            alt={alt}
+            screenSizes={screenSizes}
+            priority={priority}
+          />
         </Link>
       )}
       {!href && url && (

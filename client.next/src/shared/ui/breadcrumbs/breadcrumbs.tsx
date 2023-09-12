@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { useRouter } from "next/router";
-import { useSettings } from "@/app/contexts/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 import { menuHomeItem } from "@/shared/config";
 import Link from "next/link";
 import { Icon } from "@/shared/ui/icon";
@@ -80,10 +80,8 @@ export const Breadcrumbs = () => {
               itemScope
               itemType="https://schema.org/ListItem"
             >
-              <Link href={crumb.slug}>
-                <a itemProp="item" className="text-14px">
-                  <span itemProp="name">{crumb.name}</span>
-                </a>
+              <Link href={crumb.slug} itemProp="item" className="text-14px">
+                <span itemProp="name">{crumb.name}</span>
               </Link>
               <meta itemProp="position" content={`${index + 1}`} />
             </li>

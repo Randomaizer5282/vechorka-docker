@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import Link from "next/link";
 import { MenuProps } from "@/shared/ui/navigation/types";
 import cn from "clsx";
-import { useSettings } from "@/app/contexts/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 
 interface Props {
   parentSlug: string;
@@ -29,8 +29,8 @@ export const SubMenu: FC<Props> = ({ parentSlug, items, isOpen }) => {
       <ul className="flex flex-wrap w-full -m-1">
         {items.map(({ id, slug, name }) => (
           <li key={id}>
-            <Link href={`/${parentSlug}/${slug}`}>
-              <a className={linkClasses}>{name}</a>
+            <Link href={`/${parentSlug}/${slug}`} className={linkClasses}>
+              {name}
             </Link>
           </li>
         ))}
@@ -40,8 +40,12 @@ export const SubMenu: FC<Props> = ({ parentSlug, items, isOpen }) => {
       <div className="flex flex-wrap -m-1">
         {geographyTags &&
           geographyTags.map((tag) => (
-            <Link key={tag.id} href={`/${parentSlug}/${tag.slug}`}>
-              <a className={linkClasses}>{tag.name}</a>
+            <Link
+              key={tag.id}
+              href={`/${parentSlug}/${tag.slug}`}
+              className={linkClasses}
+            >
+              {tag.name}
             </Link>
           ))}
       </div>

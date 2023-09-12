@@ -41,17 +41,15 @@ export const MenuItem: FC<{ item: MenuProps }> = ({ item }) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <Link href={href}>
-          <a className={cn(linkClasses, "")}>
-            <span className={cn(openSubMenu && "text-blue-300")}>{name}</span>
-            <Icon
-              name="arrow"
-              className={cn(
-                "w-[12px] h-[12px] ml-2",
-                openSubMenu ? "stroke-blue-300" : "stroke-grey-500"
-              )}
-            />
-          </a>
+        <Link href={href} className={cn(linkClasses, "")}>
+          <span className={cn(openSubMenu && "text-blue-300")}>{name}</span>
+          <Icon
+            name="arrow"
+            className={cn(
+              "w-[12px] h-[12px] ml-2",
+              openSubMenu ? "stroke-blue-300" : "stroke-grey-500"
+            )}
+          />
         </Link>
         <SubMenu parentSlug={slug} items={child} isOpen={openSubMenu} />
       </li>
@@ -59,8 +57,8 @@ export const MenuItem: FC<{ item: MenuProps }> = ({ item }) => {
   } else {
     return (
       <li className={itemClasses}>
-        <Link href={href}>
-          <a className={cn(linkClasses)}>{name}</a>
+        <Link href={href} className={cn(linkClasses)}>
+          {name}
         </Link>
       </li>
     );

@@ -1,7 +1,7 @@
 import { Fragment, PropsWithChildren } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useSettings } from "@/app/contexts/settings-context";
+import { useSettings } from "@/contexts/settings-context";
 import type { PostBasePath } from "@/shared/types";
 
 export const getSeoTitleByPath = (
