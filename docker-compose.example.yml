@@ -30,16 +30,14 @@ services:
       - ./certbot/logs:/var/log/letsencrypt
     depends_on:
       - nginx
-    #certonly --webroot --webroot-path=/var/www/html --email sammy@your_domain --agree-tos --no-eff-email --staging -d your_domain  -d www.your_domain
-    #command: certonly --webroot --webroot-path /var/www/certbot --email vechorka@vechorka.ru --dry-run --staging --agree-tos --no-eff-email -d new.vechorka.ru
-    #command: certonly --webroot --webroot-path /var/www/certbot --email vechorka@vechorka.ru --staging --agree-tos --no-eff-email -d new.vechorka.ru
-    #command: "certonly --webroot --agree-tos --no-eff-email --webroot-path /var/www/certbot --email vechorka@vechorka.ru -d new.vechorka.ru"
-    #command: certonly -v --keep --cert-name vechorka.ru --webroot --agree-tos --no-eff-email --webroot-path /var/www/certbot --email vechorka@vechorka.ru -d new.vechorka.ru
+    #  --reinstall
+    # docker-compose up --force-recreate --no-deps certbot
     command: >-
       certonly -v
-      --reinstall
-      --force-renewal
       --cert-name vechorka.ru
+      --agree-tos 
+      --no-eff-email
+      --force-renewal
       --webroot --webroot-path=/var/www/certbot
       --email vechorka@vechorka.ru --agree-tos --no-eff-email
       -d new.vechorka.ru,api.vechorka.ru,admin.vechorka.ru,phpmyadmin.vechorka.ru
