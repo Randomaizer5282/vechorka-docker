@@ -129,6 +129,7 @@ export const GalleryByIds = ({ ids, title, perView = 3 }: Props) => {
                           layout="fill"
                           objectFit="cover"
                           objectPosition="top"
+                          alt=""
                         />
                       </div>
                     </a>
