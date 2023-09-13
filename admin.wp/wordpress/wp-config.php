@@ -41,7 +41,7 @@ if (!function_exists('getenv_docker')) {
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', getenv_docker('WORDPRESS_DB_NAME', '') );
+define( 'DB_NAME', getenv_docker('WORDPRESS_DB_NAME', 'db_vechorka') );
 
 /** Database username */
 define( 'DB_USER', getenv_docker('WORDPRESS_DB_USER', 'root') );
@@ -56,7 +56,6 @@ define( 'DB_PASSWORD', getenv_docker('WORDPRESS_DB_PASSWORD', '') );
  */
 
 /** Database hostname */
-// define( 'DB_HOST', getenv_docker('WORDPRESS_DB_HOST', 'mysql') );
 define( 'DB_HOST', getenv_docker('WORDPRESS_DB_HOST', 'localhost') );
 
 /** Database charset to use in creating database tables. */
