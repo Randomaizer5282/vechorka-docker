@@ -4,7 +4,6 @@
 !.gitignore
 !.htaccess
 !wp-config.php
-!wp-cron-job
 
 !wp-content/
 

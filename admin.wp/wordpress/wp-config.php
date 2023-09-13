@@ -41,7 +41,7 @@ if (!function_exists('getenv_docker')) {
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', getenv_docker('WORDPRESS_DB_NAME', 'vechorka.test') );
+define( 'DB_NAME', getenv_docker('WORDPRESS_DB_NAME', '') );
 
 /** Database username */
 define( 'DB_USER', getenv_docker('WORDPRESS_DB_USER', 'root') );
@@ -86,8 +86,11 @@ define( 'LOGGED_IN_SALT',   getenv_docker('WORDPRESS_LOGGED_IN_SALT',   '10d4ba2
 define( 'NONCE_SALT',       getenv_docker('WORDPRESS_NONCE_SALT',       '83e2b027836fd04a6ce6a2ba31c101311b1742e2') );
 // (See also https://wordpress.stackexchange.com/a/152905/199287)
 // client revalidate
-define('CLIENT_REVALIDATE_URL', getenv_docker('CLIENT_REVALIDATE_URL', null));
-define('CLIENT_REVALIDATE_KEY', getenv_docker('CLIENT_REVALIDATE_KEY', null));
+define('CLIENT_REVALIDATE_URL', getenv_docker('CLIENT_REVALIDATE_URL', "http://localhost:3000/api/revalidate"));
+define('CLIENT_REVALIDATE_KEY', getenv_docker('CLIENT_REVALIDATE_KEY', "b9f099129f73a4ae397057e75796d217"));
+// disable post revisions
+define('WP_POST_REVISIONS', false );
+define('DISABLE_WP_CRON', true);
 
 /**#@-*/
 
