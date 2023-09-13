@@ -60,7 +60,8 @@ services:
       - app-network
 
   wp:
-    image: wordpress
+    build:
+      context: admin.wp
     container_name: wp
     restart: always
     volumes:

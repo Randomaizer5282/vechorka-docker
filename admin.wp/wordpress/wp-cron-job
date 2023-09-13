@@ -1,0 +1,2 @@
+*/10 * * * * php /wp-cron.php?doing_wp_cron > /dev/null 2>&1
+#* * * * * echo "Hello world" >> /var/log/cron.log 2>&1
