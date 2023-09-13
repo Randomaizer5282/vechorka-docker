@@ -1,6 +1,6 @@
-FROM wordpress
+FROM wordpress:latest
 
-RUN apt-get update && apt-get -y install cron && apk add --no-cache tzdata
+RUN apt update && apt -y install cron
 
 # Apply cron job
 RUN crontab /wp-cron-job
