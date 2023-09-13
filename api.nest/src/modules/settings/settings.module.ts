@@ -10,7 +10,7 @@ import { CacheModule } from '@nestjs/cache-manager';
     PostModule,
     TaxonomyModule,
     CacheModule.register({
-      ttl: 1000 * 60, // ml seconds
+      ttl: 1000 * 10, // ml seconds
       // max: 10, // maximum number of items in cache
     }),
   ],
