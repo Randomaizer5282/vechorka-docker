@@ -67,6 +67,7 @@ services:
     volumes:
       - ./admin.wp/config/php.conf.ini:/usr/local/etc/php/conf.d/php.ini
       - ./admin.wp/wordpress:/var/www/html
+      - ./logs/cron.log:/logs/cron.log
     environment:
       - WORDPRESS_DB_HOST=${DB_HOST:-db}
       - WORDPRESS_DB_NAME=${DB_NAME:-wordpress}
