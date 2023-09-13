@@ -5,10 +5,10 @@ RUN apt update && apt -y install cron
 COPY /wordpress/wp-cron-job /
 
 # Apply cron job
-RUN crontab ./wp-cron-job
+RUN crontab /wp-cron-job
 
 # Create the log file to be able to run tail
-RUN touch /logs/cron.log
+RUN touch /var/log/cron.log
 
 # Run the command on container startup
-CMD cron && tail -f /logs/cron.log
+CMD cron && tail -f /var/log/cron.log
