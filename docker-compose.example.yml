@@ -30,11 +30,11 @@ services:
       - ./certbot/logs:/var/log/letsencrypt
     depends_on:
       - nginx
-    #  --reinstall
     # docker-compose up --force-recreate --no-deps certbot
     command: >-
       certonly -v
       --cert-name vechorka.ru
+      --reinstall
       --agree-tos 
       --no-eff-email
       --force-renewal

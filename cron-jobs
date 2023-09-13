@@ -1,1 +1,2 @@
-*/1 * * * * /home/vechorkadev/www/wp-cron.sh >> /var/log/cron.log 2>&1
+*/1 * * * * /home/vechorkadev/www/wp-cron.sh >> /home/vechorkadev/www/logs/cron.log 2>&1
+
