@@ -6,3 +6,9 @@ COPY wp-cron-job ./
 
 # Apply cron job
 RUN crontab /wp-cron-job
+
+# Create the log file to be able to run tail
+RUN touch /logs/cron.log
+
+# Run the command on container startup
+CMD cron && tail -f /logs/cron.log
