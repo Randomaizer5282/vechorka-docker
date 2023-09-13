@@ -4,10 +4,10 @@ services:
   nginx:
     build:
       context: nginx
-    depends_on:
-      - wp
-      - api
-      - client
+#    depends_on:
+#      - wp
+#      - api
+#      - client
     container_name: nginx
     restart: always
     volumes:
@@ -108,9 +108,9 @@ services:
         API_KEY: ${API_KEY}
         CLIENT_REVALIDATE_KEY: ${CLIENT_REVALIDATE_KEY}
     container_name: client-next
-    depends_on:
-      - api
-      - wp
+#    depends_on:
+#      - api
+#      - wp
     env_file:
       - .env
     restart: always
