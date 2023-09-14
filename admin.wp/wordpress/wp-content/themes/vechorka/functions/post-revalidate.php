@@ -1,70 +1,161 @@
 <?php
 
-function get_client_revalidate($type)
+function get_client_revalidate($type, $slug = null)
 {
   if (!CLIENT_REVALIDATE_URL || !CLIENT_REVALIDATE_KEY) {
     return null;
   }
 
-  return wp_remote_get(
-    //REVALIDATE_URL . '?token=' . REVALIDATE_TOKEN . '&postType=' . $post->post_type . '&slug=' . $post->post_name,
-    CLIENT_REVALIDATE_URL . '?key=' . CLIENT_REVALIDATE_KEY . '&type=' . $type,
+  wp_remote_get(
+    CLIENT_REVALIDATE_URL . '?key=' . CLIENT_REVALIDATE_KEY . '&type=' . $type . ($slug ? '&slug=' . $slug : ""),
     [
       'timeout' => 120,
-      'httpversion' => '1.1'
+      'httpversion' => '1.1',
+      'blocking' => false,
+      'sslverify' => false,
     ]
   );
 }
 
-// edit posts
-add_action('save_post', 'save_post_action', 10, 3);
-function save_post_action($post_id, $post, $update)
+
+// get original post
+add_action('pre_post_update', function ($post_id, $post_data) {
+  global $is_multiply;
+  global $original_post;
+  $original_post = get_post($post_id);
+}, 10, 2);
+
+
+function prepare_edit_post($post): void
 {
-  if (!CLIENT_REVALIDATE_URL || !CLIENT_REVALIDATE_KEY || $post->post_status == 'auto-draft') {
+
+//  // Check autosave.
+//  if ( wp_is_post_autosave( $post_id ) ) {
+//    return $post_id;
+//  }
+//
+//  // Check post revision.
+//  if ( wp_is_post_revision( $post_id ) ) {
+//    return $post_id;
+//  }
+
+  global $is_multiply;
+  global $original_post;
+  $slug = $original_post->post_name;
+
+  if ($post->post_status == 'auto-draft' || $post->post_type == 'revision') {
     return;
   }
 
-  if ($post->post_type == "post" || $post->post_type == "article" || $post->post_type == "advert") {
-    $response = get_client_revalidate($post->post_type);
+  // new insert post
+  if (!$slug) {
+    $slug = $post->post_name;
   }
+
+  // remove post
+  if ($post->post_status == "trash" || $original_post->post_status == "trash") {
+    $slug = str_replace("__trashed", "", $post->post_name);
+  }
+
+  if ($post->post_type === "page") {
+    get_client_revalidate($post->post_type, $slug);
+  } else {
+    // if multiply post (news), get one request to client for revalidate
+    // another send many request to client revalidate
+    if (!$is_multiply) {
+      get_client_revalidate($post->post_type);
+    }
+  }
+
+  $is_multiply = true;
 }
 
-//add_action('added_post_meta', 'revalidate_post_meta', 10, 4);
-//add_action('updated_post_meta', 'revalidate_post_meta', 10, 4);
-//add_action('deleted_post_meta', 'revalidate_post_meta', 10, 4);
-//function revalidate_post_meta($meta_id, $post_id, $meta_key, $meta_value)
-//{
-////    echo '<pre>';
-////    var_dump($meta_key);
-//    $response = get_client_revalidate('posts_meta');
-//    if ($meta_key != '_edit_lock') {
-//    }
-//
-////    echo '<pre>';
-////    var_dump('revalidate_post_meta');
-//}
+// crud action posts pages
+add_action('edit_post_page', 'edit_post_page_action', 10, 3);
+function edit_post_page_action($post_id, $post): void
+{
+  prepare_edit_post($post);
+}
 
-// edit category
+
+// crud action past - news
+add_action('edit_post_post', 'edit_post_post_action', 10, 3);
+function edit_post_post_action($post_id, $post): void
+{
+  prepare_edit_post($post);
+}
+
+// crud action past - article
+add_action('edit_post_article', 'edit_post_article_action', 10, 3);
+function edit_post_article_action($post_id, $post): void
+{
+  prepare_edit_post($post);
+}
+
+// crud action past - employee, usage on contact page
+add_action('edit_post_employee', 'edit_post_employee_action', 10, 3);
+function edit_post_employee_action($post_id, $post): void
+{
+  prepare_edit_post($post);
+}
+
+// crud action past - newspaper
+add_action('edit_post_newspaper', 'edit_post_newspaper_action', 10, 3);
+function edit_post_newspaper_action($post_id, $post): void
+{
+  prepare_edit_post($post);
+}
+
+// crud action past - advert
+add_action('edit_post_advert', 'edit_post_advert_action', 10, 3);
+function edit_post_advert_action($post_id, $post): void
+{
+  prepare_edit_post($post);
+}
+
+// crud action category
 add_action('saved_category', 'saved_category_action', 10, 4);
 add_action('delete_category', 'saved_category_action', 10, 4);
 function saved_category_action($term, $tt_id, $deleted_term, $object_ids)
 {
-  $response = get_client_revalidate('category');
+  global $is_multiply;
+  if (!$is_multiply) {
+    get_client_revalidate('post_category');
+  }
+  $is_multiply = true;
 }
 
-// edit post_geography
+// crud action post_geography
 add_action('saved_post_geography', 'saved_post_geography_action', 10, 4);
 add_action('delete_post_geography', 'saved_post_geography_action', 10, 4);
 function saved_post_geography_action($term_id, $tt_id, $update, $args)
 {
-  $response = get_client_revalidate('post_geography');
+  global $is_multiply;
+  if (!$is_multiply) {
+    get_client_revalidate('post_geography');
+  }
+  $is_multiply = true;
 }
 
-// edit comment
-add_action('transition_comment_status', 'approve_comment_action', 10, 3);
-function approve_comment_action($new_status, $old_status, $comment)
+// crud action tag
+add_action('saved_post_tag', 'saved_post_tag_action', 10, 4);
+add_action('delete_post_tag', 'saved_post_tag_action', 10, 4);
+function saved_post_tag_action($term_id, $tt_id, $update, $args)
 {
-  if ($old_status != $new_status) {
-    $response = get_client_revalidate('comment');
+  global $is_multiply;
+  if (!$is_multiply) {
+    get_client_revalidate('post_tag');
   }
+  $is_multiply = true;
 }
+
+// change comment status
+//add_action('transition_comment_status', 'approve_comment_action', 10, 3);
+//function approve_comment_action($new_status, $old_status, $comment)
+//{
+//  var_dump("===edit_comment");
+//
+//  if ($old_status != $new_status) {
+//    $response = get_client_revalidate('comment');
+//  }
+//}

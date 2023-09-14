@@ -1,13 +1,13 @@
 import { getGeneralSettings } from "@/shared/api/settings";
 import { getPostBySlug, getPostsInterest } from "@/shared/api/posts";
-import type { GetServerSidePropsResult } from "next";
+import type { GetStaticPropsResult } from "next";
 import type { PostProps } from "@/shared/types";
 
 export const getPage = async ({
   slug,
 }: {
   slug?: string;
-}): Promise<GetServerSidePropsResult<any>> => {
+}): Promise<GetStaticPropsResult<any>> => {
   if (!slug) {
     return {
       notFound: true,

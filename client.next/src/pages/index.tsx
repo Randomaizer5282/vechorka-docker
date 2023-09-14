@@ -1,4 +1,3 @@
-import React from "react";
 import { HomeLayout } from "@/shared/ui/layouts";
 import { NewsCategoriesTabbed } from "@/widgets/news-categories-tabbed";
 import { ArticleLast } from "@/widgets/article-last";
@@ -9,7 +8,7 @@ import type { PostProps } from "@/shared/types";
 import { menuAllNewsItem, menuMainNewsItem } from "@/shared/config";
 import { NewsCategoriesGridTabbed } from "@/widgets/news-categories-grid-tabbed";
 import { PostRelated } from "@/widgets/post-related";
-import { GetStaticProps } from "next";
+import { type GetStaticProps } from "next";
 import { generateYandexRss } from "@/shared/lib/rss-feed";
 
 interface HomeProps {
@@ -19,14 +18,14 @@ interface HomeProps {
 
 const HomePage = ({ posts, taxonomies }: HomeProps) => {
   const { mainNews, lastNews, interestNews, articles } = posts;
-  const geographyTabs = [
-    menuMainNewsItem as TaxonomyProps,
-    ...taxonomies?.geography,
-  ];
-  const categoriesTabs = [
-    menuAllNewsItem as TaxonomyProps,
-    ...taxonomies?.categories,
-  ];
+  const geographyTabs =
+    taxonomies && taxonomies?.geography
+      ? [menuMainNewsItem as TaxonomyProps, ...taxonomies?.geography]
+      : [];
+  const categoriesTabs =
+    taxonomies && taxonomies?.categories
+      ? [menuAllNewsItem as TaxonomyProps, ...taxonomies?.categories]
+      : [];
 
   const mainNewsIds = mainNews.map((post) => post.id).join(",");
 
@@ -76,7 +75,7 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 
   const { settings, taxonomies, advert } = await getGeneralSettings();
-
+  // TODO: ?remove to new page and check cache
   let rssNews: PostProps[] = [];
   try {
     const { data } = await getPosts({
@@ -101,7 +100,7 @@ export const getStaticProps: GetStaticProps = async () => {
       settings,
       advert,
     },
-    revalidate: 60,
+    // revalidate: 60,
   };
 };
 

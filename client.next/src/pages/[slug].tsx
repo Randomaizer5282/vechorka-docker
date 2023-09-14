@@ -1,9 +1,9 @@
 import type { PostProps } from "@/shared/types";
 import { PostLayout } from "@/shared/ui/layouts";
 import { getPage } from "@/shared/api/pages";
-import React from "react";
-import type { GetServerSideProps } from "next";
 import { PageDetail } from "@/modules/page/ui/page-detail";
+import { getPosts } from "@/shared/api/posts";
+import { type GetStaticProps } from "next";
 
 interface Props {
   post: PostProps;
@@ -22,9 +22,31 @@ const Page = ({ post, interestNews }: Props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getStaticPaths = async () => {
+  const paths: { params: { slug: string } }[] = [];
+  const posts = await getPosts({ postType: "page" });
+  if (posts?.data?.length) {
+    posts.data.forEach((post) => {
+      if (post.slug !== "contact" && post.slug !== "about") {
+        paths.push({ params: { slug: post.slug } });
+      }
+    });
+  }
+
+  return {
+    paths,
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.slug as string;
   return await getPage({ slug });
 };
+
+// export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+//   const slug = params?.slug as string;
+//   return await getPage({ slug });
+// };
 
 export default Page;
