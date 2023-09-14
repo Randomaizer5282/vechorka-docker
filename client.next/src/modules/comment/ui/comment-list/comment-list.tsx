@@ -37,8 +37,8 @@ export const CommentList = ({ postId }: Props) => {
             key={comment.id}
             className="flex border-b border-grey-200 my-5 pb-5 text-grey-400"
           >
-            <div className="flex-shrink-0 h-[42px] w-[42px] sm:h-[60px] sm:w-[60px] mr-5">
-              <Image src="/images/no-avatar.jpg" alt="avatar" />
+            <div className="relative flex-shrink-0 h-[42px] w-[42px] sm:h-[60px] sm:w-[60px] mr-5">
+              <Image src="/images/no-avatar.jpg" alt="avatar" fill />
             </div>
             <div>
               <div className="flex flex-wrap mb-3 text-14px">

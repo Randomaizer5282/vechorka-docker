@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import cn from "clsx";
-import NextImage from "next/image";
+import NextImage from "next/legacy/image";
 import type { ImageProps } from "@/shared/types";
 import { config } from "@/shared/config";
 import { ImageCaption } from "@/shared/ui/image/image-caption";
@@ -20,12 +20,10 @@ interface Props extends ImageProps {
 const Image = ({ url, alt = "", className, screenSizes, priority }: Props) =>
   url ? (
     <NextImage
-      className={cn(className, "pointer-events-auto")}
+      className={cn(className, "pointer-events-auto object-cover object-top")}
       src={url}
       alt={alt}
       layout="fill"
-      objectFit="cover"
-      objectPosition="top"
       sizes={screenSizes}
       priority={priority}
       // sizes="(max-width: 460px) 46vw, (max-width: 768px) 76vw, (max-width: 1024px) 104vw, (max-width: 1200px) 120vw, 100vw"

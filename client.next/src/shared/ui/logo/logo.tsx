@@ -12,9 +12,9 @@ export const Logo = ({ priority = false }: Props) => {
 
   const ImageLogo = () => (
     <Image
+      className="object-contain"
       layout="fill"
       src="/images/logo.png"
-      objectFit="contain"
       alt="Вечерний ставрополь"
       // priority={priority}
     />

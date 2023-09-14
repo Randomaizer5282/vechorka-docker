@@ -125,10 +125,9 @@ export const GalleryEmployees = () => {
                     {src && (
                       <div className="relative w-full h-[200px]">
                         <NextImage
+                          className="object-cover object-top"
                           src={`${config.uploadUrl}/${src}`}
                           layout="fill"
-                          objectFit="cover"
-                          objectPosition="top"
                           alt={alt}
                         />
                       </div>

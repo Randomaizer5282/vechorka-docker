@@ -15,10 +15,9 @@ export const ActiveEmployee = ({ employee }: { employee: PostProps }) => {
       {src && (
         <div className="relative md:flex-1 max-w-[260px] h-[260px] mx-auto md:mx-0 md:mr-5">
           <NextImage
+            className="object-cover object-top"
             src={`${config.uploadUrl}/${src}`}
             layout="fill"
-            objectFit="cover"
-            objectPosition="top"
             alt={alt}
           />
         </div>

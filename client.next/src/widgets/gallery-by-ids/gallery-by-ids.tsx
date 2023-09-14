@@ -125,10 +125,9 @@ export const GalleryByIds = ({ ids, title, perView = 3 }: Props) => {
                     >
                       <div className="relative w-full h-[190px] sm:h-[260px] bg-gradient-to-t to-grey-400/30 from-grey-400/70">
                         <NextImage
+                          className="object-cover object-top"
                           src={`${config.uploadUrl}/${src}`}
                           layout="fill"
-                          objectFit="cover"
-                          objectPosition="top"
                           alt=""
                         />
                       </div>
