@@ -56,8 +56,6 @@ export default async function handler(
       await revalidate(res, "/");
       await revalidate(res, "/contact");
       await revalidate(res, "/about");
-    } else {
-      return res.json({ message: "Revalidate type not found" });
     }
 
     return res.json({ revalidated: true });
