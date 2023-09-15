@@ -405,5 +405,34 @@ function tsm_convert_id_to_term_in_query($query)
     $q_vars[$taxonomy] = $term->slug;
   }
 }
-
 add_filter('parse_query', 'tsm_convert_id_to_term_in_query');
+
+// limit count adding post
+add_action('load-post-new.php', 'limit_cpt_advert' );
+function limit_cpt_advert()
+{
+  global $typenow;
+
+  # Not our post type, bail out
+  if( 'advert' !== $typenow )
+    return;
+
+  # Grab all our CPT, adjust the status as needed
+  $total = get_posts( array(
+    'post_type' => 'advert',
+    'numberposts' => -1,
+    'post_status' => 'publish,future,draft'
+  ));
+
+  # Condition match, block new post
+  if( $total && count( $total ) >= 1 )
+    wp_die(
+//      'Sorry, maximum number of posts reached',
+      'Максимальное кол-во записей в данной категории 1',
+      'Maximum reached',
+      array(
+        'response' => 500,
+        'back_link' => true
+      )
+    );
+}
