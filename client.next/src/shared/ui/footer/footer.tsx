@@ -97,7 +97,7 @@ export const Footer = () => {
               <Link href="/advertising" prefetch={false}>
                 Рекламные услуги
               </Link>
-              <Link href="/contacts" prefetch={false}>
+              <Link href="/contact" prefetch={false}>
                 Контакты
               </Link>
             </ListTitle>
