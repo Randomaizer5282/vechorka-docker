@@ -13,10 +13,10 @@ export const Logo = ({ priority = false }: Props) => {
   const ImageLogo = () => (
     <Image
       className="object-contain"
-      layout="fill"
+      fill
       src="/images/logo.png"
       alt="Вечерний ставрополь"
-      // priority={priority}
+      priority
     />
   );
 
