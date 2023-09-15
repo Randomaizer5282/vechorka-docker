@@ -114,7 +114,19 @@ const createImage = (image: string) => {
   const className = captionClassName ?? imageClassName;
 
   if (src) {
-    return (
+    return imageClassName && imageClassName.match(/scrolled/) ? (
+      <div className="overflow-x-auto">
+        <ImageContent
+          caption={caption ?? ""}
+          alt={alt}
+          src={src}
+          width={width}
+          height={height}
+          fullSrc={fullSrc}
+          className={cn(className, "my-3")}
+        />
+      </div>
+    ) : (
       <ImageContent
         caption={caption ?? ""}
         alt={alt}

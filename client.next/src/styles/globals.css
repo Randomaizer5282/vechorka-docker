@@ -135,6 +135,10 @@
   .content ul li {
     @apply flex before:content-['\2022'] before:mr-3 text-grey-450;
   }
+
+  .content .overflow-x-auto img {
+    @apply max-w-none !important;
+  }
 }
 
 @layer utilities {
