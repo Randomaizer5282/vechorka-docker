@@ -1,8 +1,21 @@
 import { config } from "@/shared/config";
+import { isSSR } from "@/shared/lib/helpers";
 
 export const api = {
+  log(method: string, url: string) {
+    const from = isSSR ? "server " : "client ";
+    const date = new Date();
+    const str = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}: ${from}${method}: ${
+      config.apiUrl
+    }/${url}`;
+
+    process.env.NODE_ENV === "development"
+      ? console.log(str)
+      : isSSR && console.log(str);
+  },
   async get(url: string) {
     try {
+      this.log("get", url);
       const res = await fetch(`${config.apiUrl}/${url}`, {
         headers: { "x-api-key": config.apiKey ?? "" },
       });
@@ -18,6 +31,7 @@ export const api = {
     }
   },
   async post(url: string, body: Record<string, unknown>) {
+    this.log("post", url);
     try {
       const res = await fetch(`${config.apiUrl}/${url}`, {
         method: "POST",
