@@ -16,7 +16,7 @@ export const PaperLinks = ({ className }: Props) => {
           <Image
             className="object-contain"
             src="/images/icon-newspaper-min.png"
-            layout="fill"
+            fill
             alt=""
           />
         </div>
