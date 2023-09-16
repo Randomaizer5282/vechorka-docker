@@ -172,7 +172,7 @@ function admin_bar_revalidate_button()
       jQuery(function ($) {
           const save_menu_button = $("#wp-admin-bar-root-default");
           save_menu_button.append('<li id="clear_cache_button_item"><a href="#" id="clear_cache_button" class="button button-primary button-large">Очистить кеш клиента</a></li>');
-          save_menu_button.append('<span id="clear_cache_loader" style="position: fixed; top:0; left:0; right:0; bottom:0; align-items: center; justify-content: center; background: #000000; opacity: 30; z-index: 1000; display: none; color: white;">Очистка кеша клиента</span>');
+          save_menu_button.append('<span id="clear_cache_loader" style="display:none; position: fixed; inset:0; align-items: center; justify-content: center; background: #000000d4; color: white;">Очистка кеша клиента</span>');
           const loader = document.getElementById("clear_cache_loader");
           save_menu_button.parent().on("click", "#clear_cache_button", function (e) {
               e.preventDefault();
