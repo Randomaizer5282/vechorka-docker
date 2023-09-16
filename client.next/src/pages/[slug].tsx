@@ -21,13 +21,18 @@ const Page = ({ post }: Props) => {
 
 export const getStaticPaths = async () => {
   const paths: { params: { slug: string } }[] = [];
-  const posts = await getPosts({ postType: "page" });
-  if (posts?.data?.length) {
-    posts.data.forEach((post) => {
-      if (post.slug !== "contact" && post.slug !== "about") {
-        paths.push({ params: { slug: post.slug } });
-      }
-    });
+
+  try {
+    const posts = await getPosts({ postType: "page" });
+    if (posts?.data?.length) {
+      posts.data.forEach((post) => {
+        if (post.slug !== "contact" && post.slug !== "about") {
+          paths.push({ params: { slug: post.slug } });
+        }
+      });
+    }
+  } catch (e) {
+    console.error(e);
   }
 
   return {
