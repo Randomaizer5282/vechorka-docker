@@ -47,7 +47,11 @@ export default async function handler(
       await revalidate(res, "/newspaper");
     }
     // post_category, update all
-    if (type === "post_category" || type === "post_geography") {
+    if (
+      type === "all" ||
+      type === "post_category" ||
+      type === "post_geography"
+    ) {
       const pagePaths = await getStaticPaths();
       for (const pagePath of pagePaths.paths) {
         await revalidate(res, `/${pagePath.params?.slug}`);
