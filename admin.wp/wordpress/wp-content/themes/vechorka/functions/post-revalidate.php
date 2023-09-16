@@ -159,3 +159,46 @@ function saved_post_tag_action($term_id, $tt_id, $update, $args)
 //    $response = get_client_revalidate('comment');
 //  }
 //}
+
+// add button to wp-admin-bar-root-default
+add_action('admin_footer', 'admin_bar_revalidate_button');
+function admin_bar_revalidate_button()
+{
+  //  $screen = get_current_screen();
+  ?>
+  <script>
+      const CLIENT_REVALIDATE_URL = `<?php echo CLIENT_REVALIDATE_URL ?>`
+      const CLIENT_REVALIDATE_KEY = `<?php echo CLIENT_REVALIDATE_KEY ?>`
+      jQuery(function ($) {
+          const save_menu_button = $("#wp-admin-bar-root-default");
+          save_menu_button.append('<li id="clear_cache_button_item"><a href="#" id="clear_cache_button" class="button button-primary button-large">Очистить кеш клиента</a></li>');
+          save_menu_button.append('<span id="clear_cache_loader" style="position: fixed; top:0; left:0; right:0; bottom:0; align-items: center; justify-content: center; background: #000000; opacity: 30; z-index: 1000; display: none; color: white;">Очистка кеша клиента</span>');
+          const loader = document.getElementById("clear_cache_loader");
+          save_menu_button.parent().on("click", "#clear_cache_button", function (e) {
+              e.preventDefault();
+              if (CLIENT_REVALIDATE_URL && CLIENT_REVALIDATE_KEY) {
+                  loader.style.display = "flex";
+
+                  fetch("<?php echo esc_url(home_url()) . '/wp-admin/admin-ajax.php?action=revalidate_all' ?>", {
+                      method: "GET",
+                  })
+                      .then(response => response.ok ? alert("Кеш очищен") : alert("При обновлении кеша произошла ошибка"))
+                      .catch(e => {
+                          alert("При обновлении кеша произошла ошибка");
+                          console.log(e)
+                      })
+                      .finally(() => loader.style.display = "none");
+              }
+          });
+      });
+  </script>
+  <?php
+}
+
+add_action('wp_ajax_revalidate_all', 'revalidate_all_action');
+
+function revalidate_all_action()
+{
+  get_client_revalidate("all");
+  exit(); // this is required to return a proper result
+} ?>
