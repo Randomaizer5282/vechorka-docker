@@ -9,7 +9,7 @@ function get_client_revalidate($type, $slug = null)
   wp_remote_get(
     CLIENT_REVALIDATE_URL . '?key=' . CLIENT_REVALIDATE_KEY . '&type=' . $type . ($slug ? '&slug=' . $slug : ""),
     [
-      'timeout' => 120,
+      'timeout' => 3,
       'httpversion' => '1.1',
       'blocking' => false,
       'sslverify' => false,
