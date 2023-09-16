@@ -1,13 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
 import cn from "clsx";
 import type { PostProps } from "@/shared/types";
 import { getUrlFromParams } from "@/shared/lib/links";
-import { useIntersectionObserver } from "@/shared/lib/hooks/useIntersectionObserver";
 
 interface Props {
   title: string;
   className?: string;
-  fetchCallback: () => Promise<PostProps[]>;
+  posts: PostProps[];
   view: ({
     post,
     href,
@@ -17,29 +15,9 @@ interface Props {
   }) => React.ReactElement;
 }
 
-export const PostListWidget = ({
-  title,
-  className,
-  fetchCallback,
-  view,
-}: Props) => {
-  const [posts, setPosts] = useState<PostProps[]>([]);
-  const ref = useRef<HTMLDivElement | null>(null);
-  const entry = useIntersectionObserver(ref, { freezeOnceVisible: true });
-  const isVisible = !!entry?.isIntersecting;
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const fetchedData = await fetchCallback();
-        setPosts(fetchedData);
-      } catch (error) {}
-    };
-    isVisible && fetchData();
-  }, [fetchCallback, isVisible]);
-
+export const PostListWidget = ({ title, className, posts, view }: Props) => {
   return (
-    <div ref={ref}>
+    <>
       {posts?.length > 0 && (
         <div className={cn(className, "p-6 bg-grey-100")}>
           {title && (
@@ -62,6 +40,6 @@ export const PostListWidget = ({
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };

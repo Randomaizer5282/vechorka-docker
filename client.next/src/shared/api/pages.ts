@@ -1,7 +1,6 @@
 import { getGeneralSettings } from "@/shared/api/settings";
-import { getPostBySlug, getPostsInterest } from "@/shared/api/posts";
+import { getPostBySlug } from "@/shared/api/posts";
 import type { GetStaticPropsResult } from "next";
-import type { PostProps } from "@/shared/types";
 
 export const getPage = async ({
   slug,
@@ -15,8 +14,6 @@ export const getPage = async ({
   }
 
   let posts = { post: null };
-  let interestNews: PostProps[] = [];
-
   try {
     posts = await getPostBySlug(slug);
   } catch (error) {
@@ -30,22 +27,15 @@ export const getPage = async ({
   }
 
   // global settings
-  const { settings, taxonomies, advert } = await getGeneralSettings();
-
-  // interest news
-  try {
-    interestNews = await getPostsInterest();
-  } catch (error) {
-    console.log("interest", error);
-  }
+  const { settings, taxonomies } = await getGeneralSettings({
+    withTaxonomies: true,
+  });
 
   return {
     props: {
       post: posts.post,
-      interestNews,
       settings,
       taxonomies,
-      advert,
     },
   };
 };

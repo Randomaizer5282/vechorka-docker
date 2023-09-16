@@ -9,19 +9,39 @@ export class SettingsService {
     private taxonomyService: TaxonomyService,
   ) {}
 
-  async getCommon() {
-    const taxonomies = await this.taxonomyService.getTaxonomiesGroup();
-    let advert = null;
+  async getCommon(query) {
+    const { withTaxonomies, withInterest, withTop, withCommented, withAdvert } =
+      query;
 
-    // advert post
-    try {
-      advert = await this.postService.getOneLastPostByType({
-        postType: 'advert',
-      });
-    } catch (error) {
-      console.log('settings, get advert: ', error);
-    }
+    const taxonomies =
+      typeof withTaxonomies !== 'undefined'
+        ? await this.taxonomyService.getTaxonomiesGroup()
+        : null;
+    const interest =
+      typeof withInterest !== 'undefined'
+        ? await this.postService.getPostsInterest()
+        : null;
+    const top =
+      typeof withTop !== 'undefined'
+        ? await this.postService.getPostsTop()
+        : null;
+    const commented =
+      typeof withCommented !== 'undefined'
+        ? await this.postService.getPostsCommented()
+        : null;
+    const advert =
+      typeof withAdvert !== 'undefined'
+        ? await this.postService.getOneLastPostByType({
+            postType: 'advert',
+          })
+        : null;
 
-    return { taxonomies, advert: advert?.meta || null };
+    return {
+      taxonomies,
+      interest,
+      top,
+      commented,
+      advert: advert?.meta || null,
+    };
   }
 }

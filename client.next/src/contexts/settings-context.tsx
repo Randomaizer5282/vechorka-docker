@@ -1,4 +1,8 @@
-import React, { createContext, PropsWithChildren, useContext } from "react";
+import React, {
+  createContext,
+  type PropsWithChildren,
+  useContext,
+} from "react";
 import type { MenuProps } from "@/shared/ui/navigation/types";
 import type { SEOProps } from "@/shared/ui/SEO";
 import type { TaxonomiesProps } from "@/shared/types";
@@ -12,7 +16,6 @@ interface SettingsState extends SEOProps {
   };
   contacts?: any;
   taxonomies: TaxonomiesProps;
-  advert: Record<string, string> | null;
 }
 
 interface SettingsProviderProps extends PropsWithChildren {
@@ -21,7 +24,6 @@ interface SettingsProviderProps extends PropsWithChildren {
 
 const initialContext = {
   taxonomies: { categories: [], geography: [], tags: [], allCategories: [] },
-  advert: null,
 };
 
 const SettingsContext = createContext<SettingsState>(initialContext);

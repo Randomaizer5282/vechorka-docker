@@ -8,21 +8,21 @@ import { getGeneralSettings } from "@/shared/api/settings";
 import { PostRelated } from "@/widgets/post-related";
 
 interface Props {
-  post: PostProps;
-  interestNews: PostProps[];
-  relatedPosts: PostProps[];
+  posts: { post: PostProps | null; relatedPosts: PostProps[] | null };
 }
 
-const NewsDetailPage = ({ post, interestNews, relatedPosts }: Props) => {
+const NewsDetailPage = ({ posts }: Props) => {
   return (
     <>
-      <PostLayout left={<PostDetail post={post} showComment />} />
-      {relatedPosts && (
-        <PostRelated title="Другие новости" posts={relatedPosts} />
+      <PostLayout
+        left={posts.post ? <PostDetail post={posts.post} showComment /> : null}
+      />
+      {posts.relatedPosts && (
+        <PostRelated title="Другие новости" posts={posts.relatedPosts} />
       )}
-      {interestNews.length > 0 && (
-        <PostRelated title="Интересное" posts={interestNews} />
-      )}
+      {/*{interestNews.length > 0 && (*/}
+      {/*  <PostRelated title="Интересное" posts={interestNews} />*/}
+      {/*)}*/}
     </>
   );
 };
@@ -50,23 +50,15 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   }
 
   // global settings
-  const { settings, taxonomies, advert } = await getGeneralSettings();
-
-  let interestNews: PostProps[] = [];
-  try {
-    interestNews = await getPostsInterest();
-  } catch (error) {
-    console.log("news detail interest:", error);
-  }
+  const { settings, taxonomies } = await getGeneralSettings({
+    withTaxonomies: true,
+  });
 
   return {
     props: {
-      post: posts.post,
-      relatedPosts: posts.relatedPosts,
-      interestNews,
       settings,
       taxonomies,
-      advert,
+      posts,
     },
   };
 };

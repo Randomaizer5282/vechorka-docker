@@ -1,19 +1,19 @@
-import React from "react";
 import { PostMeta } from "@/modules/post/ui/components/post-meta";
-import { getPostsCommented } from "@/shared/api/posts";
 import { Heading } from "@/shared/ui/heading";
 import { PostListWidget } from "@/widgets/post-list-widget";
+import { type PostProps } from "@/shared/types";
 
 export interface NewsCommentedProps {
+  posts: PostProps[];
   className?: string;
 }
 
-export const NewsCommented = ({ className }: NewsCommentedProps) => {
+export const NewsCommented = ({ className, posts }: NewsCommentedProps) => {
   return (
     <PostListWidget
+      posts={posts}
       className={className}
       title="Комментируют"
-      fetchCallback={() => getPostsCommented()}
       view={({ post, href }) => (
         <>
           <div>

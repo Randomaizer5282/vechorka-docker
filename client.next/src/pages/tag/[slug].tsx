@@ -1,5 +1,5 @@
 import { getGeneralSettings } from "@/shared/api/settings";
-import { getPostsByTaxonomySlug, getPostsInterest } from "@/shared/api/posts";
+import { getPostsByTaxonomySlug } from "@/shared/api/posts";
 import { TagList } from "@/modules/tag/ui/tag-list";
 import { TagLayout } from "@/shared/ui/layouts/tag-layout";
 import type { PostProps } from "@/shared/types";
@@ -7,23 +7,19 @@ import type { GetServerSideProps } from "next";
 
 interface Props {
   posts: PostProps[];
-  interestNews: PostProps[];
 }
 
-const TagPage = ({ posts, interestNews }: Props) => {
-  return (
-    <TagLayout
-      left={<TagList initPosts={posts} />}
-      interestPosts={interestNews}
-    />
-  );
+const TagPage = ({ posts }: Props) => {
+  return <TagLayout left={<TagList initPosts={posts} />} />;
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const slug = params?.slug as string;
 
   // global settings
-  const { settings, taxonomies, advert } = await getGeneralSettings();
+  const { settings, taxonomies } = await getGeneralSettings({
+    withTaxonomies: true,
+  });
 
   let posts = null;
 
@@ -47,21 +43,11 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     };
   }
 
-  // interest news
-  let interestNews: PostProps[] = [];
-  try {
-    interestNews = await getPostsInterest();
-  } catch (error) {
-    console.log("tag interest", error);
-  }
-
   return {
     props: {
       posts,
-      interestNews,
       settings,
       taxonomies,
-      advert,
     },
   };
 };

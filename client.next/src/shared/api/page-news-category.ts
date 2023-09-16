@@ -2,7 +2,6 @@ import { getGeneralSettings } from "@/shared/api/settings";
 import {
   getPosts,
   getPostsByTaxonomySlug,
-  getPostsInterest,
   NewsPosts,
 } from "@/shared/api/posts";
 import type { GetServerSidePropsResult } from "next";
@@ -14,7 +13,6 @@ export const getPageNewsCategory = async ({
 }): Promise<GetServerSidePropsResult<any>> => {
   const posts: NewsPosts = {
     news: { data: [], count: 0 },
-    interestNews: [],
   };
 
   if (!slugTaxonomy) {
@@ -24,7 +22,9 @@ export const getPageNewsCategory = async ({
   }
 
   // global settings
-  const { settings, taxonomies, advert } = await getGeneralSettings();
+  const { settings, taxonomies } = await getGeneralSettings({
+    withTaxonomies: true,
+  });
 
   //news by slug
   try {
@@ -67,19 +67,11 @@ export const getPageNewsCategory = async ({
     };
   }
 
-  // interest news
-  try {
-    posts.interestNews = await getPostsInterest();
-  } catch (error) {
-    console.log("category interest", error);
-  }
-
   return {
     props: {
       posts,
       settings,
       taxonomies,
-      advert,
     },
   };
 };

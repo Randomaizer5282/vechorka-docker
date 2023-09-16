@@ -11,7 +11,7 @@ import { messages } from "@/shared/constants";
 import { getUrlFromParams } from "@/shared/lib/links";
 import cn from "clsx";
 import { DynamicAdvert } from "@/widgets/advert";
-import { useSettings } from "@/contexts/settings-context";
+import { useCommonPosts } from "@/shared/api/settings";
 
 interface Props {
   initPosts: ListPostProps;
@@ -51,7 +51,7 @@ export const NewsCategoriesTabbed = ({
   const [activeTab, setActiveTab] = useState<TaxonomyProps>(tabs[0] || {});
   const [countPosts, setCountPost] = useState<number>(initCount);
   const [loading, setLoading] = useState(false);
-  const { advert } = useSettings();
+  const { common } = useCommonPosts();
 
   const activePosts: PostProps[] =
     activeTab && posts[activeTab.slug] ? posts[activeTab.slug] : [];
@@ -126,14 +126,14 @@ export const NewsCategoriesTabbed = ({
       />
 
       {/* advert */}
-      {advert && !!Number(advert.advert_block_1_visible) && (
+      {common?.advert && !!Number(common.advert.advert_block_1_visible) && (
         <DynamicAdvert
           className="mb-5"
-          type={advert.advert_block_1_type}
+          type={common.advert.advert_block_1_type}
           size="1000x120"
-          imageUrl={advert.advert_block_1_image_url}
-          href={advert.advert_block_1_href}
-          htmlCode={advert.advert_block_1_html_code}
+          imageUrl={common.advert.advert_block_1_image_url}
+          href={common.advert.advert_block_1_href}
+          htmlCode={common.advert.advert_block_1_html_code}
         />
       )}
 

@@ -1,23 +1,19 @@
-import React from "react";
-import { NewsPaperAllProps, PostProps } from "@/shared/types";
+import { type NewsPaperAllProps } from "@/shared/types";
 import { PostLayout } from "@/shared/ui/layouts";
 import { NewspaperArchive } from "@/modules/newspaper/ui/newspaper-archive";
 import { getNewspapers } from "@/shared/api/newspaper";
-import { getPostsInterest } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
 
 interface Props {
   newspapers: NewsPaperAllProps;
-  interestNews: PostProps[];
 }
 
-const NewsPaperIndex = ({ newspapers, interestNews }: Props) => {
+const NewsPaperIndex = ({ newspapers }: Props) => {
   return (
     <>
       <PostLayout
         left={<NewspaperArchive newspapers={newspapers} />}
         showNewsWidgets={false}
-        interestPosts={interestNews}
       />
     </>
   );
@@ -48,23 +44,15 @@ export const getServerSideProps = async () => {
   }
 
   // global settings
-  const { settings, taxonomies, advert } = await getGeneralSettings();
-
-  // interest news
-  let interestNews: PostProps[] = [];
-  try {
-    interestNews = await getPostsInterest();
-  } catch (error) {
-    console.log("newspaper interest", error);
-  }
+  const { settings, taxonomies } = await getGeneralSettings({
+    withTaxonomies: true,
+  });
 
   return {
     props: {
       newspapers,
-      interestNews,
       settings,
       taxonomies,
-      advert,
     },
   };
 };

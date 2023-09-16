@@ -74,7 +74,9 @@ export const getStaticProps: GetStaticProps = async () => {
     console.log("error: posts/index: ", error);
   }
 
-  const { settings, taxonomies, advert } = await getGeneralSettings();
+  const { settings, taxonomies } = await getGeneralSettings({
+    withTaxonomies: true,
+  });
   // TODO: ?remove to new page and check cache
   let rssNews: PostProps[] = [];
   try {
@@ -98,7 +100,6 @@ export const getStaticProps: GetStaticProps = async () => {
       posts,
       taxonomies,
       settings,
-      advert,
     },
     // revalidate: 60,
   };

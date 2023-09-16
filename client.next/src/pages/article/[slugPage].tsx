@@ -3,29 +3,27 @@ import type { GetServerSideProps } from "next";
 import type { PostProps } from "@/shared/types";
 import { PostLayout } from "@/shared/ui/layouts";
 import { PostDetail } from "@/modules/post/ui/post-detail";
-import { getPostBySlug, getPostsInterest } from "@/shared/api/posts";
+import { getPostBySlug } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
 import { PostRelated } from "@/widgets/post-related";
 
 interface Props {
-  post: PostProps;
-  interestNews: PostProps[];
-  relatedPosts: PostProps[];
+  posts: { post: PostProps | null; relatedPosts: PostProps[] | null };
 }
 
-const ArticlesDetailPage = ({ post, interestNews, relatedPosts }: Props) => {
+const ArticlesDetailPage = ({ posts }: Props) => {
   return (
     <>
       <PostLayout
-        left={<PostDetail post={post} showComment />}
+        left={posts.post ? <PostDetail post={posts.post} showComment /> : null}
         showNewsWidgets={false}
       />
-      {relatedPosts && (
-        <PostRelated title="Статьи из раздела" posts={relatedPosts} />
+      {posts.relatedPosts && (
+        <PostRelated title="Статьи из раздела" posts={posts.relatedPosts} />
       )}
-      {interestNews.length > 0 && (
-        <PostRelated title="Интересное" posts={interestNews} />
-      )}
+      {/*{interestNews.length > 0 && (*/}
+      {/*  <PostRelated title="Интересное" posts={interestNews} />*/}
+      {/*)}*/}
     </>
   );
 };
@@ -51,23 +49,15 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   }
 
   // global settings
-  const { settings, taxonomies, advert } = await getGeneralSettings();
-
-  let interestNews: PostProps[] = [];
-  try {
-    interestNews = await getPostsInterest();
-  } catch (error) {
-    console.log("article detail interest", error);
-  }
+  const { settings, taxonomies } = await getGeneralSettings({
+    withTaxonomies: true,
+  });
 
   return {
     props: {
-      post: posts.post,
-      relatedPosts: posts.relatedPosts,
-      interestNews,
       settings,
       taxonomies,
-      advert,
+      posts,
     },
   };
 };

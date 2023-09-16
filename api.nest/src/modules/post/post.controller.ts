@@ -80,23 +80,23 @@ export class PostController {
     return this.postService.getPostGalleryImagesByIds(query.ids);
   }
 
-  @UseInterceptors(CacheInterceptor)
-  @Get('top')
-  getPostsTop() {
-    return this.postService.getPostsTop();
-  }
-
-  @UseInterceptors(CacheInterceptor)
-  @Get('commented')
-  getPostsCommented() {
-    return this.postService.getPostsCommented();
-  }
-
-  @UseInterceptors(CacheInterceptor)
-  @Get('interest')
-  getPostsInterest() {
-    return this.postService.getPostsInterest();
-  }
+  // @UseInterceptors(CacheInterceptor)
+  // @Get('top')
+  // getPostsTop() {
+  //   return this.postService.getPostsTop();
+  // }
+  //
+  // @UseInterceptors(CacheInterceptor)
+  // @Get('commented')
+  // getPostsCommented() {
+  //   return this.postService.getPostsCommented();
+  // }
+  //
+  // @UseInterceptors(CacheInterceptor)
+  // @Get('interest')
+  // getPostsInterest() {
+  //   return this.postService.getPostsInterest();
+  // }
 
   @Get('search')
   getPostsSearch(@Query() query: PostSearchQueryParamsDTO) {

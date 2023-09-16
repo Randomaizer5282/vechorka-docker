@@ -109,7 +109,8 @@ export class PostService {
       return this.responseData({ posts: [post], metas })[0];
     }
 
-    throw new NotFoundException('post not found');
+    return null;
+    // throw new NotFoundException('post not found');
   }
 
   async getPostBySlug({
@@ -772,7 +773,8 @@ export class PostService {
       return this.responseData({ posts, metas, attachments, taxonomies });
     }
 
-    throw new NotFoundException('posts not found');
+    return null;
+    // throw new NotFoundException('posts not found');
   }
 
   // commented posts
@@ -798,7 +800,8 @@ export class PostService {
       return this.responseData({ posts, metas, taxonomies });
     }
 
-    throw new NotFoundException('posts not found');
+    return null;
+    // throw new NotFoundException('posts not found');
   }
 
   // interest posts
@@ -821,6 +824,7 @@ export class PostService {
       return this.responseData({ posts, metas, attachments, taxonomies });
     }
 
-    throw new NotFoundException('posts not found');
+    return null;
+    // throw new NotFoundException('posts not found');
   }
 }

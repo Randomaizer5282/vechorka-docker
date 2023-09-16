@@ -11,7 +11,7 @@ export interface NewsCategoryProps {
 }
 
 const NewsCategoryPage = ({ posts }: NewsCategoryProps) => {
-  const { news, interestNews } = posts;
+  const { news } = posts;
   const { title, description, url } = useSeoFromPathname();
   return (
     <>
@@ -32,7 +32,6 @@ const NewsCategoryPage = ({ posts }: NewsCategoryProps) => {
             postType="post"
           />
         }
-        interestPosts={interestNews}
       />
     </>
   );

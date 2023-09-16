@@ -1,41 +1,21 @@
 import { PostLayout } from "@/shared/ui/layouts";
 import { getGeneralSettings } from "@/shared/api/settings";
-import type { PostProps } from "@/shared/types";
-import { getPostsInterest } from "@/shared/api/posts";
 import { SearchList } from "@/modules/search/ui/search-list";
 
-interface Props {
-  interestNews: PostProps[];
-}
-
-const SearchPage = ({ interestNews }: Props) => {
-  return (
-    <PostLayout
-      left={<SearchList />}
-      showNewsWidgets={false}
-      interestPosts={interestNews}
-    />
-  );
+const SearchPage = () => {
+  return <PostLayout left={<SearchList />} showNewsWidgets={false} />;
 };
 
 export const getServerSideProps = async () => {
   // global settings
-  const { settings, taxonomies, advert } = await getGeneralSettings();
-
-  // interest news
-  let interestNews: PostProps[] = [];
-  try {
-    interestNews = await getPostsInterest();
-  } catch (error) {
-    console.log("newspaper interest", error);
-  }
+  const { settings, taxonomies } = await getGeneralSettings({
+    withTaxonomies: true,
+  });
 
   return {
     props: {
-      interestNews,
       settings,
       taxonomies,
-      advert,
     },
   };
 };

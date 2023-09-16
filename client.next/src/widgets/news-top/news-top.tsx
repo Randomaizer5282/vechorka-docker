@@ -1,20 +1,20 @@
-import React from "react";
 import { PostMeta } from "@/modules/post/ui/components/post-meta";
 import { ImagePreview } from "@/shared/ui/image";
-import { getPostsTop } from "@/shared/api/posts";
 import { Heading } from "@/shared/ui/heading";
 import { PostListWidget } from "@/widgets/post-list-widget";
+import { PostProps } from "@/shared/types";
 
 export interface NewsTopProps {
+  posts: PostProps[];
   className?: string;
 }
 
-export const NewsTop = ({ className }: NewsTopProps) => {
+export const NewsTop = ({ posts, className }: NewsTopProps) => {
   return (
     <PostListWidget
+      posts={posts}
       className={className}
       title="Популярные"
-      fetchCallback={() => getPostsTop()}
       view={({ post, href }) => (
         <>
           {/* image */}

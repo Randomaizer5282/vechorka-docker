@@ -2,11 +2,7 @@ import React from "react";
 import type { GetServerSideProps, NextPage } from "next";
 import { PostLayout } from "@/shared/ui/layouts";
 import { PostListShowMore } from "@/modules/post/ui/post-list-show-more";
-import {
-  type ArticlePosts,
-  getPosts,
-  getPostsInterest,
-} from "@/shared/api/posts";
+import { type ArticlePosts, getPosts } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
 import { SEO } from "@/shared/ui/SEO";
 import { useSeoFromPathname } from "@/shared/ui/SEO/SEO";
@@ -16,7 +12,7 @@ export interface Props {
 }
 
 const ArticlesIndexPage: NextPage<Props> = ({ posts }) => {
-  const { articles, interestNews } = posts;
+  const { articles } = posts;
   const { title, description, url } = useSeoFromPathname();
   return (
     <>
@@ -37,7 +33,6 @@ const ArticlesIndexPage: NextPage<Props> = ({ posts }) => {
             postType="article"
           />
         }
-        interestPosts={interestNews}
       />
     </>
   );
@@ -46,7 +41,6 @@ const ArticlesIndexPage: NextPage<Props> = ({ posts }) => {
 export const getServerSideProps: GetServerSideProps = async () => {
   const posts: ArticlePosts = {
     articles: { data: [], count: 0 },
-    interestNews: [],
   };
 
   try {
@@ -71,21 +65,15 @@ export const getServerSideProps: GetServerSideProps = async () => {
   }
 
   // global settings
-  const { settings, taxonomies, advert } = await getGeneralSettings();
-
-  // interest news
-  try {
-    posts.interestNews = await getPostsInterest();
-  } catch (error) {
-    console.log("articles index interest", error);
-  }
+  const { settings, taxonomies } = await getGeneralSettings({
+    withTaxonomies: true,
+  });
 
   return {
     props: {
       posts,
       settings,
       taxonomies,
-      advert,
     },
   };
 };

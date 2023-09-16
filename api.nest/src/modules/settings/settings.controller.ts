@@ -1,4 +1,11 @@
-import { Controller, Get, UseGuards, UseInterceptors } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  ParseIntPipe,
+  Query,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { SettingsService } from './settings.service';
 import { CacheInterceptor } from '@nestjs/cache-manager';
 import { ApiKeyGuard } from '../../utils/guards/api-key.guard';
@@ -10,7 +17,7 @@ export class SettingsController {
 
   @UseInterceptors(CacheInterceptor)
   @Get('common')
-  getCommon() {
-    return this.settingsService.getCommon();
+  getCommon(@Query() query) {
+    return this.settingsService.getCommon(query);
   }
 }

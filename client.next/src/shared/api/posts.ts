@@ -11,12 +11,10 @@ export interface HomePosts {
 
 export interface NewsPosts {
   news: { data: PostProps[]; count: number };
-  interestNews: PostProps[];
 }
 
 export interface ArticlePosts {
   articles: { data: PostProps[]; count: number };
-  interestNews: PostProps[];
 }
 
 interface GetPostsParams {

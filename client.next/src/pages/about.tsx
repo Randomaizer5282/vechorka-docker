@@ -6,17 +6,10 @@ import { type GetStaticProps } from "next";
 
 interface Props {
   post: PostProps;
-  interestNews: PostProps[];
 }
 
-const About = ({ post, interestNews }: Props) => {
-  return (
-    <PostLayout
-      left={<PageAbout {...post} />}
-      showNewsWidgets={false}
-      interestPosts={interestNews}
-    />
-  );
+const About = ({ post }: Props) => {
+  return <PostLayout left={<PageAbout {...post} />} showNewsWidgets={false} />;
 };
 
 export const getStaticProps: GetStaticProps = async () => {
