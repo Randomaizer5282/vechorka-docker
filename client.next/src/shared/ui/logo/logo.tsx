@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -11,12 +10,10 @@ export const Logo = ({ priority = false }: Props) => {
   const router = useRouter();
 
   const ImageLogo = () => (
-    <Image
+    <img
       className="object-contain"
-      fill
       src="/images/logo.png"
       alt="Вечерний ставрополь"
-      priority
     />
   );
 
