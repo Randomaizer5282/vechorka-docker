@@ -10,9 +10,11 @@ interface Props {
 
 const Contact = ({ post }: Props) => {
   return (
-    <>
-      <PostLayout left={<PageContact {...post} />} showNewsWidgets={false} />
-    </>
+    <PostLayout
+      left={<PageContact {...post} />}
+      showNewsWidgets={false}
+      showAdvert={false}
+    />
   );
 };
 

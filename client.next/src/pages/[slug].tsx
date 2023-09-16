@@ -11,9 +11,11 @@ interface Props {
 
 const Page = ({ post }: Props) => {
   return (
-    <>
-      <PostLayout left={<PageDetail {...post} />} showNewsWidgets={false} />
-    </>
+    <PostLayout
+      left={<PageDetail {...post} />}
+      showNewsWidgets={false}
+      showAdvert={false}
+    />
   );
 };
 

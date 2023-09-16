@@ -9,7 +9,13 @@ interface Props {
 }
 
 const About = ({ post }: Props) => {
-  return <PostLayout left={<PageAbout {...post} />} showNewsWidgets={false} />;
+  return (
+    <PostLayout
+      left={<PageAbout {...post} />}
+      showNewsWidgets={false}
+      showAdvert={false}
+    />
+  );
 };
 
 export const getStaticProps: GetStaticProps = async () => {
