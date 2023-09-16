@@ -34,18 +34,18 @@ export default async function handler(
     // post (news)
     if (type === "post") {
       await revalidate(res, "/");
-      // await revalidate(res, "/news");
+      await revalidate(res, "/news");
     }
     if (type === "article") {
       await revalidate(res, "/");
-      // await revalidate(res, "/article");
+      await revalidate(res, "/article");
     }
     if (type === "employee") {
       await revalidate(res, "/about");
     }
-    // if (type === "newspaper") {
-    //   await revalidate(res, "/newspaper");
-    // }
+    if (type === "newspaper") {
+      await revalidate(res, "/newspaper");
+    }
     // post_category, update all
     if (type === "post_category" || type === "post_geography") {
       const pagePaths = await getStaticPaths();
@@ -54,6 +54,9 @@ export default async function handler(
       }
 
       await revalidate(res, "/");
+      await revalidate(res, "/news");
+      await revalidate(res, "/article");
+      await revalidate(res, "/newspaper");
       await revalidate(res, "/contact");
       await revalidate(res, "/about");
     }

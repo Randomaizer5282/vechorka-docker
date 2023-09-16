@@ -3,6 +3,7 @@ import { PostLayout } from "@/shared/ui/layouts";
 import { NewspaperArchive } from "@/modules/newspaper/ui/newspaper-archive";
 import { getNewspapers } from "@/shared/api/newspaper";
 import { getGeneralSettings } from "@/shared/api/settings";
+import { type GetStaticProps } from "next";
 
 interface Props {
   newspapers: NewsPaperAllProps;
@@ -19,7 +20,8 @@ const NewsPaperIndex = ({ newspapers }: Props) => {
   );
 };
 
-export const getServerSideProps = async () => {
+// export const getServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   let newspapers = {
     posts: null,
     postsMonths: null,

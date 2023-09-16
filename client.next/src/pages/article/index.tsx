@@ -1,17 +1,17 @@
 import React from "react";
-import type { GetServerSideProps, NextPage } from "next";
 import { PostLayout } from "@/shared/ui/layouts";
 import { PostListShowMore } from "@/modules/post/ui/post-list-show-more";
 import { type ArticlePosts, getPosts } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
 import { SEO } from "@/shared/ui/SEO";
 import { useSeoFromPathname } from "@/shared/ui/SEO/SEO";
+import { type GetStaticProps } from "next";
 
 export interface Props {
   posts: ArticlePosts;
 }
 
-const ArticlesIndexPage: NextPage<Props> = ({ posts }) => {
+const ArticlesIndexPage = ({ posts }: Props) => {
   const { articles } = posts;
   const { title, description, url } = useSeoFromPathname();
   return (
@@ -38,7 +38,8 @@ const ArticlesIndexPage: NextPage<Props> = ({ posts }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+// export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const posts: ArticlePosts = {
     articles: { data: [], count: 0 },
   };
