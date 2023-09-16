@@ -22,6 +22,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const slug = params?.slugPage as string;
   const slugTaxonomy = params?.category as string;
 
+  if (slugTaxonomy === "news") {
+    return {
+      notFound: true,
+    };
+  }
+
   let posts = { post: null, relatedPosts: null };
 
   try {
