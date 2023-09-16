@@ -7,7 +7,6 @@ const ErrorPage = ({ statusCode }: { statusCode?: number }) => {
   return (
     <PostLayout
       left={<ErrorStatus statusCode={statusCode} />}
-      // interestPosts={interestNews}
       showNewsWidgets={false}
       showAdvert={false}
       showPaper={false}

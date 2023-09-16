@@ -5,26 +5,18 @@ import { PostLayout } from "@/shared/ui/layouts";
 import { PostDetail } from "@/modules/post/ui/post-detail";
 import { getPostBySlug } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
-import { PostRelated } from "@/widgets/post-related";
 
 interface Props {
   posts: { post: PostProps | null; relatedPosts: PostProps[] | null };
 }
 
-const ArticlesDetailPage = ({ posts }: Props) => {
+const ArticleDetailPage = ({ posts }: Props) => {
   return (
-    <>
-      <PostLayout
-        left={posts.post ? <PostDetail post={posts.post} showComment /> : null}
-        showNewsWidgets={false}
-      />
-      {posts.relatedPosts && (
-        <PostRelated title="Статьи из раздела" posts={posts.relatedPosts} />
-      )}
-      {/*{interestNews.length > 0 && (*/}
-      {/*  <PostRelated title="Интересное" posts={interestNews} />*/}
-      {/*)}*/}
-    </>
+    <PostLayout
+      left={posts.post ? <PostDetail post={posts.post} showComment /> : null}
+      relatedPosts={posts.relatedPosts}
+      showNewsWidgets={false}
+    />
   );
 };
 
@@ -62,4 +54,4 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   };
 };
 
-export default ArticlesDetailPage;
+export default ArticleDetailPage;

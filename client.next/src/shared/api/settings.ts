@@ -29,7 +29,7 @@ export const getCommonPosts = (
 
 export const useCommonPosts = () => {
   const { data: common, isLoading } = useQuery({
-    queryKey: ["common"],
+    queryKey: ["common-posts"],
     queryFn: async () =>
       await getCommonPosts({
         // withTaxonomies: value.taxonomies

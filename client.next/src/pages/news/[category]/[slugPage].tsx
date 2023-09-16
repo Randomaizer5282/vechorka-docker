@@ -1,11 +1,9 @@
-import React from "react";
 import type { GetServerSideProps } from "next";
 import type { PostProps } from "@/shared/types";
 import { PostLayout } from "@/shared/ui/layouts";
 import { PostDetail } from "@/modules/post/ui/post-detail";
-import { getPostBySlug, getPostsInterest } from "@/shared/api/posts";
+import { getPostBySlug } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
-import { PostRelated } from "@/widgets/post-related";
 
 interface Props {
   posts: { post: PostProps | null; relatedPosts: PostProps[] | null };
@@ -13,17 +11,10 @@ interface Props {
 
 const NewsDetailPage = ({ posts }: Props) => {
   return (
-    <>
-      <PostLayout
-        left={posts.post ? <PostDetail post={posts.post} showComment /> : null}
-      />
-      {posts.relatedPosts && (
-        <PostRelated title="Другие новости" posts={posts.relatedPosts} />
-      )}
-      {/*{interestNews.length > 0 && (*/}
-      {/*  <PostRelated title="Интересное" posts={interestNews} />*/}
-      {/*)}*/}
-    </>
+    <PostLayout
+      left={posts.post ? <PostDetail post={posts.post} showComment /> : null}
+      relatedPosts={posts.relatedPosts}
+    />
   );
 };
 

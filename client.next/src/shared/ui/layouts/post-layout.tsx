@@ -1,11 +1,13 @@
-import { ReactNode } from "react";
+import React, { type ReactNode } from "react";
 import { LayoutColumn } from "@/shared/ui/layouts/layout-column";
 import { NavCategories } from "@/shared/ui/navigation/nav-categories";
 import { PostRelated } from "@/widgets/post-related";
 import { useCommonPosts } from "@/shared/api/settings";
 import { Sidebar } from "@/shared/ui/layouts/sidebar";
+import { PostProps } from "@/shared/types";
 
 interface Props {
+  relatedPosts?: PostProps[] | null;
   left: ReactNode;
   showNewsWidgets?: boolean;
   showAdvert?: boolean;
@@ -14,6 +16,7 @@ interface Props {
 
 export const PostLayout = ({
   left,
+  relatedPosts,
   showNewsWidgets = true,
   showAdvert = true,
   showPaper = true,
@@ -42,6 +45,9 @@ export const PostLayout = ({
           </>
         }
       />
+      {relatedPosts && relatedPosts?.length > 0 && (
+        <PostRelated title="Другие новости" posts={relatedPosts} />
+      )}
       {common?.interest && common.interest.length > 0 && (
         <PostRelated title="Интересное" posts={common.interest} />
       )}
