@@ -27,7 +27,9 @@ export const PostItem = ({ post, imageClassName, className }: Props) => {
   } = post;
   const views = meta?.views || null;
   const categories = taxonomies?.categories;
-  const categorySlug = categories?.length ? categories[0].slug : "";
+  const categorySlug = categories?.length
+    ? categories[categories.length - 1].slug
+    : "";
   const href = getUrlFromParams(type, categorySlug, slug);
 
   return (
