@@ -8,6 +8,7 @@ import { PostItem } from "@/modules/post/ui/post-item";
 import { Button } from "@/shared/ui/buttons";
 import type { PostProps, PostType } from "@/shared/types";
 import { getPosts } from "@/shared/api/posts";
+import { useCommonPosts } from "@/shared/api/settings";
 
 interface Props {
   initPosts: PostProps[];
@@ -27,7 +28,7 @@ export const PostListShowMore = ({
   const [posts, setPosts] = useState(initPosts);
   const [countPosts, setCountPost] = useState<number>(initCount);
   const [loading, setLoading] = useState(false);
-  const { advert } = useSettings();
+  const { common } = useCommonPosts();
 
   const fetchPosts = async () => {
     setLoading(true);
@@ -70,16 +71,16 @@ export const PostListShowMore = ({
               />
 
               {/* advert */}
-              {advert &&
+              {common?.advert &&
                 index === 0 &&
-                !!Number(advert.advert_block_1_visible) && (
+                !!Number(common.advert.advert_block_1_visible) && (
                   <DynamicAdvert
                     className="mb-5"
-                    type={advert.advert_block_1_type}
+                    type={common.advert.advert_block_1_type}
                     size="1000x120"
-                    imageUrl={advert.advert_block_1_image_url}
-                    href={advert.advert_block_1_href}
-                    htmlCode={advert.advert_block_1_html_code}
+                    imageUrl={common.advert.advert_block_1_image_url}
+                    href={common.advert.advert_block_1_href}
+                    htmlCode={common.advert.advert_block_1_html_code}
                   />
                 )}
             </Fragment>

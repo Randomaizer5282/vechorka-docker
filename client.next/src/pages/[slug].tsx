@@ -7,17 +7,12 @@ import { type GetStaticProps } from "next";
 
 interface Props {
   post: PostProps;
-  interestNews: PostProps[];
 }
 
-const Page = ({ post, interestNews }: Props) => {
+const Page = ({ post }: Props) => {
   return (
     <>
-      <PostLayout
-        left={<PageDetail {...post} />}
-        interestPosts={interestNews}
-        showNewsWidgets={false}
-      />
+      <PostLayout left={<PageDetail {...post} />} showNewsWidgets={false} />
     </>
   );
 };

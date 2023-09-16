@@ -38,6 +38,7 @@ export const useCommonPosts = () => {
         withInterest: true,
         withTop: true,
       }),
+    staleTime: process.env.NODE_ENV === "production" ? 60000 : undefined,
   });
 
   return { common, isLoading };
