@@ -57,6 +57,8 @@ export const NavCategories: FC<Props> = ({ className }) => {
   const categories = taxonomies?.categories;
   const geographyTags = taxonomies?.geography;
 
+  if (!categories?.length || !geographyTags?.length) return null;
+
   return (
     <div className={cn(className, "p-5 pt-2 bg-blue-200")}>
       {categories && categories.length > 0 && (
