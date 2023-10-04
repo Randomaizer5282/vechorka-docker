@@ -179,7 +179,8 @@ function admin_bar_revalidate_button()
               if (CLIENT_REVALIDATE_URL && CLIENT_REVALIDATE_KEY) {
                   loader.style.display = "flex";
 
-                  fetch("<?php echo esc_url(home_url()) . '/wp-admin/admin-ajax.php?action=revalidate_all' ?>", {
+                  // change url
+                  fetch("<?php echo esc_url(site_url()) . '/wp-admin/admin-ajax.php?action=revalidate_all' ?>", {
                       method: "GET",
                   })
                       .then(response => response.ok ? alert("Кеш очищен") : alert("При обновлении кеша произошла ошибка"))
