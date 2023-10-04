@@ -6,6 +6,7 @@ import { getPhoneFromString } from "@/shared/lib/string";
 import Link from "next/link";
 import cn from "clsx";
 import { SocialLinks } from "@/shared/ui/social-links";
+import { Icon } from "@/shared/ui/icon";
 
 const ListTitle = ({
   title,
@@ -47,8 +48,12 @@ export const Footer = () => {
         <Container className="flex flex-wrap gap-5 text-center md:text-left">
           {/* col info */}
           <div className="w-full md:flex-1 md:min-w-[300px] text-grey-500">
-            <div className="h-[49px] w-[166px] mx-auto md:mx-0">
+            <div className="relative h-[49px] w-[166px] mx-auto md:mx-0">
               <Logo />
+              <Icon
+                name="16plus"
+                className="absolute top-0 -right-2 w-[24px] h-[24px] fill-grey-500"
+              />
             </div>
             {phone && (
               <p className="mt-5">
@@ -67,10 +72,11 @@ export const Footer = () => {
             </div>
 
             <p className="mt-5 text-13px">
-              И.O. главного редактора «Вечерний Ставрополь» Метелкина О. В.
+              И.о. главного редактора «Вечерний Ставрополь» Ардалина Н.А.
             </p>
             <p className="mt-2 text-13px">
-              Адрес: 355000, Россия, г. Ставрополь, ул. Доваторцев 28/30.
+              Адрес: 355000, Россия, г. Ставрополь, ул. Доваторцев 28/30, тел:{" "}
+              {phone}
             </p>
             <p className="mt-2 text-13px">
               «Вечерний Ставрополь» зарегистрирован Роскомнадзором в реестре СМИ
@@ -114,7 +120,7 @@ export const Footer = () => {
                     prefetch={false}
                     className="p-1"
                   >
-                    {tag.name}{" "}
+                    {tag.name}
                   </Link>
                 );
               })}
@@ -128,7 +134,7 @@ export const Footer = () => {
                 Свежий номер
               </Link>
               <Link href="/newspaper" prefetch={false}>
-                Архив новостей
+                Архив номеров
               </Link>
             </ListTitle>
           </div>
@@ -167,9 +173,7 @@ export const Footer = () => {
               Политика конфиденциальности
             </Link>
 
-            <p className="order-3 lg:order-1">
-              © ИД «Вечерний Ставрополь», {new Date().getFullYear()}
-            </p>
+            <p className="order-3 lg:order-1">© ИД «Вечерний Ставрополь»</p>
 
             <Link
               href="/user-agreement"

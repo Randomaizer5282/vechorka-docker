@@ -101,7 +101,7 @@ export const PageContact = ({ title, preview, meta, seo }: PostProps) => {
         )}
         {correspondents && correspondents.length > 0 && (
           <div className="w-full lg:w-[60%] mt-8">
-            <h3 className="mb-3">Корреспонденты:</h3>
+            <h3 className="mb-3">Журналисты:</h3>
             <div className="divide-y divide-grey-200">
               {correspondents.map((item, index: number) => {
                 const fullName = item[`correspondents_${index}_full_name`];
