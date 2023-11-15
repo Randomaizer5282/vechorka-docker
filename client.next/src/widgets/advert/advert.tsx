@@ -47,9 +47,16 @@ export const Advert = ({
     const AdvertImage = () => (
       <>
         {isRemoteImage ? (
-          <img src={imageUrl} width={sizes[0]} height={sizes[1]} alt="" />
+          <img
+            className="max-h-full"
+            src={imageUrl}
+            width={sizes[0]}
+            height={sizes[1]}
+            alt=""
+          />
         ) : (
           <Image
+            className="max-h-full"
             src={imageUrl}
             width={Number(sizes[0])}
             height={Number(sizes[1])}
@@ -62,7 +69,8 @@ export const Advert = ({
     return (
       <div
         className={cn("relative mx-auto", className)}
-        style={{ maxWidth: `${sizes[0]}px`, maxHeight: `${sizes[1]}px` }}
+        // style={{ maxWidth: `${sizes[0]}px`, maxHeight: `${sizes[1]}px` }}
+        style={{ maxWidth: `${sizes[0]}px` }}
       >
         {href ? (
           <a
