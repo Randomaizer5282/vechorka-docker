@@ -50,10 +50,6 @@ export const Footer = () => {
           <div className="w-full md:flex-1 md:min-w-[300px] text-grey-500">
             <div className="relative h-[49px] w-[166px] mx-auto md:mx-0">
               <Logo />
-              <Icon
-                name="16plus"
-                className="absolute top-0 -right-2 w-[24px] h-[24px] fill-grey-500"
-              />
             </div>
             {phone && (
               <p className="mt-5">
@@ -67,7 +63,12 @@ export const Footer = () => {
               </p>
             )}
 
-            <div className="flex justify-center md:justify-start mt-5 space-x-3">
+            <Icon
+              name="16plus"
+              className="mt-3 w-[24px] h-[24px] fill-grey-500"
+            />
+
+            <div className="flex justify-center md:justify-start mt-3 space-x-3">
               <SocialLinks />
             </div>
 
