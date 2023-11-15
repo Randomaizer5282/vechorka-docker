@@ -9,9 +9,9 @@ export const api = {
       config.apiUrl
     }/${url}`;
 
-    process.env.NODE_ENV === "development"
-      ? console.log(str)
-      : isSSR && console.log(str);
+    // process.env.NODE_ENV === "development"
+    //   ? console.log(str)
+    //   : isSSR && console.log(str);
   },
   async get(url: string) {
     try {
