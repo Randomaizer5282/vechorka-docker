@@ -19,7 +19,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-horizontal-scrolling-menu": "^3.2.0",
-    "sharp": "^0.31.1",
+    "sharp": "^0.32.6",
     "yet-another-react-lightbox": "^3.8.2"
   },
   "devDependencies": {
