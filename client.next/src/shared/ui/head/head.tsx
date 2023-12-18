@@ -1,8 +1,6 @@
-import { SEO } from "@/shared/ui/SEO";
-
 export const Head = () => {
   return (
-    <SEO>
+    <>
       <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
@@ -245,6 +243,6 @@ export const Head = () => {
           />
         </>
       )}
-    </SEO>
+    </>
   );
 };

@@ -2,7 +2,7 @@ import React from "react";
 import { Heading } from "@/shared/ui/heading";
 import { useRouter } from "next/router";
 import { messages } from "@/shared/constants";
-import { SEO, useSeoFromPathname } from "@/shared/ui/SEO/SEO";
+import { getSeoTitle, useSeoDataFromPathname } from "@/shared/lib/seo";
 import { FullLoader } from "@/shared/ui/loaders";
 import { PostItem } from "@/modules/post/ui/post-item";
 import { Button } from "@/shared/ui/buttons";
@@ -10,6 +10,7 @@ import type { PostProps } from "@/shared/types";
 import { useSettings } from "@/contexts/settings-context";
 import { useTags } from "@/modules/tag/ui/use-tags";
 import { NavTags } from "@/shared/ui/navigation/nav-tags";
+import { NextSeo } from "next-seo";
 
 interface Props {
   initPosts: PostProps[];
@@ -27,16 +28,17 @@ export const TagList = ({ initPosts = [] }: Props) => {
   });
 
   const { taxonomies } = useSettings();
-  const { title, description, url } = useSeoFromPathname();
   const taxonomy = taxonomies.tags.find((t) => t.slug === tagSlug);
+  const title = getSeoTitle({ path: "tag", title: taxonomy?.name });
+  const { description, url } = useSeoDataFromPathname();
 
   return (
     <>
-      <SEO
-        title={`${title} ${taxonomy?.name ?? ""}`}
+      <NextSeo
+        title={title}
         description={description}
         openGraph={{
-          title: `${title} ${taxonomy?.name ?? ""}`,
+          title,
           description,
           url,
         }}

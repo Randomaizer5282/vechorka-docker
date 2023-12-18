@@ -3,11 +3,12 @@ import { Heading } from "@/shared/ui/heading";
 import { useRouter } from "next/router";
 import { SearchForm } from "@/modules/search/ui/search-form";
 import { messages } from "@/shared/constants";
-import { SEO, useSeoFromPathname } from "@/shared/ui/SEO/SEO";
+import { getSeoTitle, useSeoDataFromPathname } from "@/shared/lib/seo";
 import { FullLoader } from "@/shared/ui/loaders";
 import { PostItem } from "@/modules/post/ui/post-item";
 import { Button } from "@/shared/ui/buttons";
 import { useSearch } from "@/modules/search/model";
+import { NextSeo } from "next-seo";
 
 const limit = 18;
 
@@ -25,15 +26,16 @@ export const SearchList = () => {
     setQuery(q as string);
   }
 
-  const { title, description, url } = useSeoFromPathname();
+  const title = getSeoTitle({ path: "search", title: query });
+  const { description, url } = useSeoDataFromPathname();
 
   return (
     <>
-      <SEO
-        title={`${title} ${query}`}
+      <NextSeo
+        title={title}
         description={description}
         openGraph={{
-          title: `${title} ${query}`,
+          title,
           description,
           url,
         }}
@@ -41,7 +43,7 @@ export const SearchList = () => {
       <Heading
         className="text-grey-500 mb-5"
         tag="h1"
-        title={`${title} ${query}`}
+        title={`Поиск: ${query}`}
       />
       <div className="mb-5">
         <SearchForm defaultValue={query} />

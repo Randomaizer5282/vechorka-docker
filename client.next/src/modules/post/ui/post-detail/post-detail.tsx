@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import type { PostProps, PostBasePath } from "@/shared/types";
+import type { PostProps } from "@/shared/types";
 import { ImagePreview } from "@/shared/ui/image";
 import { PostMeta } from "@/modules/post/ui/components/post-meta";
 import { Heading } from "@/shared/ui/heading";
@@ -11,9 +11,9 @@ import { ShareLinks } from "@/shared/ui/share-links";
 import { useRouter } from "next/router";
 import { useSettings } from "@/contexts/settings-context";
 import { textOverflow } from "@/shared/lib/string";
-import { SEO } from "@/shared/ui/SEO";
 import { PostTags } from "@/modules/post/ui/components/post-tags";
-import { getSeoTitleByPath } from "@/shared/ui/SEO/SEO";
+import { getSeoTitle, type PostBasePath } from "@/shared/lib/seo";
+import { NextSeo } from "next-seo";
 
 interface Props {
   post: PostProps;
@@ -51,7 +51,8 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
     ? `${settings.uploadUrl}/${preview?.url}`
     : "";
 
-  const description = seo?.description
+  const seoTitle = getSeoTitle({ title, path: basePath as PostBasePath });
+  const seoDescription = seo?.description
     ? seo.description
     : excerpt
     ? textOverflow(excerpt, 250)
@@ -59,20 +60,24 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
 
   return (
     <>
-      <SEO
-        title={getSeoTitleByPath(basePath as PostBasePath, title)}
-        description={description}
+      <NextSeo
+        title={seoTitle}
+        description={seoDescription}
         openGraph={{
-          title,
-          description,
-          type: "article",
+          title: seoTitle,
+          description: seoDescription,
           url: href,
-          image: {
-            url: previewUrl,
-            width: preview?.width,
-            height: preview?.height,
-            alt: preview?.alt || title,
-          },
+          type: "article",
+          images: preview
+            ? [
+                {
+                  url: previewUrl,
+                  alt: preview.alt ?? title,
+                  width: preview.width ? Number(preview.width) : undefined,
+                  height: preview.height ? Number(preview.height) : undefined,
+                },
+              ]
+            : undefined,
         }}
       />
 

@@ -4,7 +4,7 @@ import { NavCategories } from "@/shared/ui/navigation/nav-categories";
 import { PostRelated } from "@/widgets/post-related";
 import { useCommonPosts } from "@/shared/api/settings";
 import { Sidebar } from "@/shared/ui/layouts/sidebar";
-import { PostProps } from "@/shared/types";
+import type { PostProps } from "@/shared/types";
 
 interface Props {
   relatedPosts?: PostProps[] | null;
@@ -46,7 +46,7 @@ export const PostLayout = ({
         }
       />
       {relatedPosts && relatedPosts?.length > 0 && (
-        <PostRelated title="Другие новости" posts={relatedPosts} />
+        <PostRelated title="Читайте также" posts={relatedPosts} />
       )}
       {common?.interest && common.interest.length > 0 && (
         <PostRelated title="Интересное" posts={common.interest} />

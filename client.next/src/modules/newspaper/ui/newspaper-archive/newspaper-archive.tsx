@@ -10,7 +10,8 @@ import { Heading } from "@/shared/ui/heading";
 import { LastRelease } from "@/modules/newspaper/ui/newspaper-archive/last-release";
 import { useRouter } from "next/router";
 import { useSettings } from "@/contexts/settings-context";
-import { SEO } from "@/shared/ui/SEO";
+import { NextSeo } from "next-seo";
+import { getSeoTitle } from "@/shared/lib/seo";
 
 export const NewspaperArchive = ({
   newspapers,
@@ -58,12 +59,14 @@ export const NewspaperArchive = ({
   const activePosts =
     posts && activeMonth && posts[activeMonth] ? posts[activeMonth] : [];
 
+  const seoTitle = getSeoTitle({ path: "newspaper" });
+
   return (
     <>
-      <SEO
-        title="Архив номеров"
+      <NextSeo
+        title={seoTitle}
         openGraph={{
-          title: "Архив номеров",
+          title: seoTitle,
           url: postUrl,
         }}
       />

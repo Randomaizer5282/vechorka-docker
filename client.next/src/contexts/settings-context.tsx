@@ -4,10 +4,9 @@ import React, {
   useContext,
 } from "react";
 import type { MenuProps } from "@/shared/ui/navigation/types";
-import type { SEOProps } from "@/shared/ui/SEO";
 import type { TaxonomiesProps } from "@/shared/types";
 
-interface SettingsState extends SEOProps {
+interface SettingsState {
   siteUrl?: string;
   apiUrl?: string;
   uploadUrl?: string;

@@ -82,25 +82,34 @@ export const config = {
   apiUrl: process.env.API_HOST,
   uploadUrl: process.env.UPLOAD_HOST,
   apiKey: process.env.API_KEY,
-  title: "Вечерний Ставрополь",
-  description:
-    "Новости, статьи, блоги о событиях в Ставрополе, Ставропольском крае, России, мире.",
-  keywords:
-    "Вечерний Ставрополь, Вечёрка, новости, газета, Ставрополь, Ставропольский край, статьи, аналитика",
-  robots: "index,follow",
-  openGraph: {
+  seo: {
     title: "Вечерний Ставрополь",
-    type: "website",
-    locale: "ru_RU",
     description:
       "Новости, статьи, блоги о событиях в Ставрополе, Ставропольском крае, России, мире.",
-    site_name: "Вечерний Ставрополь",
-    url: process.env.CLIENT_HOST,
-    image: {
-      url: `${process.env.CLIENT_HOST}/images/og-preview.jpg`,
-      width: "1200",
-      height: "630",
-      alt: "Вечерний ставрополь",
+    keywords:
+      "Вечерний Ставрополь, Вечёрка, новости, газета, Ставрополь, Ставропольский край, статьи, аналитика",
+    robots: "index,follow",
+    openGraph: {
+      title: "Вечерний Ставрополь",
+      site_name: "Вечерний Ставрополь",
+      description:
+        "Новости, статьи, блоги о событиях в Ставрополе, Ставропольском крае, России, мире.",
+      type: "website",
+      locale: "ru_Ru",
+      url: process.env.CLIENT_HOST,
+      images: [
+        {
+          url: `${process.env.CLIENT_HOST}/images/og-preview.jpg`,
+          width: 1200,
+          height: 630,
+          alt: "Вечерний ставрополь",
+        },
+      ],
+    },
+    twitter: {
+      handle: "@handle",
+      site: "@site",
+      cardType: "summary_large_image",
     },
   },
   contacts: {
