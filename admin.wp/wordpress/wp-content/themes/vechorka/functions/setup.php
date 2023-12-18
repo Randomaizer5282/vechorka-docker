@@ -40,3 +40,9 @@ function delete_intermediate_image_sizes($sizes)
 }
 
 add_filter('intermediate_image_sizes', 'delete_intermediate_image_sizes');
+
+function disable_plugin_updates( $value ) {
+  unset( $value->response['advanced-custom-fields/acf.php'] );
+  return $value;
+}
+add_filter( 'site_transient_update_plugins', 'disable_plugin_updates' );
