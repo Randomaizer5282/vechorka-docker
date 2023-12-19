@@ -11,6 +11,8 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { DefaultSeo } from "next-seo";
+import { config } from "@/shared/config";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { settings, taxonomies } = pageProps;
@@ -35,10 +37,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         height={1}
         options={{ showSpinner: false }}
       />
+      <Head />
+      <DefaultSeo {...config.seo} />
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <SettingsProvider value={{ ...settings, taxonomies }}>
-            <Head />
             <Layout>
               <Component {...pageProps} />
             </Layout>

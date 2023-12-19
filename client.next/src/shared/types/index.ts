@@ -1,5 +1,3 @@
-export type PostBasePath = "news" | "article" | "search" | "tag";
-
 export type PostType =
   | "post"
   | "page"

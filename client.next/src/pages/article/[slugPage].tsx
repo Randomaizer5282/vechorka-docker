@@ -7,7 +7,7 @@ import { getPostBySlug } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
 
 interface Props {
-  posts: { post: PostProps | null; relatedPosts: PostProps[] | null };
+  posts: { post: PostProps; relatedPosts: PostProps[] | null };
 }
 
 const ArticleDetailPage = ({ posts }: Props) => {

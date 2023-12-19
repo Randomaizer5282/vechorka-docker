@@ -45,14 +45,16 @@ export class PostController {
   @Get('id/:id')
   getPostById(@Query() query, @Param('id', ParseIntPipe) postId: number) {
     const withMeta = Boolean(query?.withMeta);
+    const isPreview = Boolean(query?.isPreview);
 
-    return this.postService.getPostById({ postId, withMeta });
+    return this.postService.getPostById({ postId, withMeta, isPreview });
   }
 
   @Get('slug/:slug')
   getPostBySlug(@Query() query, @Param('slug') slug: string) {
     const slugTaxonomy = query?.slugTaxonomy;
     const withRelatedPosts = Boolean(query?.withRelatedPosts);
+    const isPreview = Boolean(query?.isPreview);
     const postType = query?.postType;
 
     return this.postService.getPostBySlug({
@@ -60,6 +62,7 @@ export class PostController {
       slugTaxonomy,
       postTypeRelated: postType,
       withRelatedPosts,
+      isPreview,
     });
   }
 

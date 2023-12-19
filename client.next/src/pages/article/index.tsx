@@ -3,9 +3,10 @@ import { PostLayout } from "@/shared/ui/layouts";
 import { PostListShowMore } from "@/modules/post/ui/post-list-show-more";
 import { type ArticlePosts, getPosts } from "@/shared/api/posts";
 import { getGeneralSettings } from "@/shared/api/settings";
-import { SEO } from "@/shared/ui/SEO";
-import { useSeoFromPathname } from "@/shared/ui/SEO/SEO";
 import { type GetStaticProps } from "next";
+import { NextSeo } from "next-seo";
+import { config } from "@/shared/config";
+import { getSeoTitle } from "@/shared/lib/seo";
 
 export interface Props {
   posts: ArticlePosts;
@@ -13,16 +14,19 @@ export interface Props {
 
 const ArticlesIndexPage = ({ posts }: Props) => {
   const { articles } = posts;
-  const { title, description, url } = useSeoFromPathname();
+  const title = getSeoTitle({ path: "article" });
+  const description = "Статьи на Вечернем Ставрополе";
+
   return (
     <>
-      <SEO
+      <NextSeo
         title={title}
         description={description}
         openGraph={{
-          title,
-          description,
-          url,
+          title: title,
+          description: description,
+          url: `${config.siteUrl}/article`,
+          type: "website",
         }}
       />
       <PostLayout

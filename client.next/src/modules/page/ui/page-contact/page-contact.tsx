@@ -6,7 +6,8 @@ import { useSettings } from "@/contexts/settings-context";
 import { getPhoneFromString } from "@/shared/lib/string";
 import { ImagePreview } from "@/shared/ui/image";
 import { useRouter } from "next/router";
-import { SEO } from "@/shared/ui/SEO";
+import { NextSeo } from "next-seo";
+import { getSeoTitle } from "@/shared/lib/seo";
 
 export const PageContact = ({ title, preview, meta, seo }: PostProps) => {
   const settings = useSettings();
@@ -25,24 +26,29 @@ export const PageContact = ({ title, preview, meta, seo }: PostProps) => {
     ? `${process.env.UPLOAD_HOST}/${preview?.url}`
     : "";
 
-  const description = seo?.description;
+  const seoTitle = getSeoTitle({ title });
+  const seoDescription = seo?.description ?? "";
 
   return (
     <>
-      <SEO
-        title={title}
-        description={description}
+      <NextSeo
+        title={seoTitle}
+        description={seoDescription}
         openGraph={{
-          title,
-          description,
-          type: "article",
+          title: seoTitle,
+          description: seoDescription,
           url: postUrl,
-          image: {
-            url: previewUrl,
-            width: preview?.width,
-            height: preview?.height,
-            alt: preview?.alt || title,
-          },
+          type: "article",
+          images: preview
+            ? [
+                {
+                  url: previewUrl,
+                  alt: preview.alt ?? title,
+                  width: preview.width ? Number(preview.width) : undefined,
+                  height: preview.height ? Number(preview.height) : undefined,
+                },
+              ]
+            : undefined,
         }}
       />
       {title && (

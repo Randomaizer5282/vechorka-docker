@@ -70,18 +70,43 @@ export class PostService {
   async getPostById({
     postId,
     withMeta = false,
+    isPreview,
   }: {
     postId: number;
     withMeta?: boolean;
+    isPreview?: boolean;
   }) {
     let query = this.postRepository.createQueryBuilder('post');
-    query = query.where('ID=:postId AND post_status = "publish"', {
-      postId,
-    });
+    if (isPreview) {
+      query = query.where('ID=:postId', {
+        postId,
+      });
+    } else {
+      query = query.where('ID=:postId AND post_status = "publish"', {
+        postId,
+      });
+    }
 
     const post: any = await query.getRawOne();
 
     if (post && Object.keys(post).length) {
+      if (isPreview) {
+        const metas = await this.getPostMetaByIds(post.post_ID);
+        const attachments = await this.getPostsAttachmentByIds([post.post_ID]);
+        const taxonomies = await this.getTaxonomiesByPostsIds(
+          [post.post_ID],
+          true,
+        );
+
+        return this.responseData({
+          posts: [post],
+          metas,
+          attachments,
+          taxonomies,
+          type: 'full',
+        })[0];
+      }
+
       if (withMeta) {
         const metas = await this.getPostMetaByIds(post.post_ID);
         const attachments = await this.getPostsAttachmentByIds([post.post_ID]);
@@ -118,11 +143,13 @@ export class PostService {
     slugTaxonomy,
     withRelatedPosts = false,
     postTypeRelated = 'post',
+    isPreview,
   }: {
     slug: string;
     slugTaxonomy?: string;
     withRelatedPosts?: boolean;
     postTypeRelated?: PostType;
+    isPreview?: boolean;
   }) {
     let query = this.postRepository.createQueryBuilder('post');
 
@@ -149,9 +176,15 @@ export class PostService {
       .leftJoin('post.user', 'user')
       .addSelect(['user.display_name']);
 
-    query = query.where('post_name=:slug AND post_status = "publish"', {
-      slug,
-    });
+    if (isPreview) {
+      query = query.where('post_name=:slug', {
+        slug,
+      });
+    } else {
+      query = query.where('post_name=:slug AND post_status = "publish"', {
+        slug,
+      });
+    }
 
     const post: any = await query.getRawOne();
 

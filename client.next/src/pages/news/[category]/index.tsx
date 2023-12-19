@@ -3,8 +3,9 @@ import { PostLayout } from "@/shared/ui/layouts";
 import { PostListShowMore } from "@/modules/post/ui/post-list-show-more";
 import { getPageNewsCategory } from "@/shared/api/page-news-category";
 import type { GetServerSideProps } from "next";
-import { SEO, useSeoFromPathname } from "@/shared/ui/SEO/SEO";
+import { useSeoDataFromPathname } from "@/shared/lib/seo";
 import { type NewsPosts } from "@/shared/api/posts";
+import { NextSeo } from "next-seo";
 
 export interface NewsCategoryProps {
   posts: NewsPosts;
@@ -12,16 +13,17 @@ export interface NewsCategoryProps {
 
 const NewsCategoryPage = ({ posts }: NewsCategoryProps) => {
   const { news } = posts;
-  const { title, description, url } = useSeoFromPathname();
+  const { title, description, url } = useSeoDataFromPathname();
   return (
     <>
-      <SEO
+      <NextSeo
         title={title}
         description={description}
         openGraph={{
-          title,
-          description,
+          title: title,
+          description: description,
           url,
+          type: "website",
         }}
       />
       <PostLayout

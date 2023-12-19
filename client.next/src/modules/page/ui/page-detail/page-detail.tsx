@@ -4,7 +4,8 @@ import { Heading } from "@/shared/ui/heading";
 import { parseContent } from "@/shared/lib/content";
 import { useRouter } from "next/router";
 import { useSettings } from "@/contexts/settings-context";
-import { SEO } from "@/shared/ui/SEO";
+import { NextSeo } from "next-seo";
+import { getSeoTitle } from "@/shared/lib/seo";
 
 export const PageDetail = ({
   title,
@@ -24,26 +25,47 @@ export const PageDetail = ({
     ? `${process.env.UPLOAD_HOST}/${preview?.url}`
     : "";
 
-  const description = seo?.description;
+  const seoTitle = getSeoTitle({ title });
+  const seoDescription = seo?.description ?? "";
 
   return (
     <>
-      <SEO
-        title={title}
-        description={description}
+      <NextSeo
+        title={seoTitle}
+        description={seoDescription}
         openGraph={{
-          title,
-          description,
-          type: "article",
+          title: seoTitle,
+          description: seoDescription,
           url: postUrl,
-          image: {
-            url: previewUrl,
-            width: preview?.width,
-            height: preview?.height,
-            alt: preview?.alt || title,
-          },
+          type: "article",
+          images: preview
+            ? [
+                {
+                  url: previewUrl,
+                  alt: preview.alt ?? title,
+                  width: preview.width ? Number(preview.width) : undefined,
+                  height: preview.height ? Number(preview.height) : undefined,
+                },
+              ]
+            : undefined,
         }}
       />
+      {/*<SEO*/}
+      {/*  title={title}*/}
+      {/*  description={description}*/}
+      {/*  openGraph={{*/}
+      {/*    title,*/}
+      {/*    description,*/}
+      {/*    type: "article",*/}
+      {/*    url: postUrl,*/}
+      {/*    image: {*/}
+      {/*      url: previewUrl,*/}
+      {/*      width: preview?.width,*/}
+      {/*      height: preview?.height,*/}
+      {/*      alt: preview?.alt || title,*/}
+      {/*    },*/}
+      {/*  }}*/}
+      {/*/>*/}
 
       {title && (
         <Heading className="text-grey-500 mb-5" tag="h1" title={title} />

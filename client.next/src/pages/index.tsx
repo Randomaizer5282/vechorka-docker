@@ -77,7 +77,6 @@ export const getStaticProps: GetStaticProps = async () => {
   const { settings, taxonomies } = await getGeneralSettings({
     withTaxonomies: true,
   });
-  // TODO: ?remove to new page and check cache
   let rssNews: PostProps[] = [];
   try {
     const { data } = await getPosts({

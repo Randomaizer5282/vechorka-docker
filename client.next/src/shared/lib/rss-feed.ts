@@ -47,10 +47,10 @@ export const generateYandexRss = async (posts?: PostProps[]) => {
   <rss xmlns:yandex="http://news.yandex.ru" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
     <channel>
       <yandex:logo>${config.siteUrl}/images/logo.png</yandex:logo>
-      <title>${stripText(config.title)}</title>
+      <title>${stripText(config.seo.title)}</title>
       <link>${config.siteUrl}</link>
       <language>ru</language>
-      <description>${stripText(config.description)}</description>
+      <description>${stripText(config.seo.description)}</description>
       ${feeds}
     </channel>
   </rss>`;
