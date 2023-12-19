@@ -72,7 +72,8 @@ services:
       - WORDPRESS_TABLE_PREFIX=wp_
       - WORDPRESS_DEBUG=${WORDPRESS_DEBUG:-0}
       - CLIENT_REVALIDATE_URL=${CLIENT_REVALIDATE_URL:-revalidate-url}
-      - CLIENT_REVALIDATE_KEY=${CLIENT_REVALIDATE_KEY:-revalidate-key}
+      - CLIENT_PREVIEW_URL=${CLIENT_PREVIEW_URL:-preview-url}
+      - CLIENT_SECRET=${CLIENT_SECRET:-secret-key}
     depends_on:
       - db
     networks:
@@ -104,7 +105,7 @@ services:
         API_HOST: ${API_HOST}
         UPLOAD_HOST: ${UPLOAD_HOST}
         API_KEY: ${API_KEY}
-        CLIENT_REVALIDATE_KEY: ${CLIENT_REVALIDATE_KEY}
+        CLIENT_SECRET: ${CLIENT_SECRET}
     container_name: client-next
 #    depends_on:
 #      - api
