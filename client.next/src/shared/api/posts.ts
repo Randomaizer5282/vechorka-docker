@@ -36,10 +36,12 @@ interface GetPostBySlugParams {
   slugTaxonomy?: string;
   withRelatedPosts?: boolean;
   postType?: PostType;
+  isPreview?: boolean;
 }
 
 interface GetPostByIdParams {
   withMeta?: boolean;
+  isPreview?: boolean;
 }
 
 export const getHomePosts = (): Promise<HomePosts> => {

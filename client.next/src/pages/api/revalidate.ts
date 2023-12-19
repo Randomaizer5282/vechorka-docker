@@ -10,14 +10,14 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (!process.env.CLIENT_REVALIDATE_KEY) {
-    console.log(`CLIENT_REVALIDATE_KEY not set`);
-    return res.status(401).json({ message: "Bad request: key not set" });
+  if (!process.env.CLIENT_SECRET) {
+    console.log(`CLIENT_SECRET not set`);
+    return res.status(401).json({ message: "Bad request: invalid token" });
   }
 
   const { key, type, slug } = req.query;
 
-  if (!key || key !== process.env.CLIENT_REVALIDATE_KEY || !type) {
+  if (!key || key !== process.env.CLIENT_SECRET || !type) {
     return res.status(401).json({ message: "Bad request: query" });
   }
 
