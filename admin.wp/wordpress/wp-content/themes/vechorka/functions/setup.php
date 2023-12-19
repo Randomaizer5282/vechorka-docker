@@ -24,7 +24,6 @@ function theme_setup()
 //		);
 
 }
-
 add_action('after_setup_theme', 'theme_setup');
 
 // disable image sizes
@@ -38,7 +37,6 @@ function delete_intermediate_image_sizes($sizes)
     '2048x2048',
   ]);
 }
-
 add_filter('intermediate_image_sizes', 'delete_intermediate_image_sizes');
 
 // disable update acf plugin
@@ -47,17 +45,15 @@ function disable_plugin_updates($value)
   unset($value->response['advanced-custom-fields/acf.php']);
   return $value;
 }
-
 add_filter('site_transient_update_plugins', 'disable_plugin_updates');
 
 // hide preview button if not yet saved as draft
-function disable_preview_button()
-{
-  echo '<style>
-    #preview-action{
-      display:none !important;
-    }               
-  </style>';
-}
-
-add_action('admin_head', 'disable_preview_button');
+//function disable_preview_button()
+//{
+//  echo '<style>
+//    #preview-action{
+//      display:none !important;
+//    }
+//  </style>';
+//}
+//add_action('admin_head', 'disable_preview_button');
