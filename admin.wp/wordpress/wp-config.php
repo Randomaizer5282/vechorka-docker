@@ -86,7 +86,8 @@ define( 'NONCE_SALT',       getenv_docker('WORDPRESS_NONCE_SALT',       '83e2b02
 // (See also https://wordpress.stackexchange.com/a/152905/199287)
 // client revalidate
 define('CLIENT_REVALIDATE_URL', getenv_docker('CLIENT_REVALIDATE_URL', "http://localhost:3000/api/revalidate"));
-define('CLIENT_REVALIDATE_KEY', getenv_docker('CLIENT_REVALIDATE_KEY', "b9f099129f73a4ae397057e75796d217"));
+define('CLIENT_PREVIEW_URL', getenv_docker('CLIENT_PREVIEW_URL', "http://localhost:3000/api/preview"));
+define('CLIENT_SECRET', getenv_docker('CLIENT_SECRET', "b9f099129f73a4ae397057e75796d217"));
 // disable post revisions
 define('WP_POST_REVISIONS', false );
 define('DISABLE_WP_CRON', true);

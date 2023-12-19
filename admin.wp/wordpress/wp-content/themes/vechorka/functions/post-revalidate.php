@@ -2,12 +2,12 @@
 
 function get_client_revalidate($type, $slug = null)
 {
-  if (!CLIENT_REVALIDATE_URL || !CLIENT_REVALIDATE_KEY) {
+  if (!CLIENT_REVALIDATE_URL || !CLIENT_SECRET) {
     return null;
   }
 
   wp_remote_get(
-    CLIENT_REVALIDATE_URL . '?key=' . CLIENT_REVALIDATE_KEY . '&type=' . $type . ($slug ? '&slug=' . $slug : ""),
+    CLIENT_REVALIDATE_URL . '?key=' . CLIENT_SECRET . '&type=' . $type . ($slug ? '&slug=' . $slug : ""),
     [
       'timeout' => 3,
       'httpversion' => '1.1',
@@ -168,7 +168,7 @@ function admin_bar_revalidate_button()
   ?>
   <script>
       const CLIENT_REVALIDATE_URL = `<?php echo CLIENT_REVALIDATE_URL ?>`
-      const CLIENT_REVALIDATE_KEY = `<?php echo CLIENT_REVALIDATE_KEY ?>`
+      const CLIENT_SECRET = `<?php echo CLIENT_SECRET ?>`
       jQuery(function ($) {
           const save_menu_button = $("#wp-admin-bar-root-default");
           save_menu_button.append('<li id="clear_cache_button_item"><a href="#" id="clear_cache_button" class="button button-primary button-large">Очистить кеш клиента</a></li>');
@@ -176,7 +176,7 @@ function admin_bar_revalidate_button()
           const loader = document.getElementById("clear_cache_loader");
           save_menu_button.parent().on("click", "#clear_cache_button", function (e) {
               e.preventDefault();
-              if (CLIENT_REVALIDATE_URL && CLIENT_REVALIDATE_KEY) {
+              if (CLIENT_REVALIDATE_URL && CLIENT_SECRET) {
                   loader.style.display = "flex";
 
                   // change url
