@@ -27,7 +27,7 @@ const HomePage = ({ posts, taxonomies }: HomeProps) => {
       ? [menuAllNewsItem as TaxonomyProps, ...taxonomies?.categories]
       : [];
 
-  const mainNewsIds = mainNews.map((post) => post.id).join(",");
+  const mainNewsIds = mainNews?.map((post) => post.id).join(",");
 
   return (
     <>
