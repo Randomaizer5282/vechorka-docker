@@ -97,11 +97,11 @@
   }
 
   .content blockquote {
-    @apply flex bg-grey-100 p-5 md:p-8 italic text-grey-400;
+    @apply bg-grey-100 p-3 md:p-8 italic text-grey-400;
   }
 
   .content blockquote svg {
-    @apply flex-shrink-0 w-[32px] h-[32px] mr-5 fill-grey-300;
+    @apply w-[32px] h-[32px] mr-5 fill-grey-300;
   }
 
   .content h2 {
