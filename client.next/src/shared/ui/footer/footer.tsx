@@ -63,9 +63,11 @@ export const Footer = () => {
               </p>
             )}
 
-            <Icon
-              name="16plus"
-              className="mt-3 w-[24px] h-[24px] fill-grey-500"
+            <img
+              src="/images/16plus.svg"
+              className="mt-3 w-[32px] h-[32px] mx-auto md:mx-0"
+              alt="icon-plus"
+              loading="lazy"
             />
 
             <div className="flex justify-center md:justify-start mt-3 space-x-3">
