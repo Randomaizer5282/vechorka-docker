@@ -170,10 +170,10 @@ export const Footer = () => {
         <Container>
           <div className="flex flex-col lg:flex-row items-center gap-3 lg:items-start justify-between w-full text-14px text-grey-400 text-center">
             <Link
-              href="/privacy-policy"
+              href="/subscribe"
               className="text-grey-400 hover:text-white underline order-0"
             >
-              Политика конфиденциальности
+              Подписка на печатные издания
             </Link>
 
             <p className="order-3 lg:order-1">© ИД «Вечерний Ставрополь»</p>
