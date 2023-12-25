@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import type { PostProps } from "@/shared/types";
-import { ImagePreview } from "@/shared/ui/image";
+import { ImageCaption, ImageDescription } from "@/shared/ui/image";
+import Image from "next/image";
 import { PostMeta } from "@/modules/post/ui/components/post-meta";
 import { Heading } from "@/shared/ui/heading";
 import { parseContent } from "@/shared/lib/content";
@@ -14,6 +15,8 @@ import { textOverflow } from "@/shared/lib/string";
 import { PostTags } from "@/modules/post/ui/components/post-tags";
 import { getSeoTitle, type PostBasePath } from "@/shared/lib/seo";
 import { NextSeo } from "next-seo";
+import cn from "clsx";
+import { config } from "@/shared/config";
 
 interface Props {
   post: PostProps;
@@ -80,12 +83,31 @@ export const PostDetail = ({ post, showComment = false }: Props) => {
             : undefined,
         }}
       />
-
+      {/* preview */}
       {preview && Object.keys(preview).length > 0 && (
-        <div className="h-[260px] sm:h-[320px] lg:h-[460px] mb-5">
-          <ImagePreview {...preview} />
+        <div
+          className={cn(
+            "relative mb-5 group overflow-hidden bg-gradient-to-t to-grey-400/30 from-grey-400/70"
+          )}
+        >
+          {preview.caption && <ImageCaption caption={preview.caption} />}
+          {preview.description && (
+            <ImageDescription
+              description={preview.description}
+              className="opacity-0 group-hover:opacity-100 transition-all duration-300"
+            />
+          )}
+
+          <Image
+            src={`${config.uploadUrl}/${preview.url}`}
+            className="w-full h-auto max-h-[620px] object-cover object-center"
+            alt={preview.alt ?? title}
+            width={preview.width ? +preview.width : undefined}
+            height={preview.height ? +preview.height : undefined}
+          />
         </div>
       )}
+
       {title && (
         <Heading className="text-grey-500 mb-5" tag="h1" title={title} />
       )}
