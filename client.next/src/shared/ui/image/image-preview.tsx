@@ -20,7 +20,10 @@ interface Props extends ImageProps {
 const Image = ({ url, alt = "", className, screenSizes, priority }: Props) =>
   url ? (
     <NextImage
-      className={cn(className, "pointer-events-auto object-cover object-top")}
+      className={cn(
+        className,
+        "pointer-events-auto object-cover object-center"
+      )}
       src={url}
       alt={alt}
       layout="fill"
