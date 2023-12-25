@@ -4,10 +4,10 @@ services:
   nginx:
     build:
       context: nginx
-#    depends_on:
+    depends_on:
 #      - wp
-#      - api
-#      - client
+      - api
+      - client
     container_name: nginx
     restart: always
     volumes:
@@ -39,8 +39,8 @@ services:
       --no-eff-email
       --force-renewal
       --webroot --webroot-path=/var/www/certbot
-      --email vechorka@vechorka.ru --agree-tos --no-eff-email
-      -d new.vechorka.ru,api.vechorka.ru,admin.vechorka.ru,phpmyadmin.vechorka.ru
+      --email vechorka@vechorka.ru
+      -d vechorka.ru,api.vechorka.ru,admin.vechorka.ru,phpmyadmin.vechorka.ru
 
   db:
     image: mysql:5.7
