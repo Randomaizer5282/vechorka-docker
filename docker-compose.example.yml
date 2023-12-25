@@ -4,10 +4,10 @@ services:
   nginx:
     build:
       context: nginx
-    depends_on:
+#    depends_on:
 #      - wp
-      - api
-      - client
+#      - api
+#      - client
     container_name: nginx
     restart: always
     volumes:
