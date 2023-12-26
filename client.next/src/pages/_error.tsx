@@ -35,6 +35,11 @@ const ErrorPage = ({ statusCode }: { statusCode?: number }) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   console.log(`error page: ${res.statusCode} | ${req.url}`);
+  console.log(
+    `referer: ${req.headers["referer"]}, ${req.headers["user-agent"]}`
+  );
+  console.log(`X-Real-IP: ${req.headers["X-Real-IP"]}`);
+  console.log(`--------------------------------------`);
   const checkUrl = `${process.env.OLD_HOST}${req.url}`;
 
   if (res.statusCode === 404 && process.env.OLD_HOST) {
