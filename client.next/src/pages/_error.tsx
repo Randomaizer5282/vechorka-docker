@@ -38,7 +38,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   console.log(
     `referer: ${req.headers["referer"]}, ${req.headers["user-agent"]}`
   );
-  console.log(`X-Real-IP: ${req.headers["X-Real-IP"]}`);
   console.log(`--------------------------------------`);
   const checkUrl = `${process.env.OLD_HOST}${req.url}`;
 
