@@ -2,6 +2,8 @@ import React, {
   createContext,
   type PropsWithChildren,
   useContext,
+  useEffect,
+  useState,
 } from "react";
 import type { MenuProps } from "@/shared/ui/navigation/types";
 import type { TaxonomiesProps } from "@/shared/types";
@@ -15,25 +17,32 @@ interface SettingsState {
   };
   contacts?: any;
   taxonomies: TaxonomiesProps;
+  setSettings?: (settings: SettingsState) => void;
 }
 
 interface SettingsProviderProps extends PropsWithChildren {
   value: SettingsState;
 }
 
-const initialContext = {
+const initialState = {
   taxonomies: { categories: [], geography: [], tags: [], allCategories: [] },
 };
 
-const SettingsContext = createContext<SettingsState>(initialContext);
+const SettingsContext = createContext<SettingsState>(initialState);
 SettingsContext.displayName = "SettingsContext";
 
 export const SettingsProvider = ({
   children,
   value,
 }: SettingsProviderProps) => {
+  const [settings, setSettings] = useState<SettingsState>(initialState);
+
+  useEffect(() => {
+    setSettings(value);
+  }, [value.taxonomies]);
+
   return (
-    <SettingsContext.Provider value={value}>
+    <SettingsContext.Provider value={{ ...settings, setSettings }}>
       {children}
     </SettingsContext.Provider>
   );
