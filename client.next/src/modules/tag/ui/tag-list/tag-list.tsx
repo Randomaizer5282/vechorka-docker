@@ -8,7 +8,6 @@ import { PostItem } from "@/modules/post/ui/post-item";
 import { Button } from "@/shared/ui/buttons";
 import type { PostProps } from "@/shared/types";
 import { useTags } from "@/modules/tag/ui/use-tags";
-import { NavTags } from "@/shared/ui/navigation/nav-tags";
 import { NextSeo } from "next-seo";
 import { TaxonomyProps } from "@/shared/types";
 
