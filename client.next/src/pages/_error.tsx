@@ -4,6 +4,7 @@ import { ErrorStatus } from "@/shared/ui/error-status";
 import { type GetServerSideProps } from "next";
 import { useEffect } from "react";
 import { useSettings } from "@/contexts/settings-context";
+import { fetchWithTimeout } from "@/shared/api";
 
 const ErrorPage = ({ statusCode }: { statusCode?: number }) => {
   const { setSettings } = useSettings();
@@ -38,9 +39,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
   if (res.statusCode === 404 && process.env.OLD_HOST) {
     try {
-      const response: Response | undefined = await new Promise((resolve) => {
+      const response: any = await new Promise((resolve) => {
         setTimeout(async () => {
-          resolve(fetch(checkUrl, { redirect: "follow" }));
+          resolve(fetchWithTimeout(checkUrl, { redirect: "follow" }, 4000));
         }, 1000);
       });
 
