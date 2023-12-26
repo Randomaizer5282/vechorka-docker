@@ -15,6 +15,7 @@ const ErrorPage = ({ statusCode }: { statusCode?: number }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  console.log(`error page: ${res.statusCode}`);
   if (res.statusCode === 404 && process.env.OLD_HOST) {
     const checkUrl = `${process.env.OLD_HOST}${req.url}`;
     try {
@@ -28,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
         };
       }
     } catch (e) {
-      console.log(e);
+      console.log("error fetch old host:", e);
     }
   }
 
