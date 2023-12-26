@@ -15,12 +15,13 @@ const ErrorPage = ({ statusCode }: { statusCode?: number }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  console.log(`error page: ${res.statusCode} | ${res.req.url}`);
+  console.log(`error page: ${res.statusCode} | ${req.url}`);
   if (res.statusCode === 404 && process.env.OLD_HOST) {
     const checkUrl = `${process.env.OLD_HOST}${req.url}`;
     try {
       const responseOld = await fetch(checkUrl, { redirect: "follow" });
       if (responseOld.status === 200) {
+        console.log(`redirect to: ${checkUrl}`);
         return {
           redirect: {
             permanent: false,
@@ -40,8 +41,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   return {
     props: {
       statusCode: res.statusCode,
-      taxonomies,
-      settings,
+      // taxonomies,
+      // settings,
     },
   };
 };
