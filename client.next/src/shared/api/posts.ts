@@ -1,6 +1,7 @@
 import { api } from "@/shared/api/index";
-import type { PostProps, PostType, TaxonomyType } from "@/shared/types";
+import type { PostProps, PostType } from "@/shared/types";
 import { encodeQueryData } from "@/shared/lib/helpers";
+import { TaxonomyType } from "@/shared/types";
 
 export interface HomePosts {
   mainNews: PostProps[];
@@ -29,7 +30,7 @@ interface GetPostsParams {
 }
 
 interface GetPostsByTaxonomySlug extends GetPostsParams {
-  taxonomyType?: TaxonomyType;
+  taxonomyType?: TaxonomyType[];
 }
 
 interface GetPostBySlugParams {

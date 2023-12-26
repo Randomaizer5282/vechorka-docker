@@ -2,15 +2,17 @@ import { getGeneralSettings } from "@/shared/api/settings";
 import { getPostsByTaxonomySlug } from "@/shared/api/posts";
 import { TagList } from "@/modules/tag/ui/tag-list";
 import { TagLayout } from "@/shared/ui/layouts/tag-layout";
-import type { PostProps } from "@/shared/types";
+import type { PostProps, TaxonomyProps } from "@/shared/types";
 import type { GetServerSideProps } from "next";
+import { getTaxonomyBySlug } from "@/shared/api/taxonomies";
 
 interface Props {
   posts: PostProps[];
+  taxonomy: TaxonomyProps;
 }
 
-const TagPage = ({ posts }: Props) => {
-  return <TagLayout left={<TagList initPosts={posts} />} />;
+const TagPage = ({ posts, taxonomy }: Props) => {
+  return <TagLayout left={<TagList initPosts={posts} taxonomy={taxonomy} />} />;
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
@@ -25,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   try {
     const { data } = await getPostsByTaxonomySlug(slug, {
-      taxonomyType: "post_tag",
+      taxonomyType: ["post_tag"],
       limit: 12,
       relations: { taxonomy: true },
     });
@@ -43,9 +45,20 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     };
   }
 
+  let taxonomy = null;
+  try {
+    const data = await getTaxonomyBySlug(slug, {
+      taxonomyType: ["post_tag"],
+    });
+    taxonomy = data;
+  } catch (error) {
+    // console.log("tag", error);
+  }
+
   return {
     props: {
       posts,
+      taxonomy,
       settings,
       taxonomies,
     },

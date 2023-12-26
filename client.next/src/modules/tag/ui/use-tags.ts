@@ -12,11 +12,11 @@ export const useTags = ({ initPosts = [], tagSlug, limit }: Props) => {
   const [posts, setPosts] = useState<PostProps[]>(initPosts);
   const [loading, setLoading] = useState(false);
 
-  const addPosts = useCallback(async () => {
+  const fetchMore = useCallback(async () => {
     setLoading(true);
     try {
       const { data } = await getPostsByTaxonomySlug(tagSlug, {
-        taxonomyType: "post_tag",
+        taxonomyType: ["post_tag"],
         relations: { taxonomy: true },
         limit,
         offset: posts.length,
@@ -35,5 +35,5 @@ export const useTags = ({ initPosts = [], tagSlug, limit }: Props) => {
     setPosts(initPosts);
   }, [initPosts]);
 
-  return { posts, loading, addPosts };
+  return { posts, loading, addPosts: fetchMore };
 };

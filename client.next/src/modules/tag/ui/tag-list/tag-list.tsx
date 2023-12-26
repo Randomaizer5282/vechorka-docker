@@ -7,29 +7,29 @@ import { FullLoader } from "@/shared/ui/loaders";
 import { PostItem } from "@/modules/post/ui/post-item";
 import { Button } from "@/shared/ui/buttons";
 import type { PostProps } from "@/shared/types";
-import { useSettings } from "@/contexts/settings-context";
 import { useTags } from "@/modules/tag/ui/use-tags";
 import { NavTags } from "@/shared/ui/navigation/nav-tags";
 import { NextSeo } from "next-seo";
+import { TaxonomyProps } from "@/shared/types";
 
 interface Props {
   initPosts: PostProps[];
+  taxonomy: TaxonomyProps;
 }
 
 const limit = 12;
 
-export const TagList = ({ initPosts = [] }: Props) => {
+export const TagList = ({ initPosts = [], taxonomy }: Props) => {
   const router = useRouter();
   const tagSlug = router.query.slug || "";
+  const termName = taxonomy?.terms?.name;
   const { posts, loading, addPosts } = useTags({
     initPosts,
     tagSlug: tagSlug as string,
     limit,
   });
 
-  const { taxonomies } = useSettings();
-  const taxonomy = taxonomies.tags.find((t) => t.slug === tagSlug);
-  const title = getSeoTitle({ path: "tag", title: taxonomy?.name });
+  const title = getSeoTitle({ path: "tag", title: termName });
   const { description, url } = useSeoDataFromPathname();
 
   return (
@@ -46,12 +46,8 @@ export const TagList = ({ initPosts = [] }: Props) => {
       <Heading
         className="text-grey-500 mb-5"
         tag="h1"
-        title={`Публикации по тегу: ${taxonomy?.name ?? ""}`}
+        title={`Публикации по тегу: ${termName ?? ""}`}
       />
-
-      <div className="mb-5">
-        <NavTags />
-      </div>
 
       <div className="relative flex flex-wrap -m-2">
         {loading && <FullLoader />}

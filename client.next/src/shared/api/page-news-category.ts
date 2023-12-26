@@ -42,13 +42,13 @@ export const getPageNewsCategory = async ({
       // from taxonomy news
     } else {
       // find taxonomy in categories and geography
-      const taxonomy = [...taxonomies.categories, ...taxonomies.geography].find(
-        (t) => t.slug === slugTaxonomy
-      );
+      // const taxonomy = [...taxonomies.categories, ...taxonomies.geography].find(
+      //   (t) => t.slug === slugTaxonomy
+      // );
 
       const fetchedNews = await getPostsByTaxonomySlug(slugTaxonomy, {
         postType: "post",
-        taxonomyType: taxonomy?.taxonomy,
+        taxonomyType: ["category", "post_geography"],
         limit: 13,
         relations: { taxonomy: true },
       });

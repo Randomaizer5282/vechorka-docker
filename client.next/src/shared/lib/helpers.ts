@@ -26,7 +26,13 @@ export const encodeQueryData = (params: any) => {
   const encodeParams = (params: any) => {
     for (const key in params) {
       if (params[key] !== undefined) {
-        if (typeof params[key] === "object") {
+        if (Array.isArray(params[key])) {
+          url.push(
+            encodeURIComponent(key) +
+              "=" +
+              encodeURIComponent(params[key].join(","))
+          );
+        } else if (typeof params[key] === "object") {
           encodeParams(params[key]);
         } else {
           if (typeof params[key] === "boolean") {

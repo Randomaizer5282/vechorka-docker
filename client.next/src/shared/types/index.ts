@@ -53,7 +53,12 @@ export interface ImageWithSizes extends ImageProps {
   };
 }
 
-export type TaxonomyType = "category" | "post_geography" | "post_tag" | "menu";
+export const taxonomyTypes = [
+  "category",
+  "post_geography",
+  "post_tag",
+] as const;
+export type TaxonomyType = (typeof taxonomyTypes)[number];
 
 export interface TaxonomyProps {
   id: number; // term_id
@@ -64,6 +69,12 @@ export interface TaxonomyProps {
   count?: number;
   name: string;
   slug: string;
+  terms?: {
+    term_id: string;
+    name: string;
+    slug: string;
+    term_group: string;
+  };
 }
 
 export interface TaxonomiesProps {
