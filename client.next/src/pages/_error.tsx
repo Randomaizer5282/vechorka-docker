@@ -41,8 +41,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   return {
     props: {
       statusCode: res.statusCode,
-      // taxonomies,
-      // settings,
+      taxonomies,
+      settings,
     },
   };
 };
