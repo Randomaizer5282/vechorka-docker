@@ -2,8 +2,26 @@ import { getGeneralSettings } from "@/shared/api/settings";
 import { PostLayout } from "@/shared/ui/layouts";
 import { ErrorStatus } from "@/shared/ui/error-status";
 import { type GetServerSideProps } from "next";
+import { useEffect } from "react";
+import { useSettings } from "@/contexts/settings-context";
 
 const ErrorPage = ({ statusCode }: { statusCode?: number }) => {
+  const { setSettings } = useSettings();
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      const { settings, taxonomies } = await getGeneralSettings({
+        withTaxonomies: true,
+      });
+
+      if (setSettings) {
+        setSettings({ ...settings, taxonomies });
+      }
+    };
+
+    fetchSettings();
+  }, []);
+
   return (
     <PostLayout
       left={<ErrorStatus statusCode={statusCode} />}
@@ -16,11 +34,17 @@ const ErrorPage = ({ statusCode }: { statusCode?: number }) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   console.log(`error page: ${res.statusCode} | ${req.url}`);
+  const checkUrl = `${process.env.OLD_HOST}${req.url}`;
+
   if (res.statusCode === 404 && process.env.OLD_HOST) {
-    const checkUrl = `${process.env.OLD_HOST}${req.url}`;
     try {
-      const responseOld = await fetch(checkUrl, { redirect: "follow" });
-      if (responseOld.status === 200) {
+      const response: Response | undefined = await new Promise((resolve) => {
+        setTimeout(async () => {
+          resolve(fetch(checkUrl, { redirect: "follow" }));
+        }, 1000);
+      });
+
+      if (response?.status === 200) {
         console.log(`redirect to: ${checkUrl}`);
         return {
           redirect: {
@@ -30,19 +54,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
         };
       }
     } catch (e) {
-      console.log("error: fetch old host");
+      console.log("old host: not found");
     }
   }
-
-  const { settings, taxonomies } = await getGeneralSettings({
-    withTaxonomies: true,
-  });
 
   return {
     props: {
       statusCode: res.statusCode,
-      taxonomies,
-      settings,
     },
   };
 };
