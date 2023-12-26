@@ -8,10 +8,11 @@ import {
   Max,
   Min,
 } from 'class-validator';
-import { PostType } from './post.interface';
+import { PostType } from '../post.interface';
 import { Transform } from 'class-transformer';
-import { transformToArrayNumber } from '../../utils/pipes';
-import { TypeTaxonomy } from '../taxonomy/taxonomy.interface';
+import { transformToArrayNumber } from '../../../utils/transformers/array-number.transformer';
+import { transformToTaxonomyArray } from '../../../utils/transformers/array-taxonomy.transformer';
+import { TaxonomyType } from '../../taxonomy/taxonomy.interface';
 
 export class PostQueryParamsDTO {
   @IsOptional()
@@ -67,9 +68,9 @@ export class PostQueryParamsDTO {
 }
 
 export class PostByTaxonomyParamsDTO extends PostQueryParamsDTO {
-  @IsOptional()
-  @IsString()
-  taxonomyType?: TypeTaxonomy = 'category';
+  @Transform(({ value }) => transformToTaxonomyArray(value))
+  @IsArray({ message: 'Not valid taxonomy type' })
+  taxonomyType: TaxonomyType[];
 }
 
 export class PostSearchQueryParamsDTO {

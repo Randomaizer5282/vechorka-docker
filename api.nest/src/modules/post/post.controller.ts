@@ -16,7 +16,7 @@ import {
   PostQueryGalleryParamsDTO,
   PostQueryParamsDTO,
   PostSearchQueryParamsDTO,
-} from './post.dto';
+} from './dto/post.dto';
 import { CacheInterceptor } from '@nestjs/cache-manager';
 import { ApiKeyGuard } from '../../utils/guards/api-key.guard';
 

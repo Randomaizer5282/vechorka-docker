@@ -15,7 +15,7 @@ export class SettingsService {
 
     const taxonomies =
       typeof withTaxonomies !== 'undefined'
-        ? await this.taxonomyService.getTaxonomiesGroup()
+        ? await this.taxonomyService.getAllTaxonomiesGroup()
         : null;
     const interest =
       typeof withInterest !== 'undefined'

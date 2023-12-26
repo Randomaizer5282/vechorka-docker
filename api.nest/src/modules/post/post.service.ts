@@ -11,9 +11,12 @@ import type { ImageWithSizes } from '../../types';
 import { TaxonomyService } from '../taxonomy/taxonomy.service';
 import type { PostResponse, PostType } from './post.interface';
 import { BasePostParams, PostsByTaxonomySlug } from './post.interface';
-import type { TaxonomyResponse } from '../taxonomy/taxonomy.interface';
+import type {
+  TaxonomyResponse,
+  TaxonomyType,
+} from '../taxonomy/taxonomy.interface';
 import { AttachmentService } from '../attachment/attachment.service';
-import { AddPollReply, PostSearchQueryParamsDTO } from './post.dto';
+import { AddPollReply, PostSearchQueryParamsDTO } from './dto/post.dto';
 import { formatISODate, formatISOTime } from '../../utils/date';
 
 @Injectable()
@@ -154,18 +157,17 @@ export class PostService {
     let query = this.postRepository.createQueryBuilder('post');
 
     if (slugTaxonomy) {
-      const taxonomies = await this.taxonomyService.getTaxonomies();
-      const taxonomy = taxonomies.find(
-        (tax) => tax.terms.slug === slugTaxonomy,
-      );
-      const taxonomyId = taxonomy?.term_taxonomy_id;
+      const term = await this.taxonomyService.getOneTaxonomy(slugTaxonomy, [
+        'category',
+        'post_geography',
+      ]);
 
-      if (taxonomyId) {
+      if (term?.term_taxonomy_id) {
         query = query.innerJoinAndSelect(
           'post.post_taxonomy',
           'taxonomyRel',
           'taxonomyRel.term_taxonomy_id=:taxonomyId',
-          { taxonomyId },
+          { taxonomyId: term.term_taxonomy_id },
         );
       } else {
         throw new NotFoundException('post not found');
@@ -341,15 +343,12 @@ export class PostService {
 
   async getPostsByTaxonomySlug(params: PostsByTaxonomySlug) {
     if (!params.slug) return null;
-    const taxonomies = await this.taxonomyService.getTaxonomies();
-    const taxonomy = taxonomies.find(
-      (tax) =>
-        tax.terms.slug === params.slug && tax.taxonomy === params.taxonomyType,
+    const term = await this.taxonomyService.getOneTaxonomy(
+      params.slug,
+      params.taxonomyType as TaxonomyType[],
     );
-
-    if (!taxonomy) throw new NotFoundException('posts not found');
-
-    return await this.getPosts({ taxonomyId: taxonomy.term_id, ...params });
+    if (!term) throw new NotFoundException('posts not found');
+    return await this.getPosts({ taxonomyId: term.term_id, ...params });
   }
 
   // get post meta fields, and children _thumbnail_id - preview image
