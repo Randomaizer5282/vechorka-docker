@@ -34,7 +34,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       posts = data;
     }
   } catch (error) {
-    console.log("tag", error);
+    // console.log("tag", error);
   }
 
   if (!posts) {

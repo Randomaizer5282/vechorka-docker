@@ -72,7 +72,7 @@ export const getGeneralSettings = async (params?: CommonPostsParams) => {
     commented = fetchedSettings.interest;
     advert = fetchedSettings.advert;
   } catch (error) {
-    console.log("settings: ", error);
+    // console.log("settings: ", error);
   }
 
   // TODO: check this code

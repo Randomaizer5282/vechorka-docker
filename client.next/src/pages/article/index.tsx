@@ -60,7 +60,7 @@ export const getStaticProps: GetStaticProps = async () => {
       posts.articles = fetchedArticles;
     }
   } catch (error) {
-    console.log("articles index", error);
+    // console.log("articles index", error);
   }
 
   if (!posts.articles?.data?.length) {

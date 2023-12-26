@@ -58,7 +58,7 @@ export const getPageNewsCategory = async ({
       }
     }
   } catch (error) {
-    console.log("news category taxonomy slug", error);
+    // console.log("news category taxonomy slug", error);
   }
 
   if (!posts.news?.data?.length) {

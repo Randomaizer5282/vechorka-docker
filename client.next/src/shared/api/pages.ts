@@ -17,7 +17,7 @@ export const getPage = async ({
   try {
     posts = await getPostBySlug(slug);
   } catch (error) {
-    console.log("page", error);
+    // console.log("page", error);
   }
 
   if (!posts.post) {

@@ -37,7 +37,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       withRelatedPosts: true,
     });
   } catch (error) {
-    console.log("news detail post", error);
+    // console.log("news detail post", error);
   }
 
   if (!posts || !posts.post) {
