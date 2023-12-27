@@ -53,8 +53,9 @@ services:
     ports:
       - "7890:7890"
     command: "/var/log/nginx/access.log --log-format=COMBINED -o /var/www/goaccess/index.html --real-time-html"
-    networks:
-      - common-network
+#    networks:
+#      - app-network
+
   db:
     image: mysql:5.7
     container_name: db
