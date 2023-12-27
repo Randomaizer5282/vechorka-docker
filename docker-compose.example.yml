@@ -15,9 +15,11 @@ services:
       - ./logs/nginx/:/var/log/nginx/
       - ./certbot/www:/var/www/certbot/:ro
       - ./certbot/conf/:/etc/nginx/ssl/:ro
+      - ./goaccess/www:/var/www/goaccess/
     ports:
       - "80:80"
       - "443:443"
+      - "7890:7890"
     networks:
       - app-network
 
@@ -42,6 +44,17 @@ services:
       --email vechorka@vechorka.ru
       -d vechorka.ru,api.vechorka.ru,admin.vechorka.ru,phpmyadmin.vechorka.ru
 
+  goaccess:
+    image: allinurl/goaccess:latest
+    container_name: common-goaccess
+    volumes:
+      - ./logs/nginx/:/var/log/nginx:ro
+      - ./goaccess/www:/var/www/goaccess:rw
+    ports:
+      - "7890:7890"
+    command: "/var/log/nginx/access.log --log-format=COMBINED -o /var/www/goaccess/index.html --real-time-html"
+    networks:
+      - common-network
   db:
     image: mysql:5.7
     container_name: db
