@@ -46,6 +46,7 @@ services:
   goaccess:
     image: allinurl/goaccess:latest
     container_name: goaccess
+    restart: always
     volumes:
       - ./logs/nginx/:/var/log/nginx:ro
       - ./goaccess/www:/var/www/goaccess:rw
