@@ -46,7 +46,7 @@ services:
 
   goaccess:
     image: allinurl/goaccess:latest
-    container_name: common-goaccess
+    container_name: goaccess
     volumes:
       - ./logs/nginx/:/var/log/nginx:ro
       - ./goaccess/www:/var/www/goaccess:rw
