@@ -11,6 +11,5 @@ export const getTaxonomyBySlug = (
   params?: GetTaxonomyBySlugParams
 ) => {
   const queryParams = encodeQueryData(params);
-  console.log(queryParams);
   return api.get(`taxonomies/${slug}${queryParams ? `?${queryParams}` : ""}`);
 };
