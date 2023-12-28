@@ -41,17 +41,17 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
   if (res.statusCode === 404 && process.env.OLD_HOST) {
     try {
-      const response: any = await new Promise((resolve) => {
-        setTimeout(async () => {
-          resolve(fetchWithTimeout(checkUrl, { redirect: "follow" }, 4000));
-        }, 1000);
-      });
+      const response: any = fetchWithTimeout(
+        checkUrl,
+        { redirect: "follow" },
+        4000
+      );
 
       if (response?.status === 200) {
         console.log(`redirect to: ${checkUrl}`);
         return {
           redirect: {
-            permanent: false,
+            permanent: true,
             destination: checkUrl,
           },
         };
