@@ -20,8 +20,8 @@ const NewsCategoryPage = ({ posts }: NewsCategoryProps) => {
         title={title}
         description={description}
         openGraph={{
-          title: title,
-          description: description,
+          title,
+          description,
           url,
           type: "website",
         }}

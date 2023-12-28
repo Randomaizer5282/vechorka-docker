@@ -21,11 +21,6 @@ export const getPageNewsCategory = async ({
     };
   }
 
-  // global settings
-  const { settings, taxonomies } = await getGeneralSettings({
-    withTaxonomies: true,
-  });
-
   //news by slug
   try {
     // all news
@@ -66,6 +61,11 @@ export const getPageNewsCategory = async ({
       notFound: true,
     };
   }
+
+  // global settings
+  const { settings, taxonomies } = await getGeneralSettings({
+    withTaxonomies: true,
+  });
 
   return {
     props: {

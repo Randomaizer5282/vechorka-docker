@@ -37,10 +37,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   console.log(`--------------------------------------`);
   console.log(`error page: ${res.statusCode} | ${req.url}`);
   console.log(req.headers["user-agent"]);
-  const checkUrl = `${process.env.OLD_HOST}${req.url}`;
 
   if (res.statusCode === 404 && process.env.OLD_HOST) {
     try {
+      const checkUrl = `${process.env.OLD_HOST}${req.url}`;
       const response: any = fetchWithTimeout(
         checkUrl,
         { redirect: "follow" },

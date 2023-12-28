@@ -18,11 +18,6 @@ const TagPage = ({ posts, taxonomy }: Props) => {
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const slug = params?.slug as string;
 
-  // global settings
-  const { settings, taxonomies } = await getGeneralSettings({
-    withTaxonomies: true,
-  });
-
   let posts = null;
 
   try {
@@ -54,6 +49,11 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   } catch (error) {
     // console.log("tag", error);
   }
+
+  // global settings
+  const { settings, taxonomies } = await getGeneralSettings({
+    withTaxonomies: true,
+  });
 
   return {
     props: {
