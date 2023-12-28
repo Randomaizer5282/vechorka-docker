@@ -80,6 +80,7 @@ if (!process.env.UPLOAD_HOST) {
 export const config = {
   siteUrl: process.env.CLIENT_HOST,
   apiUrl: process.env.API_HOST,
+  oldUrl: process.env.OLD_HOST,
   uploadUrl: process.env.UPLOAD_HOST,
   apiKey: process.env.API_KEY,
   seo: {
