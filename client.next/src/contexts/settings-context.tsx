@@ -36,13 +36,9 @@ export const SettingsProvider = ({
   value,
 }: SettingsProviderProps) => {
   const [settings, setSettings] = useState<SettingsState>(initialState);
-
-  useEffect(() => {
-    setSettings(value);
-  }, [value.taxonomies]);
-
+  const contextProps = value?.taxonomies ? value : settings;
   return (
-    <SettingsContext.Provider value={{ ...settings, setSettings }}>
+    <SettingsContext.Provider value={{ ...contextProps, setSettings }}>
       {children}
     </SettingsContext.Provider>
   );

@@ -16,7 +16,6 @@ import { config } from "@/shared/config";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { settings, taxonomies } = pageProps;
-
   const [queryClient] = useState(
     () =>
       new QueryClient({
