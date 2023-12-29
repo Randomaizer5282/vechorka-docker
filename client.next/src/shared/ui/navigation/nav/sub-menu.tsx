@@ -22,7 +22,7 @@ export const SubMenu: FC<Props> = ({ parentSlug, items, isOpen }) => {
   return (
     <div
       className={cn(
-        "absolute top-full min-w-[400px] p-5 bg-white transition-opacity duration-300 shadow-2xl",
+        "absolute top-full min-w-[430px] p-5 bg-white transition-opacity duration-300 shadow-2xl",
         isOpen ? "visible opacity-100" : "invisible opacity-0"
       )}
     >
