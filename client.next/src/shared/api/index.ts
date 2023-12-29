@@ -1,18 +1,17 @@
 import { config } from "@/shared/config";
-import { isSSR } from "@/shared/lib/helpers";
 
 export const api = {
-  log(method: string, url: string) {
-    const from = isSSR ? "server " : "client ";
-    const date = new Date();
-    const str = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}: ${from}${method}: ${
-      config.apiUrl
-    }/${url}`;
-
-    process.env.NODE_ENV === "development"
-      ? console.log(str)
-      : isSSR && console.log(str);
-  },
+  // log(method: string, url: string) {
+  //   const from = isSSR ? "server " : "client ";
+  //   const date = new Date();
+  //   const str = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}: ${from}${method}: ${
+  //     config.apiUrl
+  //   }/${url}`;
+  //
+  //   process.env.NODE_ENV === "development"
+  //     ? console.log(str)
+  //     : isSSR && console.log(str);
+  // },
   async get(url: string) {
     try {
       // this.log("get", url);

@@ -10,7 +10,6 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { DefaultSeo } from "next-seo";
 import { config } from "@/shared/config";
 
@@ -46,7 +45,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             </Layout>
           </SettingsProvider>
         </Hydrate>
-        <ReactQueryDevtools initialIsOpen={true} />
+        {/*<ReactQueryDevtools initialIsOpen={true} />*/}
       </QueryClientProvider>
     </>
   );
