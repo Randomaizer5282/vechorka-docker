@@ -48,7 +48,7 @@ const parseToComponent = (block: string) => {
 
 const parseBlock = (block: string) => {
   let element: React.ReactNode = null;
-  const tagsAllow = block?.match(/<(strong|em).+?>/gim);
+  const tagsAllow = block?.match(/<(strong|em|span).+?>/gim);
   const isTag = block.match(/^<.+>/gi);
 
   if (block) {
