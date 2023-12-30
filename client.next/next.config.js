@@ -16,11 +16,6 @@ const nextConfig = {
     // imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     deviceSizes: [460, 768, 1024, 1200],
   },
-  experimental: {
-    appDir: false,
-    // this also controls running workers https://github.com/vercel/next.js/issues/45508#issuecomment-1597087133, which is causing
-    // memory issues in 13.4.4 so until that's fixed, we don't want this.
-  },
 };
 
 module.exports = nextConfig;
