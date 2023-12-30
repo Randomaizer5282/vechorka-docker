@@ -79,4 +79,5 @@ EXPOSE 3000
 
 ENV PORT 3000
 
-CMD ["node", "--inspect-brk=0.0.0.0", "server.js"]
+#CMD ["node", "--inspect-brk=0.0.0.0", "server.js"]
+CMD ["node", "server.js"]
