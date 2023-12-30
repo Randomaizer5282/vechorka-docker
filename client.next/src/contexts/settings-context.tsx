@@ -2,7 +2,6 @@ import React, {
   createContext,
   type PropsWithChildren,
   useContext,
-  useEffect,
   useState,
 } from "react";
 import type { MenuProps } from "@/shared/ui/navigation/types";
