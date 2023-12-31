@@ -32,7 +32,7 @@ function delete_intermediate_image_sizes($sizes)
   // sizes to delete
   return array_diff($sizes, [
     'medium_large',
-    'large',
+//    'large',
     '1536x1536',
     '2048x2048',
   ]);
