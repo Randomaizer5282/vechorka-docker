@@ -127,6 +127,12 @@ services:
     env_file:
       - .env
     restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 384M
+        reservations:
+          memory: 128M
     ports:
       - "3000:3000"
       - "9229:9229"
