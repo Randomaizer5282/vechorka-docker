@@ -34,16 +34,16 @@ const ErrorPage = ({ statusCode }: { statusCode?: number }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  console.log(`--------------------------------------`);
-  console.log(
-    `error page: ${new Date().toLocaleString()} | ${res.statusCode} | ${
-      req.url
-    }`
-  );
-  console.log(req.headers["user-agent"]);
+  const checkUrl = `${process.env.OLD_HOST}${req.url}`;
+  // console.log(`--------------------------------------`);
+  // console.log(
+  //   `error page: ${new Date().toLocaleString()} | ${res.statusCode} | ${
+  //     req.url
+  //   }`
+  // );
+  // console.log(req.headers["user-agent"]);
   if (res.statusCode === 404 && process.env.OLD_HOST) {
     try {
-      const checkUrl = `${process.env.OLD_HOST}${req.url}`;
       const response: any = fetchWithTimeout(
         checkUrl,
         { redirect: "follow" },
@@ -60,7 +60,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
         };
       }
     } catch (e) {
-      console.log("old host: not found");
+      console.log("error check old host: ", checkUrl);
     }
   }
 
