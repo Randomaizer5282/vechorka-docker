@@ -88,12 +88,12 @@ services:
       - CLIENT_PREVIEW_URL=${CLIENT_PREVIEW_URL:-preview-url}
       - CLIENT_SECRET=${CLIENT_SECRET:-secret-key}
     restart: always
-    deploy:
-      resources:
-        limits:
-          memory: 180M
-        reservations:
-          memory: 128M
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 180M
+#        reservations:
+#          memory: 128M
     depends_on:
       - db
     networks:
@@ -109,12 +109,12 @@ services:
     env_file:
       - .env
     restart: always
-    deploy:
-      resources:
-        limits:
-          memory: 180M
-        reservations:
-          memory: 128M
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 180M
+#        reservations:
+#          memory: 128M
     ports:
       - "5000:5000"
     networks:
@@ -138,12 +138,12 @@ services:
     env_file:
       - .env
     restart: always
-    deploy:
-      resources:
-        limits:
-          memory: 180M
-        reservations:
-          memory: 128M
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 180M
+#        reservations:
+#          memory: 128M
     ports:
       - "3000:3000"
       - "9229:9229"
