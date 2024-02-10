@@ -1,6 +1,7 @@
 User-agent: *
 Disallow: /search/*
 Disallow: /news?*
+Disallow: /news/?*
 
 Sitemap: https://admin.vechorka.ru/sitemap.xml
 Host: vechorka.ru
