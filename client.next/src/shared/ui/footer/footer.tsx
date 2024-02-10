@@ -6,7 +6,6 @@ import { getPhoneFromString } from "@/shared/lib/string";
 import Link from "next/link";
 import cn from "clsx";
 import { SocialLinks } from "@/shared/ui/social-links";
-import { Icon } from "@/shared/ui/icon";
 
 const ListTitle = ({
   title,
@@ -75,7 +74,7 @@ export const Footer = () => {
             </div>
 
             <p className="mt-5 text-13px">
-              И.о. главного редактора «Вечерний Ставрополь» Ардалина Н.А.
+              И.о. главного редактора «Вечерний Ставрополь» Бумагин С. А.
             </p>
             <p className="mt-2 text-13px">
               Адрес: 355000, Россия, г. Ставрополь, ул. Доваторцев 28/30, тел:{" "}
@@ -85,7 +84,7 @@ export const Footer = () => {
               «Вечерний Ставрополь» зарегистрирован Роскомнадзором в реестре СМИ
               под номером:
             </p>
-            <p className="mt-2 text-13px">Эл № ФС77–82584 от 30.12.2021 г</p>
+            <p className="mt-2 text-13px">ЭЛ № ФС77–82584 от 30.12.2021 г</p>
           </div>
 
           {/* col */}
