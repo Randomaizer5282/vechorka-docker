@@ -1,5 +1,17 @@
 User-agent: *
 Disallow: /search/*
+Disallow: /news/?*
+Disallow: /tag/?*
+
+User-agent: Yandex
+Disallow: /search/*
+Disallow: /news/?*
+Disallow: /tag/?*
+
+User-agent: Googlebot
+Disallow: /search/*
+Disallow: /news/?*
+Disallow: /tag/?*
 
 Sitemap: https://admin.vechorka.ru/sitemap.xml
 Host: vechorka.ru
