@@ -351,6 +351,56 @@ function tsm_filter_post_type_by_taxonomy()
 
 add_action('restrict_manage_posts', 'tsm_filter_post_type_by_taxonomy');
 
+/**
+ * Filter posts by taxonomy in admin
+ * @author  Mike Hemberger
+ * @link http://thestizmedia.com/custom-post-type-filter-admin-custom-taxonomy/
+ */
+function tsm_convert_id_to_term_in_query($query)
+{
+  global $pagenow;
+  $post_type = 'post'; // change to your post type
+  $taxonomy = 'post_geography'; // change to your taxonomy
+  $q_vars = &$query->query_vars;
+  if ($pagenow == 'edit.php' && isset($q_vars['post_type']) && $q_vars['post_type'] == $post_type && isset($q_vars[$taxonomy]) && is_numeric($q_vars[$taxonomy]) && $q_vars[$taxonomy] != 0) {
+    $term = get_term_by('id', $q_vars[$taxonomy], $taxonomy);
+    $q_vars[$taxonomy] = $term->slug;
+  }
+}
+
+add_filter('parse_query', 'tsm_convert_id_to_term_in_query');
+
+// limit count adding post
+add_action('load-post-new.php', 'limit_cpt_advert');
+function limit_cpt_advert()
+{
+  global $typenow;
+
+  # Not our post type, bail out
+  if ('advert' !== $typenow)
+    return;
+
+  # Grab all our CPT, adjust the status as needed
+  $total = get_posts(array(
+    'post_type' => 'advert',
+    'numberposts' => -1,
+    'post_status' => 'publish,future,draft'
+  ));
+
+  # Condition match, block new post
+  if ($total && count($total) >= 1)
+    wp_die(
+//      'Sorry, maximum number of posts reached',
+      'Максимальное кол-во записей в данной категории 1',
+      'Maximum reached',
+      array(
+        'response' => 500,
+        'back_link' => true
+      )
+    );
+}
+
+
 //
 // add prefix news to post
 //
@@ -388,51 +438,3 @@ add_action('restrict_manage_posts', 'tsm_filter_post_type_by_taxonomy');
 //}
 //add_filter('pre_post_link', 'se332921_pre_post_link', 20, 3);
 //add_filter('post_rewrite_rules', 'se332921_post_rewrite_rules');
-
-/**
- * Filter posts by taxonomy in admin
- * @author  Mike Hemberger
- * @link http://thestizmedia.com/custom-post-type-filter-admin-custom-taxonomy/
- */
-function tsm_convert_id_to_term_in_query($query)
-{
-  global $pagenow;
-  $post_type = 'post'; // change to your post type
-  $taxonomy = 'post_geography'; // change to your taxonomy
-  $q_vars = &$query->query_vars;
-  if ($pagenow == 'edit.php' && isset($q_vars['post_type']) && $q_vars['post_type'] == $post_type && isset($q_vars[$taxonomy]) && is_numeric($q_vars[$taxonomy]) && $q_vars[$taxonomy] != 0) {
-    $term = get_term_by('id', $q_vars[$taxonomy], $taxonomy);
-    $q_vars[$taxonomy] = $term->slug;
-  }
-}
-add_filter('parse_query', 'tsm_convert_id_to_term_in_query');
-
-// limit count adding post
-add_action('load-post-new.php', 'limit_cpt_advert' );
-function limit_cpt_advert()
-{
-  global $typenow;
-
-  # Not our post type, bail out
-  if( 'advert' !== $typenow )
-    return;
-
-  # Grab all our CPT, adjust the status as needed
-  $total = get_posts( array(
-    'post_type' => 'advert',
-    'numberposts' => -1,
-    'post_status' => 'publish,future,draft'
-  ));
-
-  # Condition match, block new post
-  if( $total && count( $total ) >= 1 )
-    wp_die(
-//      'Sorry, maximum number of posts reached',
-      'Максимальное кол-во записей в данной категории 1',
-      'Maximum reached',
-      array(
-        'response' => 500,
-        'back_link' => true
-      )
-    );
-}

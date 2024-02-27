@@ -8,3 +8,4 @@ require_once $func_dir . '/acf.php';
 require_once $func_dir . '/post-interest.php';
 require_once $func_dir . '/post-revalidate.php';
 require_once $func_dir . '/post-preview.php';
+require_once $func_dir . '/post-views.php';
