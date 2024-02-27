@@ -82,7 +82,7 @@ export const ImagePreview = ({
       )}
       {overlay ? (
         <>
-          <div className="absolute inset-0 bg-gradient-to-t to-black/30 from-black/70 group-hover:opacity-50 transition pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t to-black/20 from-black/60 group-hover:opacity-40 transition pointer-events-none" />
           <div className="absolute inset-0 pointer-events-none">{children}</div>
         </>
       ) : (
