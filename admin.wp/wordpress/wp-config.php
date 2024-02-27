@@ -90,7 +90,7 @@ define('CLIENT_PREVIEW_URL', getenv_docker('CLIENT_PREVIEW_URL', "http://localho
 define('CLIENT_SECRET', getenv_docker('CLIENT_SECRET', "b9f099129f73a4ae397057e75796d217"));
 // disable post revisions
 define('WP_POST_REVISIONS', false );
-define('DISABLE_WP_CRON', true);
+//define('DISABLE_WP_CRON', true);
 
 /**#@-*/
 
