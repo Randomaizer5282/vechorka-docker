@@ -14,5 +14,5 @@ docker exec "$CONTAINER_NAME" /usr/bin/mysqldump -u root --password="$PASSWORD" 
 #remove older 10 days
 /usr/bin/find "$BACKUP_DIR_DB" -type f -mtime +10 -exec rm -rf {} \;
 
-echo "Dumping uploads"
-tar -czvf "$BACKUP_DIR_UPLOADS"/"$(date +"%y-%m")".tar.gz /home/vechorkadev/www/admin.wp/wordpress/wp-content/uploads/"$(date +"%y")"/"$(date +"%m")"
+echo "Dumping uploads: ""$(date +"%Y-%m")"
+tar -czvf "$BACKUP_DIR_UPLOADS"/"$(date +"%Y-%m")".tar.gz /home/vechorkadev/www/admin.wp/wordpress/wp-content/uploads/"$(date +"%Y")"/"$(date +"%m")"
