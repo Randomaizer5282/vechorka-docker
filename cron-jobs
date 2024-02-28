@@ -1,3 +1,4 @@
 */5 * * * * /home/vechorkadev/www/wp-cron.sh > /home/vechorkadev/www/logs/wp-cron.log 2>&1
 0 23 * * * /home/vechorkadev/www/ssl-renew.sh > /home/vechorkadev/www/logs/ssl-renew.log 2>&1
 0 */4 * * * /home/vechorkadev/www/restart-services.sh > /home/vechorkadev/www/logs/restart-services.log 2>&1
+0 3 * * * cd /home/vechorkadev/www && bash ./backup.sh >> /home/vechorkadev/www/logs/backup.log 2>&1
