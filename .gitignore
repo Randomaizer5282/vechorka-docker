@@ -7,4 +7,6 @@ mysql
 certbot
 docker-compose.yml
 backup.sh
+backup.sh.save
 build.log
+logs

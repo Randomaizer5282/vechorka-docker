@@ -1,0 +1,64 @@
+import fs from "fs";
+import { PostProps } from "@/shared/types";
+import { config } from "@/shared/config";
+import { stripText } from "@/shared/lib/string";
+import { formatDateGmt } from "@/shared/lib/date";
+import * as path from "path";
+
+export const generateYandexRss = async (posts?: PostProps[]) => {
+  let feeds = "";
+
+  if (posts?.length) {
+    posts.map(
+      ({ title, slug, preview, createdAt, excerpt, content, taxonomies }) => {
+        const taxonomy = taxonomies?.categories[0] || "";
+        const url = `${config.siteUrl}/news/${
+          taxonomy && taxonomy.slug ? `${taxonomy.slug}/` : ""
+        }${slug}`;
+
+        const imgUrl = preview?.url
+          ? `${process.env.UPLOAD_HOST}/${preview.url}`
+          : "";
+
+        const imgMimeType =
+          preview?.url && preview?.mimeType ? preview.mimeType : "";
+
+        feeds += `
+          <item>
+            <title>${stripText(title)}</title>
+            <link>${url}</link>
+            <pdalink>${url}</pdalink>
+            <description>${excerpt ? stripText(excerpt) : ""}</description>
+            <category>${
+              taxonomy && taxonomy.name ? taxonomy.name : ""
+            }</category>
+            <enclosure url="${imgUrl}" type="${imgMimeType}"/>
+            <pubDate>${formatDateGmt(createdAt)}</pubDate>
+            <yandex:full-text>${
+              content ? stripText(content) : ""
+            }</yandex:full-text>
+            <yandex:genre>message</yandex:genre>
+          </item>`;
+      }
+    );
+  }
+
+  feeds = `<?xml version="1.0" encoding="utf-8"?>
+  <rss xmlns:yandex="http://news.yandex.ru" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
+    <channel>
+      <yandex:logo>${config.siteUrl}/images/logo.png</yandex:logo>
+      <title>${stripText(config.seo.title)}</title>
+      <link>${config.siteUrl}</link>
+      <language>ru</language>
+      <description>${stripText(config.seo.description)}</description>
+      ${feeds}
+    </channel>
+  </rss>`;
+
+  const pathRssNews = path.join(process.cwd(), "public", "rss-news.xml");
+  try {
+    fs.writeFileSync(pathRssNews, feeds, { mode: 0o755 });
+  } catch (error) {
+    console.log("rss fs error:", error);
+  }
+};

@@ -113,33 +113,26 @@ export const Head = () => {
 
       {process.env.NODE_ENV === "production" && (
         <>
-          {/*Global site tag (gtag.js) - Google Analytics*/}
+          {/*Google tag (gtag.js)*/}
           <script
             async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-19569293-1"
+            src="https://www.googletagmanager.com/gtag/js?id=G-HK4BNMN6QL"
             key="googletagmanager"
           />
           <script
-            id="google-analytics"
-            key="google-analytics"
+            key="gtag"
             async
             dangerouslySetInnerHTML={{
               __html: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){window.dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'UA-19569293-1');
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'G-HK4BNMN6QL');
           `,
             }}
           />
-          {/*Global site tag (gtag.js) - Google Analytics*/}
-
-          {/*<script*/}
-          {/*  data-ad-client="ca-pub-7747485869102419"*/}
-          {/*  key="googlesyndication"*/}
-          {/*  async*/}
-          {/*  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"*/}
-          {/*/>*/}
+          {/*Google tag (gtag.js)*/}
 
           {/*Yandex.Metrika counter*/}
           <script
@@ -178,71 +171,6 @@ export const Head = () => {
             }}
           />
           {/*LiveInternet counter*/}
-
-          {/*Top100 (Kraken) Counter*/}
-          <script
-            key="kraken"
-            async
-            dangerouslySetInnerHTML={{
-              __html: `(function (w, d, c) {
-          (w[c] = w[c] || []).push(function() {
-          var options = {
-          project: 2244361,
-          element: 'top100_widget',
-          trackHashes: true,
-          user_id: null,
-          };
-          try {
-            w.top100Counter = new top100(options);
-          } catch(e) { }
-        });
-        var n = d.getElementsByTagName("script")[0],
-        s = d.createElement("script"),
-        f = function () { n.parentNode.insertBefore(s, n); };
-        s.type = "text/javascript";
-        s.async = true;
-        s.src =
-        (d.location.protocol == "https:" ? "https:" : "http:") + "//st.top100.ru/top100/top100.js";
-
-        if (w.opera == "[object Opera]") {
-          d.addEventListener("DOMContentLoaded", f, false);
-        } else { f(); }
-        })(window, document, "_top100q");`,
-            }}
-          />
-          {/*Top100 (Kraken) Counter*/}
-
-          {/*Rating Mail.ru counter*/}
-          <script
-            key="rating-mail.ru"
-            async
-            dangerouslySetInnerHTML={{
-              __html: `var _tmr = window._tmr || (window._tmr = []);
-            _tmr.push({id: "3236132", type: "pageView", start: (new Date()).getTime()});
-            (function (d, w, id) {
-            if (d.getElementById(id)) return;
-            var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
-            ts.src = "https://top-fwz1.mail.ru/js/code.js";
-            var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
-            if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
-            })(document, window, "topmailru-code");`,
-            }}
-          />
-
-          <noscript
-            key="rating-mail-no-script"
-            dangerouslySetInnerHTML={{
-              __html: `<div><img src="https://top-fwz1.mail.ru/counter?id=3236132;js=na" style="border:0;position:absolute;left:-9999px;" alt="Top.Mail.Ru" /></div>`,
-            }}
-          />
-          {/*Rating Mail.ru counter*/}
-
-          <noscript
-            key="counter.rambler.ru"
-            dangerouslySetInnerHTML={{
-              __html: `<img src="//counter.rambler.ru/top100.cnt?pid=2244361" alt="Топ-100" />`,
-            }}
-          />
         </>
       )}
     </NextHead>
