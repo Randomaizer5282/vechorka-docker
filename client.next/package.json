@@ -13,7 +13,7 @@
     "clsx": "^1.2.1",
     "dayjs": "^1.11.5",
     "keen-slider": "^6.7.0",
-    "next": "12.2.4",
+    "next": "15.5.21",
     "nextjs-progressbar": "0.0.14",
     "react": "18.2.0",
     "react-dom": "18.2.0",
